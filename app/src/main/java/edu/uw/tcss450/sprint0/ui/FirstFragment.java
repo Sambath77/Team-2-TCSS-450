@@ -62,6 +62,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    //Handle button blue
     private void handleBlue(View v) {
         if (v == binding.buttonBlue) {
             processColor(Color.BLUE);
