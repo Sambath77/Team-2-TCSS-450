@@ -58,14 +58,14 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == binding.buttonRed) {
-            processColor(Color.RED);
+            processColor(Color.BLUE);
         }
     }
 
     //Handle button blue
     private void handleBlue(View v) {
         if (v == binding.buttonBlue) {
-            processColor(Color.BLUE);
+            processColor(Color.RED);
         }
     }
 }
