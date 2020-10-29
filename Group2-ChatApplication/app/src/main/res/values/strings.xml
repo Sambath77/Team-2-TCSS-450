@@ -1,6 +1,18 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
-    <string name="title_weather">Group2-ChatApplication</string>
+    <string name="app_name">Team-2-TCSS-450-ChatApplication</string>
+    <string name="title_weather">Weather</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_tile">Home</string>
+    <string name="notification_title">Notification</string>
+    <string name="chat_title">Chat</string>
+    <string name="search_tile">Search</string>
+    <string name="register_button">Register</string>
+    <string name="login_button">LogIn</string>
+    <string name="email_address">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="first_name">Fisrt Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="onClick_button">Click</string>
 </resources>

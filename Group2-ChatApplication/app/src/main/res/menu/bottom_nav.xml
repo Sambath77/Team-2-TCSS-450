@@ -2,8 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_hello"
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="@string/home_tile"/>
+
+    <item
+        android:id="@+id/navigation_weather"
         android:icon="@drawable/ic_weather_24"
         android:title="@string/title_weather" />
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_chat_24dp"
+        android:title="@string/chat_title"/>
 
 </menu>
