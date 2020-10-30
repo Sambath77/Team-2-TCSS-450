@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
 //        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
 //                get(UserInfoViewModel.class);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
+        badgeDrawable.setVisible(true);
+        badgeDrawable.setNumber(7);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_chat, R.id.navigation_weather).build();
