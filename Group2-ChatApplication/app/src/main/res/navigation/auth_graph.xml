@@ -42,7 +42,7 @@
             android:name="email"
             app:argType="string" />
         <argument
-            android:name="password"
+            android:name="jwt"
             app:argType="string" />
     </activity>
 </navigation>

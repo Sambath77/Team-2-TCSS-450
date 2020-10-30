@@ -6,6 +6,11 @@ import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
+/**
+ *
+ * @author Charles Bryan
+ * @version April 2020
+ */
 public interface PasswordValidator
         extends Function<String, Optional<PasswordValidator.ValidationResult>> {
 
@@ -19,7 +24,7 @@ public interface PasswordValidator
      *
      * @return a validator that validates the length of the String as > 6
      */
-    static PasswordValidator checkPwdLength() {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdLength() {
         return checkPwdLength(6);
     }
 
@@ -34,7 +39,7 @@ public interface PasswordValidator
      * @param length the length of the String needed for validation
      * @return a validator that validates the length of the String as > 6
      */
-    static PasswordValidator checkPwdLength(int length) {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdLength(int length) {
         return password ->
                 Optional.of(password.length() > length ?
                         ValidationResult.SUCCESS : ValidationResult.PWD_INVALID_LENGTH);
@@ -50,7 +55,7 @@ public interface PasswordValidator
      *
      * @return a validator that validates that the String contains a digit
      */
-    static PasswordValidator checkPwdDigit() {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdDigit() {
         return password ->
                 Optional.of(checkStringContains(password, Character::isDigit) ?
                         ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_DIGIT);
@@ -66,7 +71,7 @@ public interface PasswordValidator
      *
      * @return a validator that validates that the String contains an uppercase letter
      */
-    static PasswordValidator checkPwdUpperCase() {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdUpperCase() {
         return password ->
                 Optional.of(checkStringContains(password, Character::isUpperCase) ?
                         ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_UPPER);
@@ -82,7 +87,7 @@ public interface PasswordValidator
      *
      * @return a validator that validates that the String contains an lowercase letter
      */
-    static PasswordValidator checkPwdLowerCase() {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdLowerCase() {
         return password ->
                 Optional.of(checkStringContains(password, Character::isLowerCase) ?
                         ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_LOWER);
@@ -98,7 +103,7 @@ public interface PasswordValidator
      *
      * @return a validator that validates that the String contains a special character
      */
-    static PasswordValidator checkPwdSpecialChar() {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdSpecialChar() {
         return checkPwdSpecialChar("@#$%&*!?");
     }
 
@@ -113,11 +118,11 @@ public interface PasswordValidator
      * @param specialChars the characters to look for
      * @return a validator that validates that the String contains a special character
      */
-    static PasswordValidator checkPwdSpecialChar(String specialChars) {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdSpecialChar(String specialChars) {
         return password ->
                 Optional.of(checkStringContains(password,
-                        c -> specialChars.contains(Character.toString((char) c))) ?
-                        ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_SPECIAL);
+                                c -> specialChars.contains(Character.toString((char) c))) ?
+                                ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_SPECIAL);
     }
 
     /**
@@ -132,7 +137,7 @@ public interface PasswordValidator
      * @return a validator that validates that the String does NOT contain ANY of the characters
      * found in excludeChars
      */
-    static PasswordValidator checkPwdDoNotInclude(String excludeChars) {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkPwdDoNotInclude(String excludeChars) {
         return password ->
                 Optional.of(!checkStringContains(password, //NOTE the !
                         c -> excludeChars.contains(Character.toString((char) c))) ?
@@ -149,7 +154,7 @@ public interface PasswordValidator
      *
      * @return a validator that validates that the String does NOT contain ANY whitespace
      */
-    static PasswordValidator checkExcludeWhiteSpace() {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkExcludeWhiteSpace() {
         return password ->
                 Optional.of(!checkStringContains(password, //NOTE the !
                         Character::isWhitespace) ?
@@ -166,7 +171,7 @@ public interface PasswordValidator
      * @param theTest a predicate to test the String for validation
      * @return a validator that validates that the String based on theTest Predicate
      */
-    static PasswordValidator checkClientPredicate(Predicate<String> theTest) {
+    static edu.uw.tcss450.team2.utils.PasswordValidator checkClientPredicate(Predicate<String> theTest) {
         return password ->
                 Optional.of(theTest.test(password) ?
                         ValidationResult.SUCCESS : ValidationResult.PWD_CLIENT_ERROR);
@@ -198,7 +203,7 @@ public interface PasswordValidator
      * @return a composed PasswordValidator that represents a short-circuiting logical AND of
      *      this PasswordValidator and another
      */
-    default PasswordValidator and(PasswordValidator other) {
+    default edu.uw.tcss450.team2.utils.PasswordValidator and(edu.uw.tcss450.team2.utils.PasswordValidator other) {
         return password -> this.apply(password)
                 .flatMap(result -> result == ValidationResult.SUCCESS ?
                         other.apply(password) : Optional.of(result));
@@ -226,7 +231,7 @@ public interface PasswordValidator
      * @return a composed PasswordValidator that represents a short-circuiting logical OR of
      *      this PasswordValidator and another
      */
-    default PasswordValidator or(PasswordValidator other) {
+    default edu.uw.tcss450.team2.utils.PasswordValidator or(edu.uw.tcss450.team2.utils.PasswordValidator other) {
         return password -> this.apply(password)
                 .flatMap(result -> result == ValidationResult.SUCCESS ?
                         Optional.of(result): other.apply(password));
@@ -271,3 +276,4 @@ public interface PasswordValidator
         PWD_CLIENT_ERROR
     }
 }
+

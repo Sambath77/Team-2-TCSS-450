@@ -38,7 +38,7 @@ public class RegisterFragment extends Fragment {
             .and(checkPwdSpecialChar("@"));
 
     private PasswordValidator mPassWordValidator =
-            checkClientPredicate(pwd -> pwd.equals(binding.editTextTextEmailAddress.getText().toString()))
+            checkClientPredicate(pwd -> pwd.equals(binding.editTextTextPassword.getText().toString()))
                     .and(checkPwdLength(7))
                     .and(checkPwdSpecialChar())
                     .and(checkExcludeWhiteSpace())
@@ -131,7 +131,7 @@ public class RegisterFragment extends Fragment {
         mRegisterModel.connect(binding.personFirstName.getText().toString(),
                 binding.personLastName.getText().toString(),
                 binding.editTextTextEmailAddress.getText().toString(),
-                binding.editTextTextPassword2.getText().toString());
+                binding.editTextTextPassword.getText().toString());
         //this is an Asynchronous call no statements after should rely on the result of connect
     }
     /**

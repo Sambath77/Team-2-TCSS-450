@@ -21,11 +21,7 @@ import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
 
 import static edu.uw.tcss450.team2.utils.PasswordValidator.*;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignInFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SignInFragment extends Fragment {
 
     private FragmentSignInBinding binding;
@@ -38,18 +34,8 @@ public class SignInFragment extends Fragment {
     private PasswordValidator mPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
-
     public SignInFragment() {
         // Required empty public constructor
-    }
-
-    //public static final String Extra_MESSAGE = "com.example.mylapapppech.MESSAGE";
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentSignInBinding.inflate(inflater, container, false);
-        // Inflate the layout for this fragment
-        return binding.getRoot();
     }
 
     @Override
@@ -58,20 +44,25 @@ public class SignInFragment extends Fragment {
         mSignInModel = new ViewModelProvider(getActivity())
                 .get(SignInViewModel.class);
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentSignInBinding.inflate(inflater);
+        // Inflate the layout for this fragment
+        return binding.getRoot();
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentSignInBinding.bind(getView());
-        //UserInfoViewModel edu.uw.tcss450.edu.uw.tcss450.model = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
-        //Use a Lamda expression to add the OnClickListener
-        binding.signInInfoButton.setOnClickListener(this::attemptSignIn);
-
-
-
-        //Use a method reference to add the OnClickListener
         binding.registerInfoButton.setOnClickListener(button ->
-                navDirSignToRegister());
+                Navigation.findNavController(getView()).navigate(
+                        SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
+                ));
+
+        binding.signInInfoButton.setOnClickListener(this::attemptSignIn);
 
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
@@ -83,6 +74,7 @@ public class SignInFragment extends Fragment {
     }
 
     private void attemptSignIn(final View button) {
+
         validateEmail();
     }
 
@@ -99,25 +91,28 @@ public class SignInFragment extends Fragment {
                 this::verifyAuthWithServer,
                 result -> binding.password.setError("Please enter a valid Password."));
     }
+
     private void verifyAuthWithServer() {
-
-        mSignInModel.connect(binding.emailAddress.getText().toString(),
+        Log.i("EMAIL: ", binding.emailAddress.getText().toString());
+        Log.i("PASSWORd: ", binding.password.getText().toString());
+        mSignInModel.connect(
+                binding.emailAddress.getText().toString(),
                 binding.password.getText().toString());
+        //This is an Asynchronous call. No statements after should rely on the
+        //result of connect().
 
     }
 
-    private void navDirSignToRegister() {
-        //The following object represents the action from sign in to edu.uw.tcss450.ui.register.
-        //Use the navigate method to perform the navigation.
-        Navigation.findNavController(getView()).navigate(SignInFragmentDirections.
-                actionSignInFragmentToRegisterFragment());
+    /**
+     * Helper to abstract the navigation to the Activity past Authentication.
+     * @param email users email
+     * @param jwt the JSON Web Token supplied by the server
+     */
+    private void navigateToSuccess(final String email, final String jwt) {
+        Navigation.findNavController(getView())
+                .navigate(SignInFragmentDirections
+                        .actionSignInFragmentToMainActivity(email, jwt));
     }
-
-    public void navDirSignToSuccess(String email, String password) {
-        Navigation.findNavController(getView()).navigate(SignInFragmentDirections.
-                actionSignInFragmentToMainActivity(email, password));
-    }
-
 
     /**
      * An observer on the HTTP Response from the web server. This observer should be
@@ -128,14 +123,19 @@ public class SignInFragment extends Fragment {
     private void observeResponse(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
-                try { binding.emailAddress.setError( "Error Authenticating: " + response.getJSONObject("data").
-                        getString("message"));
+                try {
+                    binding.emailAddress.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
                 try {
-                    navDirSignToSuccess(binding.emailAddress.getText().toString(), response.getString("token") );
+                    navigateToSuccess(
+                            binding.emailAddress.getText().toString(),
+                            response.getString("token")
+                    );
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
@@ -144,11 +144,5 @@ public class SignInFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
 
 }
