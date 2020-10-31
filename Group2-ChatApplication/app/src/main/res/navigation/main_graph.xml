@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_weather"/>
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="edu.uw.tcss450.team2.chat.ChatFragment"
-        android:label="Chat"
-        tools:layout="@layout/fragment_chat" />
+        android:name="edu.uw.tcss450.team2.chat.ChatListFragment"
+        />
+
 </navigation>

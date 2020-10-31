@@ -74,8 +74,8 @@ public class SignInFragment extends Fragment {
     }
 
     private void attemptSignIn(final View button) {
-
-        validateEmail();
+        navigateToSuccess("", "");
+        //validateEmail();
     }
 
     private void validateEmail() {
