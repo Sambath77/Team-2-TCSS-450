@@ -8,15 +8,16 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="edu.uw.tcss450.team2.HomeFragment"
-        android:label="Home"
+        android:label="@string/home_label"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_weather"
         android:name="edu.uw.tcss450.team2.weather.WeatherFragment"
-        android:label="Weather"
+        android:label="@string/weather_label"
         tools:layout="@layout/fragment_weather"/>
     <fragment
         android:id="@+id/navigation_chat"
+        android:label="@string/chat_label"
         android:name="edu.uw.tcss450.team2.chat.ChatListFragment"
         />
 

@@ -15,4 +15,26 @@
     <string name="first_name">Fisrt Name</string>
     <string name="last_name">Last Name</string>
     <string name="onClick_button">Click</string>
+    <string name="page_title">WorldChat</string>
+    <string name="setting_title">Setting</string>
+    <string name="content_description_favorite">description favorite</string>
+    <string name="content_description_setting">description setting</string>
+    <string name="favorite_tile">favorite</string>
+    <string name="home_label">Home</string>
+    <string name="chat_label">Chat</string>
+    <string name="weather_label">Weather</string>
+    <string name="log_out">log out</string>
+    <string name="string_favorite_tile">Favorite</string>
+    <string name="profile_title">Profile</string>
+    <string name="more_title">More</string>
+    <string name="history_title">History</string>
+    <string name="myDrawer">My Drawer</string>
+    <string name="setting">Setting</string>
+    <string name="friend_list">Friends</string>
+    <string name="photo_list">Gallery</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="account_title">Account</string>
+
+
 </resources>

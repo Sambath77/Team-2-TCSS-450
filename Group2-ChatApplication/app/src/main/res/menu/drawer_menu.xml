@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_person_pin_24dp"
+            android:title="@string/profile_title"
+            android:contentDescription="@string/content_description_favorite"
+            />
+
+        <item
+            android:id="@+id/friend"
+            android:title="@string/friend_list"
+            android:icon="@drawable/ic_friend_24dp"/>
+
+        <item
+            android:id="@+id/gallery"
+            android:title="@string/photo_list"
+            android:icon="@drawable/ic_baseline_photo_library_24"/>
+        <item
+            android:id="@+id/history"
+            android:icon="@drawable/ic_history_24dp"
+            android:title="@string/history_title"
+             />
+
+        <item
+            android:id="@+id/setting"
+            android:title="@string/setting_title"
+            android:icon="@drawable/ic_settings_24dp"/>
+
+        <item
+            android:title="@string/log_out"
+            android:id="@+id/log_out"/>
+        <item
+            android:title="More"
+            android:icon="@drawable/ic_expand_more_24dp">
+
+            <menu>
+
+            </menu>
+
+        </item>
+
+
+
+    </group>
+
+
+
+
+</menu>
