@@ -19,6 +19,14 @@
         android:id="@+id/navigation_chat"
         android:label="@string/chat_label"
         android:name="edu.uw.tcss450.team2.chat.ChatListFragment"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_chat_to_personalChatFragment"
+            app:destination="@id/personalChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalChatFragment"
+        android:name="edu.uw.tcss450.team2.chat.PersonalChatFragment"
+        android:label="PersonalChatFragment" />
 
 </navigation>

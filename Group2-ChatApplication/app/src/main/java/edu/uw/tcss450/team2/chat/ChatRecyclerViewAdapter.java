@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -102,15 +103,15 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         void setUser(final ChatListUserModel user) {
             mUser = user;
 
-            /*
+
             binding.buttonFullPost.setOnClickListener(view ->
             {
                 Navigation.findNavController(mView).navigate(
-                        BlogListFragmentDirections
-                                .actionNavigationBlogsToBlogPostFragment(blog));
+                        ChatListFragmentDirections
+                                .actionNavigationChatToPersonalChatFragment());
 
             });
-             */
+
             binding.textPubdate.setText(user.getUserName());
             binding.textTitle.setText(user.getBriefMessage());
             //binding.textPubdate.setText(user.getPubDate());
