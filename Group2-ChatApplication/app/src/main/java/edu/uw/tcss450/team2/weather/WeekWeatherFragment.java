@@ -19,12 +19,24 @@ import android.widget.TextView;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
+/**
+ * A fragment to display the upcoming 5 to 10 day forecast.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class WeekWeatherFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    /**
+     * Empty constructor.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public WeekWeatherFragment() {
         super();
     }
@@ -42,6 +54,15 @@ public class WeekWeatherFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_week_weather, container, false);
     }
 
+    /**
+     * Populates the week forecast's recycler view with individual day forecast cards.
+     *
+     * @param view See inherited class.
+     * @param savedInstanceState See inherited class.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

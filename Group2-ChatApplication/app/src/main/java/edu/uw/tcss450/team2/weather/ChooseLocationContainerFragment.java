@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 
 import edu.uw.tcss450.team2.R;
 
+/**
+ * A fragment containing the choose location fragment plus a zip code enter box
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class ChooseLocationContainerFragment extends Fragment {
 
     public ChooseLocationContainerFragment() {

@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 
 import edu.uw.tcss450.team2.R;
 
+/**
+ * A fragment to show a single day's forecast in the week forecast fragment.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class DayInWeekCardFragment extends Fragment {
     public DayInWeekCardFragment() {
         // Required empty public constructor

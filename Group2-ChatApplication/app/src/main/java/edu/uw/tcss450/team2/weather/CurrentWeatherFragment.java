@@ -18,8 +18,20 @@ import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentCurrentWeatherBinding;
 import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
+/**
+ * A fragment to show the current weather.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class CurrentWeatherFragment extends Fragment {
 
+    /**
+     * Empty constructor
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public CurrentWeatherFragment() {
 
     }

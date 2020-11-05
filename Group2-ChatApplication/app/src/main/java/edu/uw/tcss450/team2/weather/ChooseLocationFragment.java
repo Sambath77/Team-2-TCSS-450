@@ -27,14 +27,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import edu.uw.tcss450.team2.R;
 
+/**
+ * A fragment that lets users select points on a map to receive weather information about.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class ChooseLocationFragment extends Fragment implements LocationListener {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private GoogleMap myGoogleMap;
 
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -54,6 +59,7 @@ public class ChooseLocationFragment extends Fragment implements LocationListener
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         }
     };
+
 
     @Nullable
     @Override
@@ -82,16 +88,23 @@ public class ChooseLocationFragment extends Fragment implements LocationListener
 //        fusedLocationProviderClient.getLastLocation().
 //                .addOnSuccessListener(getActivity(), this);
     }
+//
+//    public void handleNewLocation(Location location) {
+//        Log.d("ChooseLocationFragment", "New location found in handleNewLocation! Location: " + location + ", myGoogleMap: " + myGoogleMap);
+//        if (location != null && myGoogleMap != null) {
+//            LatLng newLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//            myGoogleMap.addMarker(new MarkerOptions().position(newLocation).title("Marker in current Location"));
+//            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+//        }
+//    }
 
-    public void handleNewLocation(Location location) {
-        Log.d("ChooseLocationFragment", "New location found in handleNewLocation! Location: " + location + ", myGoogleMap: " + myGoogleMap);
-        if (location != null && myGoogleMap != null) {
-            LatLng newLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            myGoogleMap.addMarker(new MarkerOptions().position(newLocation).title("Marker in current Location"));
-            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
-        }
-    }
-
+    /**
+     * Handles an update of the current location.
+     * @param location The updated GPS location.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     @Override
     public void onLocationChanged(@NonNull Location location) {
         Log.d("ChooseLocationFragment", "New location found in onLocationChanged! Location: " + location + ", myGoogleMap: " + myGoogleMap);
@@ -103,17 +116,9 @@ public class ChooseLocationFragment extends Fragment implements LocationListener
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
     @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-    }
-
+    public void onProviderEnabled(@NonNull String provider) {}
     @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-    }
+    public void onProviderDisabled(@NonNull String provider) {}
 }

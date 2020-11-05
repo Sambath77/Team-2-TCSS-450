@@ -29,6 +29,12 @@ import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentWeatherBinding;
 import edu.uw.tcss450.team2.signin.SignInFragmentDirections;
 
+/**
+ * The main fragment of the weather tab. Displays the current, daily, and 'weekly' forecast, as well as the location whose weather is being displayed.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class WeatherFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     // TODO: Populate with real data
@@ -41,6 +47,14 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         return inflater.inflate(R.layout.fragment_weather, container, false);
     }
 
+    /**
+     * Populates the Spinner with data, asks for location permission if not already enabled.
+     * @param view See inherited class
+     * @param savedInstanceState See inherited class
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -72,6 +86,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
+    /**
+     * Handles Spinner items being selected.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d("WeatherFragment.onItemSelected()", "parent: " + parent.toString() + ", view: " + view.toString() + ", position: " + position + ", id: " + id);
@@ -82,7 +102,5 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
 
     // TODO: ?
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 }
