@@ -14,7 +14,11 @@
         android:id="@+id/navigation_weather"
         android:name="edu.uw.tcss450.team2.weather.WeatherFragment"
         android:label="@string/weather_label"
-        tools:layout="@layout/fragment_weather"/>
+        tools:layout="@layout/fragment_weather">
+        <action
+            android:id="@+id/action_navigation_weather_to_chooseLocationContainerFragment"
+            app:destination="@id/chooseLocationContainerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_chat"
         android:label="@string/chat_label"
@@ -28,5 +32,10 @@
         android:id="@+id/personalChatFragment"
         android:name="edu.uw.tcss450.team2.chat.PersonalChatFragment"
         android:label="PersonalChatFragment" />
+    <fragment
+        android:id="@+id/chooseLocationContainerFragment"
+        android:name="edu.uw.tcss450.team2.weather.ChooseLocationContainerFragment"
+        android:label="fragment_choose_location_container"
+        tools:layout="@layout/fragment_choose_location_container" />
 
 </navigation>

@@ -36,5 +36,12 @@
     <string name="close">close</string>
     <string name="account_title">Account</string>
     <string name="read_more_chat">Read More</string>
+    <string name="cloudy_TEMP_title">Cloudy</string>
+    <string name="degrees_F_TEMP_title">65°F</string>
+    <string name="high_low_TEMP_title">67°/54°F</string>
+    <string name="precipitation_TEMP_title">70% Precipitation</string>
+    <string name="currently_title">Currently:</string>
+    <string name="zip_code_title">Zip Code:</string>
+    <string name="submit_button">Submit</string>
 
 </resources>
