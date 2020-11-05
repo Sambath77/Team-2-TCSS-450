@@ -16,6 +16,12 @@ import android.widget.ListView;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
+/**
+ * A fragment to show the forecast for the next 24 hours.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class DayWeatherFragment extends Fragment {
 
     public DayWeatherFragment() {
