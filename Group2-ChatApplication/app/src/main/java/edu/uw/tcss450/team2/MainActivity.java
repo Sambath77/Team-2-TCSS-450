@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         badgeDrawable.setVisible(true);
         badgeDrawable.setNumber(7);
 
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_chat, R.id.navigation_weather).build();
