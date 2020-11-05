@@ -1,3 +1,9 @@
+/*
+   Author: Kim, Hyeong Suk, Spillers, Sam D, Tran, Anh Tu, Sambath Pech
+   Class: TCSS 450
+
+ */
+
 package edu.uw.tcss450.team2.register;
 
 import android.os.Bundle;
@@ -72,16 +78,32 @@ public class RegisterFragment extends Fragment {
         mRegisterModel.addResponseObserver(getViewLifecycleOwner(), this::observeResponse);
     }
 
+    /*
+    * helper method to verify the registration
+    *
+    * @param: View is a button
+     */
     private void attemptRegister(final View button) {
         validateFirst();
     }
 
+    /*
+     *  helper method to verify the first name
+     *
+     * @param: none
+     */
     private void validateFirst() {
         mNameValidator.processResult(
                 mNameValidator.apply(binding.personFirstName.getText().toString().trim()),
                 this::validateLast,
                 result -> binding.personFirstName.setError("Please enter a first name."));
     }
+
+    /*
+     *  helper method to verify the last name
+     *
+     * @param: none
+     */
 
     private void validateLast() {
         mNameValidator.processResult(
@@ -90,6 +112,13 @@ public class RegisterFragment extends Fragment {
                 result -> binding.personLastName.setError("Please enter a last name."));
     }
 
+
+    /*
+     *  helper method to verify the email
+     *
+     * @param: none
+     */
+
     private void validateEmail() {
         mEmailValidator.processResult(
                 mEmailValidator.apply(binding.editTextTextEmailAddress.getText().toString().trim()),
@@ -97,6 +126,11 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editTextTextEmailAddress.setError("Please enter a valid Email address."));
     }
 
+    /*
+     *  helper method to verify the password are matched
+     *
+     * @param: none
+     */
 
     private void validatePasswordsMatch() {
         PasswordValidator matchValidator =
@@ -109,6 +143,11 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editTextTextPassword.setError("Passwords must match."));
     }
 
+    /*
+     *  helper method to verify the paswords whether it is met all the conditions
+     *
+     * @param: none
+     */
     private void validatePassword() {
         mPassWordValidator.processResult(
                 mPassWordValidator.apply(binding.editTextTextPassword.getText().toString()),
@@ -116,6 +155,12 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editTextTextPassword.setError("Please enter a valid Password."));
     }
 
+    /*
+     * the method to navigate the Register fragment to sign in fragment and
+     * send out the email and password
+     *
+     * @param: none
+     */
     public void navigateToLogin() {
 
         //The following object represents the action from sign in to edu.uw.tcss450.ui.register.
@@ -128,6 +173,12 @@ public class RegisterFragment extends Fragment {
         Navigation.findNavController(getView()).navigate(directions);
     }
 
+
+    /*
+     *  helper method to check the valid user information
+     *
+     * @param: none
+     */
     private void verifyAuthWithServer() {
         mRegisterModel.connect(binding.personFirstName.getText().toString(),
                 binding.personLastName.getText().toString(),
@@ -135,6 +186,8 @@ public class RegisterFragment extends Fragment {
                 binding.editTextTextPassword.getText().toString());
         //this is an Asynchronous call no statements after should rely on the result of connect
     }
+
+
     /**
      * An observer on the HTTP Response from the web server. This observer should be
      * attached to SignInViewModel.

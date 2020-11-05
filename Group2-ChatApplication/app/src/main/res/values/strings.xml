@@ -35,14 +35,14 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="account_title">Account</string>
-<<<<<<< HEAD
+
     <string name="create_new_account">Create A New Acccount</string>
     <string name="neckname_input">Neckname</string>
     <string name="first_name_acc">First name</string>
     <string name="last_name_acc">Last name</string>\
     <string name="email_account">Email</string>
 
-=======
+
     <string name="read_more_chat">Read More</string>
     <string name="cloudy_TEMP_title">Cloudy</string>
     <string name="degrees_F_TEMP_title">65°F</string>
@@ -51,6 +51,6 @@
     <string name="currently_title">Currently:</string>
     <string name="zip_code_title">Zip Code:</string>
     <string name="submit_button">Submit</string>
->>>>>>> 42e34e611e06267feeee98b313cba1b36e3df8fb
+
 
 </resources>

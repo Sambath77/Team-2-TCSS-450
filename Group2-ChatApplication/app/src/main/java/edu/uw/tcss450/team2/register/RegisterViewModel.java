@@ -22,18 +22,32 @@ import java.nio.charset.Charset;
 import java.util.Objects;
 
 public class RegisterViewModel extends AndroidViewModel {
+
     private MutableLiveData<JSONObject> mResponse;
+
+    /*
+     * constructor method
+     */
     public RegisterViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /*
+     * A method to call when the server was updated
+     *
+     * @param: LifecycleOwner
+     * @param: Observer
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /*
+     * helper method to handle the error
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -58,6 +72,14 @@ public class RegisterViewModel extends AndroidViewModel {
         }
     }
 
+    /*
+     * method to send the information to the end point
+     *
+     * @param: String first: user first name
+     * @param: String lasy: user last name
+     * @param: String email: user email
+     * @param: String password: user password
+     */
     public void connect(final String first, final String last, final String email, final String password) {
         String url = "https://team-2-tcss-450-webservices.herokuapp.com/auth";
         JSONObject body = new JSONObject();

@@ -1,3 +1,8 @@
+/*
+   Author: Kim, Hyeong Suk, Spillers, Sam D, Tran, Anh Tu, Sambath Pech
+   Class: TCSS 450
+ */
+
 package edu.uw.tcss450.team2.signin;
 
 import android.os.Bundle;
@@ -78,11 +83,21 @@ public class SignInFragment extends Fragment {
 //        //validateEmail();
 //    }
 
+    /*
+     * helper method to verify the log in
+     *
+     * @param: View is a button
+     */
     private void attemptSignIn(final View button) {
         navigateToSuccess("", "");
-        //validateEmail();
+        validateEmail();
     }
 
+    /*
+     *  helper method to verify the email
+     *
+     * @param: none
+     */
     private void validateEmail() {
         mEmailValidator.processResult(
                 mEmailValidator.apply(binding.emailAddress.getText().toString().trim()),
@@ -90,6 +105,11 @@ public class SignInFragment extends Fragment {
                 result -> binding.emailAddress.setError("Please enter a valid Email address."));
     }
 
+    /*
+     *  helper method to verify the paswords whether it is met all the conditions
+     *
+     * @param: none
+     */
     private void validatePassword() {
         mPassWordValidator.processResult(
                 mPassWordValidator.apply(binding.password.getText().toString()),
@@ -97,6 +117,11 @@ public class SignInFragment extends Fragment {
                 result -> binding.password.setError("Please enter a valid Password."));
     }
 
+    /*
+     *  helper method to check the valid user information
+     *
+     * @param: none
+     */
     private void verifyAuthWithServer() {
         Log.i("EMAIL: ", binding.emailAddress.getText().toString());
         Log.i("PASSWORd: ", binding.password.getText().toString());
