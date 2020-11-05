@@ -6,8 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class UserInfoViewModel extends ViewModel {
 
-    private final String mEmail;
-    private final String jwt;
+    private String mEmail;
+    private String jwt;
+
+
+    public UserInfoViewModel() {
+
+    }
 
     public UserInfoViewModel(String mEmail, String jwt) {
         this.mEmail = mEmail;
@@ -26,10 +31,13 @@ public class UserInfoViewModel extends ViewModel {
         private final String email;
         private final String jwt;
 
+
         public UserInfoViewModelFactory(String email, String jwt) {
             this.email = email;
             this.jwt = jwt;
         }
+
+
 
         @NonNull
         @Override
