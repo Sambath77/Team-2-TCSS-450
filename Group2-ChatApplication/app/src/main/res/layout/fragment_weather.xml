@@ -1,10 +1,50 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainFrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.uw.tcss450.team2.weather.WeatherFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/CurrentFragmentView"
+        android:name="edu.uw.tcss450.team2.weather.CurrentWeatherFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LocationSpinner" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/DayFragmentView"
+        android:name="edu.uw.tcss450.team2.weather.DayWeatherFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CurrentFragmentView" />
 
-</FrameLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/WeekFragmentView"
+        android:name="edu.uw.tcss450.team2.weather.WeekWeatherFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DayFragmentView" />
+
+    <Spinner
+        android:id="@+id/LocationSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

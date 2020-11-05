@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4a9cf9af-d935-4d6e-8102-cb5452281b63" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jo3jYwYKth76XuBDd07tI2R1wA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Group2-ChatApplication" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4a9cf9af-d935-4d6e-8102-cb5452281b63" name="Default Changelist" comment="" />
+      <created>1604456752837</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604456752837</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="906" y="346" key="FileChooserDialogImpl" timestamp="1604560686250">
+      <screen x="0" y="0" width="2560" height="1409" />
+    </state>
+    <state x="531" y="236" key="FileChooserDialogImpl/0.0.1500.960/646.-1050.1680.1010@0.0.1500.960" timestamp="1604456854495" />
+    <state x="906" y="346" key="FileChooserDialogImpl/3840.0.1707.940/0.0.2560.1409@0.0.2560.1409" timestamp="1604560686250" />
+  </component>
+</project>
