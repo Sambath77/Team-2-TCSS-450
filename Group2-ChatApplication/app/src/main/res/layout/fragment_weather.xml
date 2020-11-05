@@ -11,30 +11,33 @@
         android:name="edu.uw.tcss450.team2.weather.CurrentWeatherFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/LocationSpinner" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/DayFragmentView"
         android:name="edu.uw.tcss450.team2.weather.DayWeatherFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/CurrentFragmentView" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/WeekFragmentView"
         android:name="edu.uw.tcss450.team2.weather.WeekWeatherFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/DayFragmentView" />
 
     <Spinner
         android:id="@+id/LocationSpinner"
@@ -44,34 +47,4 @@
         android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/currently_title"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/LocationSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/LocationSpinner" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/day_title_TEMP"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/CurrentFragmentView" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/week_title_TEMP"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/DayFragmentView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
