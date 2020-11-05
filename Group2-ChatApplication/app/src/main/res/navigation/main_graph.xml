@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_chat"
             app:destination="@id/navigation_chat" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_weather"
+            app:destination="@id/navigation_weather" />
     </fragment>
     <fragment
         android:id="@+id/navigation_weather"

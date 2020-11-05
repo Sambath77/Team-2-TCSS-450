@@ -100,7 +100,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         binding.buttonFullPost.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                     HomeFragmentDirections.actionNavigationHomeToNavigationChat()));
-
+        binding.buttonHomeWeather.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                    HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
 
 
 
