@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentProfileBinding;
+import edu.uw.tcss450.team2.databinding.FragmentRegisterBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,10 +19,12 @@ import edu.uw.tcss450.team2.R;
  */
 public class ProfileFragment extends Fragment {
 
+    private FragmentProfileBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+       binding = FragmentProfileBinding.inflate(inflater, container, false);
+       return binding.getRoot();
     }
 }

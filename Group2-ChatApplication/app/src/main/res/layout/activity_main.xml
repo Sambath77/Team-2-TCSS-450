@@ -10,19 +10,13 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar"/>
-
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
 
             android:id="@+id/nav_view"
@@ -50,6 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/nav_drawer"/>
+
+<!--    <include-->
+<!--        android:id="@+id/toolbar"-->
+<!--        layout="@layout/toolbar"/>-->
 
     <com.google.android.material.navigation.NavigationView
     android:id="@+id/drawer_nav"
