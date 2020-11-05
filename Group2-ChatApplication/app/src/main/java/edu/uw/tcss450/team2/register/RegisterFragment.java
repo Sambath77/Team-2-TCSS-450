@@ -97,6 +97,7 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editTextTextEmailAddress.setError("Please enter a valid Email address."));
     }
 
+
     private void validatePasswordsMatch() {
         PasswordValidator matchValidator =
                 checkClientPredicate(

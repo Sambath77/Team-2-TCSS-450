@@ -73,6 +73,11 @@ public class SignInFragment extends Fragment {
         binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
     }
 
+//    private void attemptSignIn(final View button) {
+//        navigateToSuccess("", "", "", "");
+//        //validateEmail();
+//    }
+
     private void attemptSignIn(final View button) {
         navigateToSuccess("", "");
         //validateEmail();
@@ -108,6 +113,12 @@ public class SignInFragment extends Fragment {
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
      */
+//    private void navigateToSuccess(final String email, final String jwt, String fName, String lName) {
+//        Navigation.findNavController(getView())
+//                .navigate(SignInFragmentDirections
+//                        .actionSignInFragmentToMainActivity(email, jwt, fName, lName));
+//    }
+
     private void navigateToSuccess(final String email, final String jwt) {
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections

@@ -20,11 +20,12 @@
 
         tools:ignore="MissingConstraints">
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="@string/page_title"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
@@ -32,9 +33,18 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
+        android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints" />
+        app:title="WorldChat"
+        app:titleTextColor="@color/black"
+        android:elevation="4dp"
+        android:background="@color/purple_500"
+        app:menu="@menu/top_menu"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/framLayout"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
