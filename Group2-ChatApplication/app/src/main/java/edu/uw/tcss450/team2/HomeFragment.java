@@ -39,6 +39,12 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
  * create an instance of this fragment.
  */
 
+/**
+ * A fragment that shows unread message notification and current live weather forecast data.
+ * Appropriately shows the map in the home page after triggering callback later.
+ * @author Hyeong Suk Kim
+ * @version 1.0 (Oct 2020)
+ */
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
     //Initialize Map variables
     private static HomeFragment INSTANCE = null;
@@ -47,10 +53,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     MapView mapView;
 
 
+    /**
+     * Empty constructor
+     *
+     */
     public HomeFragment() {
 
     }
 
+
+    /**
+     * Returns an instance when called.
+     *
+     * @return new Fragment if Instance is null, other wise returns instance as it is
+     */
     public static HomeFragment getINSTANCE() {
         if(INSTANCE == null) {
             INSTANCE = new HomeFragment();
@@ -70,6 +86,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+
+    /**
+     * In onViewCreated, first it received user email string and shows it in the application top.
+     * Second, it would need to handle (TODO) hit API and retireve data for live weather forecating.
+     *
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -115,6 +137,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //                                .actionHomeFragmentToSecondHomeFragment()));
     }
 
+    /**
+     * It checks the currentLocation of the User to find lat/long.
+     * this will be modified and used later when hitting Weather API
+     * with lat/long endpoint.
+     */
 //    private void getCurrentLocation() {
 //        //Initializing task location
 //        Task<Location> task = client.getLastLocation();
@@ -151,6 +178,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //        }
 //    }
 
+    /**
+     * @param googleMap when google map is ready it will update
+     *        map variable with newly updated googleMap data.
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         System.out.println("onMapReady triggered");
