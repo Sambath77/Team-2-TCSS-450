@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_24dp"
-        android:title="@string/home_title" />
+        android:title="@string/home_tile"/>
 
     <item
         android:id="@+id/navigation_weather"

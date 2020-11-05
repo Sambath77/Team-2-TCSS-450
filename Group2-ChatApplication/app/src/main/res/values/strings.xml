@@ -3,7 +3,7 @@
     <string name="title_weather">Weather</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home_title">Home</string>
+    <string name="home_tile">Home</string>
     <string name="notification_title">Notification</string>
     <string name="chat_title">Chat</string>
     <string name="search_tile">Search</string>
@@ -51,6 +51,8 @@
     <string name="currently_title">Currently:</string>
     <string name="zip_code_title">Zip Code:</string>
     <string name="submit_button">Submit</string>
+    <string name="day_title_TEMP">Day:</string>
+    <string name="week_title_TEMP">Week:</string>
 
 
 </resources>
