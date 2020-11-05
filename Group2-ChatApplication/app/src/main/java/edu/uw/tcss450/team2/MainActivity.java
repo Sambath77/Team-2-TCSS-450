@@ -1,4 +1,14 @@
+/*
+   Author: Kim, Hyeong Suk, Spillers, Sam D, Tran, Anh Tu, Sambath Pech
+   Class: TCSS 450
+   Project: Chat application
+   Description: this is a chat apllicaiton which the user can be able to register and connect
+                to friends around the world
+ */
+
 package edu.uw.tcss450.team2;
+
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -8,18 +18,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import edu.uw.tcss450.team2.fragments.FriendFragment;
 import edu.uw.tcss450.team2.fragments.GalleryFragment;
@@ -28,13 +44,16 @@ import edu.uw.tcss450.team2.fragments.LogoutFragment;
 import edu.uw.tcss450.team2.fragments.MoreFragment;
 import edu.uw.tcss450.team2.fragments.ProfileFragment;
 import edu.uw.tcss450.team2.fragments.SettingFragment;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import edu.uw.tcss450.team2.signin.SignInFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
-    Toolbar toolbar, topBar;
+    Toolbar toolbar;
     DrawerLayout mDrawLayout;
     ActionBarDrawerToggle mDrawerToggle;
+    private SignInFragment signInFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //Appbar id
-        topBar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(topBar);
+        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
+        setSupportActionBar(materialToolbar);
 
         //main_layout is the id activity_main
         mDrawLayout = findViewById(R.id.main_layout);
@@ -64,12 +83,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //NavigationView navigationView1 = findViewById(R.id.main_toolbar);
 
 
-        //MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
-        //String email = args.getEmail();
-        //String jwt = args.getJwt();
-        //UserInfoViewModel model = new ViewModelProvider(this).get(UserInfoViewModel.class);
-        //model.getmEmail();
+        MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+        String email = args.getEmail();
+        String jwt = args.getJwt();
+//        String fName = args.getFName();
+//        String lName = args.getLname();
+        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
+                get(UserInfoViewModel.class);
 
+//        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, fName, lName)).
+//                get(UserInfoViewModel.class);
 //        Log.d("ACTIVITY", email);
 //        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
 //                get(UserInfoViewModel.class);
@@ -89,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController1 = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -96,11 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.top_menu, menu);
-//        return true;
-//    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -123,7 +143,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 showDrawerFragment(new SettingFragment());
                 break;
             case R.id.log_out:
-                showDrawerFragment(new LogoutFragment());
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
+                builder.setTitle("Log out?");
+                builder.setMessage("This will log you out!");
+                builder.setIcon(R.drawable.ic_baseline_error_24);
+                builder.setBackground(getResources().getDrawable(R.drawable.drawable_dialog, null));
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showDrawerFragment(new LogoutFragment());
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+
                 break;
             default:
                 showDrawerFragment(new MoreFragment());
@@ -133,11 +171,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /*
+     * Helper class to navigate a item in menu to a new  fragment
+     * @params: Fragement
+     *
+     */
     private void showDrawerFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 
     @Override
     public void onBackPressed() {

@@ -6,6 +6,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class UserInfoViewModel extends ViewModel {
 
+// Comented out by Hyeong Kim because of Merge conflict
+//    private final String mEmail;
+//    private final String jwt;
+//    private final String firstName;
+//    private final String lastName;
+
     private String mEmail;
     private String jwt;
 
@@ -14,10 +20,17 @@ public class UserInfoViewModel extends ViewModel {
 
     }
 
-    public UserInfoViewModel(String mEmail, String jwt) {
-        this.mEmail = mEmail;
-        this.jwt = jwt;
-    }
+
+//    public UserInfoViewModel(String mEmail, String jwt, String firstName, String lastName) {
+//        this.mEmail = mEmail;
+//        this.jwt = jwt;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//    }
+public UserInfoViewModel(String mEmail, String jwt) {
+    this.mEmail = mEmail;
+    this.jwt = jwt;
+}
 
     public String getEmail() {
         return mEmail;
@@ -27,17 +40,34 @@ public class UserInfoViewModel extends ViewModel {
         return jwt;
     }
 
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {
         private final String email;
         private final String jwt;
+//        private final String firstName;
+//        private final String lastName;
+
+//        public UserInfoViewModelFactory(String email, String jwt, String fName, String lName) {
+//            this.email = email;
+//            this.jwt = jwt;
+//            this.firstName = fName;
+//            this.lastName = lName;
+//
+//        }
+
 
 
         public UserInfoViewModelFactory(String email, String jwt) {
             this.email = email;
             this.jwt = jwt;
         }
-
-
 
         @NonNull
         @Override

@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="88dp"
-        android:layout_marginBottom="350dp"
+        android:layout_marginBottom="400dp"
         android:background="@drawable/text_shape"
         android:drawableLeft="@drawable/password_left_drawable"
         android:ems="10"
@@ -61,7 +61,7 @@
         android:src="@drawable/logo"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="64dp" />
 
     <Button
         android:id="@+id/signIn_info_button"
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginBottom="190dp"
         android:background="@drawable/round_shape"
         android:onClick="@string/onClick_button"
         android:text="@string/login_button"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="150dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginBottom="190dp"
         android:background="@drawable/round_shape"
         android:onClick="@string/onClick_button"
         android:text="@string/register_button"
@@ -91,4 +91,7 @@
         app:layout_constraintEnd_toStartOf="@+id/signIn_info_button"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
