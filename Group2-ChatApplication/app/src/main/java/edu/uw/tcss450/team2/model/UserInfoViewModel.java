@@ -6,10 +6,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class UserInfoViewModel extends ViewModel {
 
-    private final String mEmail;
-    private final String jwt;
+// Comented out by Hyeong Kim because of Merge conflict
+//    private final String mEmail;
+//    private final String jwt;
 //    private final String firstName;
 //    private final String lastName;
+
+    private String mEmail;
+    private String jwt;
+
+
+    public UserInfoViewModel() {
+
+    }
+
 
 //    public UserInfoViewModel(String mEmail, String jwt, String firstName, String lastName) {
 //        this.mEmail = mEmail;
@@ -53,10 +63,12 @@ public UserInfoViewModel(String mEmail, String jwt) {
 //        }
 
 
+
         public UserInfoViewModelFactory(String email, String jwt) {
             this.email = email;
             this.jwt = jwt;
         }
+
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {

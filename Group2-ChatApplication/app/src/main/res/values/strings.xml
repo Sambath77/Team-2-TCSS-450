@@ -3,7 +3,7 @@
     <string name="title_weather">Weather</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home_tile">Home</string>
+    <string name="home_title">Home</string>
     <string name="notification_title">Notification</string>
     <string name="chat_title">Chat</string>
     <string name="search_tile">Search</string>
