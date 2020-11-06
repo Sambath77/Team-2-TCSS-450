@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/neckname"
+        android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="92dp"
@@ -71,7 +71,7 @@
         android:background="@drawable/text_shape"
         android:drawableLeft="@drawable/ic_person_pin_24dp"
         android:ems="10"
-        android:hint="@string/neckname_input"
+        android:hint="@string/nickname_input"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -87,7 +87,7 @@
         android:ems="10"
         android:hint="@string/email_address"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/neckname"
+        app:layout_constraintBottom_toTopOf="@+id/nickname"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText

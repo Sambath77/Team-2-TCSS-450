@@ -4,12 +4,6 @@
 
 
     <item
-        android:id="@+id/share"
-        android:icon="@drawable/ic_share_24dp"
-        android:title="@string/string_favorite_tile"
-        android:contentDescription="@string/content_description_favorite"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"

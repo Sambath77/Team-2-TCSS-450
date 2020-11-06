@@ -37,7 +37,7 @@
     <string name="account_title">Account</string>
 
     <string name="create_new_account">Create A New Acccount</string>
-    <string name="neckname_input">Neckname</string>
+    <string name="nickname_input">Nickname</string>
     <string name="first_name_acc">First name</string>
     <string name="last_name_acc">Last name</string>\
     <string name="email_account">Email</string>

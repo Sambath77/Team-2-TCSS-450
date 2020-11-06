@@ -56,12 +56,11 @@
         android:id="@+id/app_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha=".2"
+        android:alpha=".6"
         android:scaleType="centerCrop"
         android:src="@drawable/logo"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="64dp" />
+        tools:ignore="MissingConstraints"/>
 
     <Button
         android:id="@+id/signIn_info_button"

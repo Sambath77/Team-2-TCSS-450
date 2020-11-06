@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import edu.uw.tcss450.team2.R;
 
+
 /**
  * A fragment that lets users select points on a map to receive weather information about.
  *
