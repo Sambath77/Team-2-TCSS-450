@@ -16,7 +16,7 @@ import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
 
 public class ChatListFragment extends Fragment {
 
-    private ChatViewModel mModel;
+    private ChatListViewModel mModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +32,7 @@ public class ChatListFragment extends Fragment {
 
         //UserInfoViewModel model = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
-        mModel = new ViewModelProvider(getActivity()).get(ChatViewModel.class);
+        mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
         //mModel.connectGet(model.getJwt());
     }
 
@@ -46,7 +46,7 @@ public class ChatListFragment extends Fragment {
         mModel.addUserListObserver(getViewLifecycleOwner(), userList -> {
             if (!userList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatRecyclerViewAdapter(userList)
+                        new ChatListRecyclerViewAdapter(userList)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }
