@@ -1,14 +1,9 @@
-package edu.uw.tcss450.team2;
+package edu.uw.tcss450.team2.home;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -18,20 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.uw.tcss450.team2.home.HomeFragmentDirections;
+import edu.uw.tcss450.team2.R;
 
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
+import edu.uw.tcss450.team2.home.HomeFragment;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 /**
  * A simple {@link Fragment} subclass.
@@ -45,45 +39,35 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
  * @author Hyeong Suk Kim
  * @version 1.0 (Oct 2020)
  */
-public class HomeFragment extends Fragment implements OnMapReadyCallback {
+public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
     //Initialize Map variables
-    private static HomeFragment INSTANCE = null;
-    View view;
-    GoogleMap map;
-    MapView mapView;
+//    private static HomeFragment INSTANCE = null;
+//    View view;
+//    GoogleMap map;
+//    MapView mapView;
+    private HomeViewModel mViewModel;
+    private FragmentHomeBinding binding;
 
 
-    /**
-     * Empty constructor
-     *
-     */
-    public HomeFragment() {
-
-    }
 
 
-    /**
-     * Returns an instance when called.
-     *
-     * @return new Fragment if Instance is null, other wise returns instance as it is
-     */
-    public static HomeFragment getINSTANCE() {
-        if(INSTANCE == null) {
-            INSTANCE = new HomeFragment();
-        }
-        return INSTANCE;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+//        return inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        binding = FragmentHomeBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
 
@@ -108,13 +92,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         binding.textEmail.setText("Welcome Home " + model.getEmail() + "!");
 
-        //TODO(flag) handling map
-        mapView = view.findViewById(R.id.mapsView);
-        if(mapView != null) {
-            mapView.onCreate(null);
-            mapView.onResume();
-            mapView.getMapAsync(this);
-        }
+//        //TODO(flag) handling map
+//        mapView = view.findViewById(R.id.mapsView);
+//        if(mapView != null) {
+//            mapView.onCreate(null);
+//            mapView.onResume();
+//            mapView.getMapAsync(this);
+//        }
 
         //TODO handling notification - need to replace these with actual messages not mock up data
         binding.textPubdate.setText("You have 7 Unread Messages");
@@ -127,15 +111,64 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                     HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
 
 
+        //Handling Weather API
+        mViewModel.connectGet();
+//        mViewModel.addResponseObserver(getViewLifecycleOwner(),
+//                result -> binding.textResponseOutput.setText(result.toString()));
+        mViewModel.addResponseObserver(getViewLifecycleOwner(),
+                result -> {
+                    try {
+//                        binding.textResponseOutput.setText("Current Location: " + result.getJSONObject("location").getString("name")
+//                                                            + "Temperature: " + result.getJSONObject("current").getDouble("temp_f")
+//                                                            + "Weather: " + result.getJSONObject("current").getJSONObject("condition").getString("text"));
+                        binding.textLocation.setText("Current Location: " + result.getJSONObject("location").getString("name"));
+                        binding.textTemperature.setText("Temperature: " + result.getJSONObject("current").getDouble("temp_f"));
+                        binding.textCurrentWeather.setText("Weather: " + result.getJSONObject("current").getJSONObject("condition").getString("text"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
 
 
 
-        //On button click, navigate to Second Home
-//        binding.buttonNext.setOnClickListener(button ->
-//                Navigation.findNavController(getView()).navigate(
-//                        HomeFragmentDirections
-//                                .actionHomeFragmentToSecondHomeFragment()));
+
     }
+
+
+
+
+    //TODO graveyard need to be removed later--------------------------------------------------------------------------------
+    /**
+     * Empty constructor
+     *
+     */
+//    public HomeFragment() {
+//
+//    }
+
+
+    /**
+     * Returns an instance when called.
+     *
+     * @return new Fragment if Instance is null, other wise returns instance as it is
+     */
+//    public static HomeFragment getINSTANCE() {
+//        if(INSTANCE == null) {
+//            INSTANCE = new HomeFragment();
+//        }
+//        return INSTANCE;
+//    }
+
+    /**
+     * @param googleMap when google map is ready it will update
+     *        map variable with newly updated googleMap data.
+     */
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        System.out.println("onMapReady triggered");
+//        MapsInitializer.initialize(getContext());
+//        map = googleMap;
+//    }
 
     /**
      * It checks the currentLocation of the User to find lat/long.
@@ -177,15 +210,4 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //            }
 //        }
 //    }
-
-    /**
-     * @param googleMap when google map is ready it will update
-     *        map variable with newly updated googleMap data.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        System.out.println("onMapReady triggered");
-        MapsInitializer.initialize(getContext());
-        map = googleMap;
-    }
 }

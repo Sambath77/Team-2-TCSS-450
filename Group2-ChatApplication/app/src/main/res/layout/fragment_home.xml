@@ -139,11 +139,77 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapsView"
-        android:name="com.google.android.gms.maps.SupportMap"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="400dp" />
+
+    <TextView
+        android:id="@+id/textLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/textTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="430dp"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/textCurrentWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:text="TextView" />
+<!--    <TextView-->
+
+<!--        android:id="@+id/text_response_output"-->
+<!--        android:layout_width="172dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="400dp"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+<!--        android:textColor="@color/colorPrimaryDark"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_label" />-->
+    <!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="500dp"-->
+<!--        android:text="Latitude"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/latitude"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="530dp"-->
+
+<!--        android:text="38.4219983333"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="Longitude"-->
+<!--        android:layout_marginTop="560dp"-->
+
+<!--        android:textSize="18sp"-->
+
+<!--        android:textStyle="bold" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/longitude"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="590dp"-->
+
+<!--        android:text="-65.0849"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold" />-->
+    <!--    <com.google.android.gms.maps.MapView-->
+<!--        android:id="@+id/mapsView"-->
+<!--        android:name="com.google.android.gms.maps.SupportMap"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:layout_marginTop="400dp" />-->
 
 </androidx.cardview.widget.CardView>
