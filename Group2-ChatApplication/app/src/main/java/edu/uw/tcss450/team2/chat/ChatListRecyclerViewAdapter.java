@@ -62,7 +62,9 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
         public ChatViewHolder(View view) {
             super(view);
             mView = view;
+
             binding = FragmentChatCardBinding.bind(view);
+
             binding.buittonMore.setOnClickListener(this::handleMoreOrLess);
         }
         /**
@@ -111,8 +113,8 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
             });
 
-            //binding.textPubdate.setText(chatRoomModel.getChatId());
-            //binding.textTitle.setText(chatRoomModel.getRoomName());
+            binding.textPubdate.setText("Room Id: " + chatRoomModel.getChatId() + "");
+            binding.textTitle.setText(chatRoomModel.getRoomName());
             //binding.textPubdate.setText(user.getPubDate());
             //Use methods in the HTML class to format the HTML found in the text
             //final String preview = Html.fromHtml(user.getBriefMessage()).toString();
