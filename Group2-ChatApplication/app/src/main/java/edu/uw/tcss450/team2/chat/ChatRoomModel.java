@@ -1,9 +1,21 @@
 package edu.uw.tcss450.team2.chat;
 
+import java.util.List;
+
 public class ChatRoomModel {
 
     private int chatId;
     private String roomName;
+
+    public List<String> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<String> members) {
+        this.members = members;
+    }
+
+    private List<String> members;
 
     public int getChatId() {
         return chatId;

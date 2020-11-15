@@ -1,13 +1,14 @@
 package edu.uw.tcss450.team2.chat;
 
-import android.app.Application;
-import android.util.Log;
+import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,30 +28,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class ChatListViewModel extends AndroidViewModel {
+import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentChatRoomMemberBinding;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
-    private MutableLiveData<List<ChatRoomModel>> mRooms;
-    private String jwt;
-    private ChatRoomModel currentChatRoomModel;
+public class ChatRoomMemberFragment extends Fragment {
 
-    public ChatListViewModel(@NonNull Application application) {
-        super(application);
+    UserInfoViewModel userInfoViewModel;
 
-        mRooms = new MutableLiveData<>();
-        mRooms.setValue(new ArrayList<>());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
+        userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        connectGet(userInfoViewModel.getJwt(), this.getArguments().getInt("chatId"));
+
+        return inflater.inflate(R.layout.fragment_chat_room_member, container, false);
     }
 
-    public void addUserListObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super List<ChatRoomModel>> observer) {
-        mRooms.observe(owner, observer);
-    }
+    public void connectGet(String jwt, int chatId) {
 
-    public void connectGet(String jwt, String userEmail) {
-        this.mRooms.getValue().clear();
-        this.jwt = jwt;
         String url =
-                "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/" + userEmail;
+                "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/getMembersByChatId/" + chatId;
+
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -70,25 +71,22 @@ public class ChatListViewModel extends AndroidViewModel {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
+        Volley.newRequestQueue(getActivity().getApplication().getApplicationContext())
                 .add(request);
     }
 
 
     private void handelSuccess(final JSONObject response) {
-        List<ChatMessage> list;
+        String members = "Members: ";
         try {
-            //list = getMessageListByChatId(response.getInt("chatId"));
             JSONArray messages = response.getJSONArray("rows");
             for(int i = 0; i < messages.length(); i++) {
                 JSONObject message = messages.getJSONObject(i);
-                ChatRoomModel chatRoom = new ChatRoomModel();
-                chatRoom.setChatId(message.getInt("chatid"));
-                chatRoom.setRoomName(message.getString("name"));
-                mRooms.getValue().add(chatRoom);
+                members += message.getString("username") + ", ";
             }
-
-            mRooms.setValue(mRooms.getValue());
+            members = members.substring(0, members.length() - 2);
+            FragmentChatRoomMemberBinding binding = FragmentChatRoomMemberBinding.bind(getView());
+            binding.membersTxt.setText(members);
         }catch (JSONException e) {
             Log.e("JSON PARSE ERROR", "Found in handle Success ChatViewModel");
             Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
@@ -107,5 +105,6 @@ public class ChatListViewModel extends AndroidViewModel {
                             data);
         }
     }
+
 
 }

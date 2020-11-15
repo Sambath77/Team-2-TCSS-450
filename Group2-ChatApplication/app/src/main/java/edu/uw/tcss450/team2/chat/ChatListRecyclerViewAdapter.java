@@ -1,5 +1,6 @@
 package edu.uw.tcss450.team2.chat;
 
+import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,41 +66,8 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
             binding = FragmentChatCardBinding.bind(view);
 
-            binding.buittonMore.setOnClickListener(this::handleMoreOrLess);
         }
-        /**
-         * When the button is clicked in the more state, expand the card to display
-         * the blog preview and switch the icon to the less state. When the button
-         * is clicked in the less state, shrink the card and switch the icon to the
-         * more state.
-         * @param button the button that was clicked
-         */
-        private void handleMoreOrLess(final View button) {
-            mExpandedFlags.put(mChatRoom, !mExpandedFlags.get(mChatRoom));
-            displayPreview();
-        }
-        /**
-         * Helper used to determine if the preview should be displayed or not.
-         */
-        private void displayPreview() {
-            /*
-            if (mExpandedFlags.get(mBlog)) {
-                if (binding.textPreview.getVisibility() == View.GONE) {
-                    binding.textPreview.setVisibility(View.VISIBLE);
-                    binding.buittonMore.setImageIcon(
-                            Icon.createWithResource(
-                                    mView.getContext(),
-                                    R.drawable.ic_less_grey_24dp));
-                } else {
-                    binding.textPreview.setVisibility(View.GONE);
-                    binding.buittonMore.setImageIcon(
-                            Icon.createWithResource(
-                                    mView.getContext(),
-                                    R.drawable.ic_more_grey_24dp));
-                }
-            }
-             */
-        }
+
 
         void setUser(final ChatRoomModel chatRoomModel) {
             mChatRoom = chatRoomModel;
@@ -115,11 +83,19 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
             binding.textPubdate.setText("Room Id: " + chatRoomModel.getChatId() + "");
             binding.textTitle.setText(chatRoomModel.getRoomName());
-            //binding.textPubdate.setText(user.getPubDate());
-            //Use methods in the HTML class to format the HTML found in the text
-            //final String preview = Html.fromHtml(user.getBriefMessage()).toString();
-            //binding.textPreview.setText(preview);
-            displayPreview();
+
+            binding.buittonMore.setImageIcon(
+                    Icon.createWithResource(
+                            mView.getContext(),
+                            R.drawable.ic_member));
+
+            binding.buittonMore.setOnClickListener(view ->
+            {
+                Navigation.findNavController(mView).navigate(
+                        ChatListFragmentDirections
+                                .actionNavigationChatToChatRoomMemberFragment(chatRoomModel.getChatId()));
+
+            });
         }
 
     }

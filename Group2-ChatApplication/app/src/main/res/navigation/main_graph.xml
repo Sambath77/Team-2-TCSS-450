@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_personalChatFragment"
             app:destination="@id/personalChatFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_chatRoomMemberFragment"
+            app:destination="@id/chatRoomMemberFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalChatFragment"
@@ -48,5 +51,13 @@
         android:name="edu.uw.tcss450.team2.weather.ChooseLocationContainerFragment"
         android:label="fragment_choose_location_container"
         tools:layout="@layout/fragment_choose_location_container" />
+    <fragment
+        android:id="@+id/chatRoomMemberFragment"
+        android:name="edu.uw.tcss450.team2.chat.ChatRoomMemberFragment"
+        android:label="fragment_chat_room_member"
+        tools:layout="@layout/fragment_chat_room_member" >
+        <argument android:name="chatId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
