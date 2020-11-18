@@ -137,11 +137,11 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
                 result -> {
                     try {
                         binding.textLocation.setText(result.getJSONObject("location").getString("name"));
-                        binding.textTemperature.setText(result.getJSONObject("current").getDouble("temp_f") + " °F");
+                        binding.textTemperature.setText("Temperature: " + result.getJSONObject("current").getDouble("temp_f") + " °F");
                         binding.textWeather.setText(result.getJSONObject("current").getJSONObject("condition").getString("text"));
-                        binding.textWindSpeed.setText(result.getJSONObject("current").getString("wind_mph") + " mph");
-                        binding.textHumidity.setText(result.getJSONObject("current").getString("humidity") + " %");
-                        binding.textPrecipitation.setText(result.getJSONObject("current").getString("precip_in") + " inches");
+                        binding.textWindSpeed.setText("Wind Speed: " + result.getJSONObject("current").getString("wind_mph") + " mph");
+                        binding.textHumidity.setText("Humidity: " + result.getJSONObject("current").getString("humidity") + " %");
+                        binding.textPrecipitation.setText("Precipitation: " + result.getJSONObject("current").getString("precip_in") + " inches");
 
                         Picasso.get().load("https:" + result.getJSONObject("current").getJSONObject("condition").getString("icon")).into(binding.imageWeatherIcon);
 
