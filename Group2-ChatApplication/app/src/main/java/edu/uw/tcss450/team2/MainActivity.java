@@ -54,7 +54,7 @@ import edu.uw.tcss450.team2.fragments.SettingFragment;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 import edu.uw.tcss450.team2.utils.GpsTracker;
-import im.delight.android.location.SimpleLocation;
+//import im.delight.android.location.SimpleLocation;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    private TextView tvLatitude,tvLongitude;
     double longitude;
     double latitude;
-    private SimpleLocation location;
+    //private SimpleLocation location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,16 +138,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
 
         // construct a new instance of SimpleLocation
-        location = new SimpleLocation(this);
-
-        // if we can't access the location yet
-        if (!location.hasLocationEnabled()) {
-            // ask the user to enable location access
-            SimpleLocation.openSettings(this);
-        }
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        System.out.println("lat/long: " + latitude + longitude);
+//        location = new SimpleLocation(this);
+//
+//        // if we can't access the location yet
+//        if (!location.hasLocationEnabled()) {
+//            // ask the user to enable location access
+//            SimpleLocation.openSettings(this);
+//        }
+//        latitude = location.getLatitude();
+//        longitude = location.getLongitude();
+//        System.out.println("lat/long: " + latitude + longitude);
 
 //        findViewById(R.id.navigation_home).setOnClickListener(new View.OnClickListener() {
 //

@@ -1,5 +1,7 @@
 package edu.uw.tcss450.team2.home;
 
+import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,13 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.Executor;
 
 import edu.uw.tcss450.team2.home.HomeFragmentDirections;
 import edu.uw.tcss450.team2.R;
@@ -48,8 +56,9 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
     private HomeViewModel mViewModel;
     private FragmentHomeBinding binding;
 
-
-
+    private FusedLocationProviderClient fusedLocationClient;
+    private double currLatitude;
+    private double currLongitude;
 
 
     @Override
@@ -76,6 +85,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
      * Second, it would need to handle (TODO) hit API and retireve data for live weather forecating.
      *
      */
+    @SuppressLint("MissingPermission")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -93,14 +103,6 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         binding.textUserEmail.setText("temp user: " + model.getEmail());
 
 
-//        //TODO(flag) handling map
-//        mapView = view.findViewById(R.id.mapsView);
-//        if(mapView != null) {
-//            mapView.onCreate(null);
-//            mapView.onResume();
-//            mapView.getMapAsync(this);
-//        }
-
         //TODO handling notification - need to replace these with actual messages not mock up data
         binding.textUnreadChat.setText("You have 7 Unread Messages");
 
@@ -112,35 +114,68 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
                 Navigation.findNavController(getView()).navigate(
                         HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
 
+        //setter for lat and long
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            currLatitude = location.getLatitude();
+                            currLongitude = location.getLongitude();
+                            System.out.println("Current lat: " + currLatitude);
+                            System.out.println("Current long: " + currLongitude);
+                            mViewModel.connectGet(currLatitude, currLongitude);
+                        }
+                    }});
 
 
-        //Handling Weather API
-        mViewModel.connectGet();
-//        mViewModel.addResponseObserver(getViewLifecycleOwner(),
-//                result -> binding.textResponseOutput.setText(result.toString()));
         mViewModel.addResponseObserver(getViewLifecycleOwner(),
                 result -> {
                     try {
-//                        binding.textResponseOutput.setText("Current Location: " + result.getJSONObject("location").getString("name")
-//                                                            + "Temperature: " + result.getJSONObject("current").getDouble("temp_f")
-//                                                            + "Weather: " + result.getJSONObject("current").getJSONObject("condition").getString("text"));
-                        binding.textLocation.setText("Current Location: " + result.getJSONObject("location").getString("name"));
-                        binding.textTemperature.setText("Temperature: " + result.getJSONObject("current").getDouble("temp_f"));
-                        binding.textCurrentWeather.setText("Weather: " + result.getJSONObject("current").getJSONObject("condition").getString("text"));
+                        binding.textLocation.setText(result.getJSONObject("location").getString("name"));
+                        binding.textTemperature.setText(result.getJSONObject("current").getDouble("temp_f") + " °F");
+                        binding.textWeather.setText(result.getJSONObject("current").getJSONObject("condition").getString("text"));
+                        binding.textWindSpeed.setText(result.getJSONObject("current").getString("wind_mph") + " mph");
+                        binding.textHumidity.setText(result.getJSONObject("current").getString("humidity") + " %");
+                        binding.textPrecipitation.setText(result.getJSONObject("current").getString("precip_in") + " inches");
+
+                        Picasso.get().load("https:" + result.getJSONObject("current").getJSONObject("condition").getString("icon")).into(binding.imageWeatherIcon);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 });
 
 
-
-
     }
 
 
-
-
     //TODO graveyard need to be removed later--------------------------------------------------------------------------------
+    //    //TODO need to add JavaDoc here
+//
+//    private void setLocation() {
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+//
+//        fusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+//                    @Override
+//                    public void onSuccess(Location location) {
+//                        // Got last known location. In some rare situations this can be null.
+//                        if (location != null) {
+//                            // Logic to handle location object
+//                            currLatitude = location.getLatitude();
+//                            currLongitude = location.getLongitude();
+//                            System.out.println("Current lat: " + currLatitude);
+//                            System.out.println("Current long: " + currLongitude);
+//                        }
+//                    }});
+//
+//
+//    }
     /**
      * Empty constructor
      *

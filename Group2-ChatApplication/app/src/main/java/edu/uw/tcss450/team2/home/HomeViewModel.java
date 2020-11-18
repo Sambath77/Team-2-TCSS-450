@@ -18,6 +18,8 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,11 @@ public class HomeViewModel extends AndroidViewModel {
     private String name;
     private double tempF;
     private String conditionText;
+
+    private double currLatitude;
+    private double currLongitude;
+
+
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -87,7 +94,7 @@ public class HomeViewModel extends AndroidViewModel {
         }
     }
 
-    public void connectGet() {
+    public void connectGet(final double theLatitude, final double theLongitude) {
 //        String url = "https://hsk26-lab4-backend.herokuapp.com/hello";
 //        Request request = new JsonObjectRequest(
 //                Request.Method.GET,
@@ -115,12 +122,12 @@ public class HomeViewModel extends AndroidViewModel {
 
         String key = "66154e12d5ec4716b1c55141201211";
 
-        String lat = "47.606209";
-        String longi = "-122.332069";
+//        String lat = "47.606209";
+//        String longi = "-122.332069";
 
 
 
-        String url = "https://api.weatherapi.com/v1/current.json?key=" + key + "&q=" + lat + "," + longi;
+        String url = "https://api.weatherapi.com/v1/current.json?key=" + key + "&q=" + theLatitude + "," + theLongitude;
         System.out.println("Open Weather URL:   "+ url);
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -159,4 +166,9 @@ public class HomeViewModel extends AndroidViewModel {
 
         Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
     }
+
+//    public void setLocationViewModel(final double inputLatitude, final double inputLongitude) {
+//        this.currLatitude = inputLatitude;
+//        this.currLongitude = inputLongitude;
+//    }
 }

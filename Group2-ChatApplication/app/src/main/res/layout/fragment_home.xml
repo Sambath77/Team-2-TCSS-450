@@ -66,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +108,9 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="240dp"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,52 +127,112 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+
+                    <TextView
+                        android:id="@+id/text_Location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_toEndOf="@+id/image_weatherIcon"
+                        android:text="@string/home_location"
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/text_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/image_weatherIcon"
 
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="-70dp"
+                        android:layout_below="@+id/text_Location"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
                         android:layout_toEndOf="@+id/image_weatherIcon"
                         android:text="@string/home_weather"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/text_Temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_below="@+id/text_weather"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toEndOf="@+id/image_weatherIcon"
+                        android:text="@string/home_temperature"
+                        android:textSize="18sp" />
+
+
+                    <TextView
+                        android:id="@+id/text_windSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_Temperature"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toEndOf="@+id/image_weatherIcon"
+                        android:text="@string/home_windSpeed"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/text_humidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_windSpeed"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toEndOf="@+id/image_weatherIcon"
+                        android:text="@string/home_humidity"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/text_precipitation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_humidity"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toEndOf="@+id/image_weatherIcon"
+                        android:text="@string/home_precipitation"
+                        android:textSize="18sp" />
 
                     <ImageView
                         android:id="@+id/image_weatherIcon"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
+                        android:layout_alignParentTop="true"
                         android:layout_marginTop="15dp"
                         app:srcCompat="@drawable/ic_weather_24" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_Location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-        <TextView
-            android:id="@+id/text_Temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_Location" />
-        <TextView
-            android:id="@+id/text_CurrentWeather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_Temperature" />
+<!--        <TextView-->
+<!--            android:id="@+id/text_Location"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="31dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/text_Temperature"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="31dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/text_Location" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/text_CurrentWeather"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="31dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/text_Temperature" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
