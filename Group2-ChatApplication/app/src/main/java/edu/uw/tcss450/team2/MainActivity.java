@@ -47,12 +47,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
-import edu.uw.tcss450.team2.fragments.FriendFragment;
-import edu.uw.tcss450.team2.fragments.GalleryFragment;
+//import edu.uw.tcss450.team2.fragments.FriendFragment;
+//import edu.uw.tcss450.team2.fragments.GalleryFragment;
 import edu.uw.tcss450.team2.fragments.HistoryFragment;
 import edu.uw.tcss450.team2.fragments.LogoutFragment;
-import edu.uw.tcss450.team2.fragments.MoreFragment;
-import edu.uw.tcss450.team2.fragments.ProfileFragment;
+//import edu.uw.tcss450.team2.fragments.MoreFragment;
+//import edu.uw.tcss450.team2.fragments.ProfileFragment;
 import edu.uw.tcss450.team2.fragments.SettingFragment;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.signin.SignInFragment;
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
     }
 }
 
-}
+
 
 //    @Override
 //    public boolean onNavigationItemSelected(@NonNull MenuItem item) {

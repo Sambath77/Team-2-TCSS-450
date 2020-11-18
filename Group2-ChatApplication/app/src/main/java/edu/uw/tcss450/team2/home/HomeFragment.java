@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
         binding.layoutHomeUnreadChat.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
-                        HomeFragmentDirections.actionNavigationHomeToNavigationChat()));
+                        HomeFragmentDirections.actionNavigationHomeToChatFragment()));
 
         binding.layoutHomeWeather.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
