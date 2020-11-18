@@ -6,6 +6,7 @@
 
 package edu.uw.tcss450.team2.register;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,10 +19,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.utils.PasswordValidator;
 import edu.uw.tcss450.team2.databinding.FragmentRegisterBinding;
 
@@ -36,6 +41,8 @@ public class RegisterFragment extends Fragment {
 
 
     private FragmentRegisterBinding binding;
+    RelativeLayout relativeLayout;
+    private AnimationDrawable animationDrawable;
     private RegisterViewModel mRegisterModel;
     private PasswordValidator mNameValidator = checkPwdLength(1);
 
@@ -44,7 +51,7 @@ public class RegisterFragment extends Fragment {
             .and(checkPwdSpecialChar("@"));
 
     private PasswordValidator mPassWordValidator =
-            checkClientPredicate(pwd -> pwd.equals(binding.editTextTextPassword.getText().toString()))
+            checkClientPredicate(pwd -> pwd.equals(binding.registerPassword.getText().toString()))
                     .and(checkPwdLength(7))
                     .and(checkPwdSpecialChar())
                     .and(checkExcludeWhiteSpace())
@@ -121,9 +128,9 @@ public class RegisterFragment extends Fragment {
 
     private void validateEmail() {
         mEmailValidator.processResult(
-                mEmailValidator.apply(binding.editTextTextEmailAddress.getText().toString().trim()),
+                mEmailValidator.apply(binding.registerEmail.getText().toString().trim()),
                 this::validatePasswordsMatch,
-                result -> binding.editTextTextEmailAddress.setError("Please enter a valid Email address."));
+                result -> binding.registerEmail.setError("Please enter a valid Email address."));
     }
 
     /*
@@ -135,12 +142,12 @@ public class RegisterFragment extends Fragment {
     private void validatePasswordsMatch() {
         PasswordValidator matchValidator =
                 checkClientPredicate(
-                        pwd -> pwd.equals(binding.editTextTextPassword2.getText().toString().trim()));
+                        pwd -> pwd.equals(binding.registerPasswordMatch.getText().toString().trim()));
 
         mEmailValidator.processResult(
-                matchValidator.apply(binding.editTextTextPassword.getText().toString().trim()),
+                matchValidator.apply(binding.registerPassword.getText().toString().trim()),
                 this::validatePassword,
-                result -> binding.editTextTextPassword.setError("Passwords must match."));
+                result -> binding.registerPassword.setError("Passwords must match."));
     }
 
     /*
@@ -150,9 +157,9 @@ public class RegisterFragment extends Fragment {
      */
     private void validatePassword() {
         mPassWordValidator.processResult(
-                mPassWordValidator.apply(binding.editTextTextPassword.getText().toString()),
+                mPassWordValidator.apply(binding.registerPassword.getText().toString()),
                 this::verifyAuthWithServer,
-                result -> binding.editTextTextPassword.setError("Please enter a valid Password."));
+                result -> binding.registerPassword.setError("Please enter a valid Password."));
     }
 
     /*
@@ -166,8 +173,8 @@ public class RegisterFragment extends Fragment {
         //The following object represents the action from sign in to edu.uw.tcss450.ui.register.
         RegisterFragmentDirections.ActionRegisterFragmentToSignInFragment directions =
                 RegisterFragmentDirections.actionRegisterFragmentToSignInFragment();
-        directions.setEmail(binding.editTextTextEmailAddress.getText().toString());
-        directions.setPassword(binding.editTextTextPassword.getText().toString());
+        directions.setEmail(binding.registerEmail.getText().toString());
+        directions.setPassword(binding.registerPassword.getText().toString());
 
         //Use the navigate method to perform the navigation.
         Navigation.findNavController(getView()).navigate(directions);
@@ -182,8 +189,8 @@ public class RegisterFragment extends Fragment {
     private void verifyAuthWithServer() {
         mRegisterModel.connect(binding.personFirstName.getText().toString(),
                 binding.personLastName.getText().toString(),
-                binding.editTextTextEmailAddress.getText().toString(),
-                binding.editTextTextPassword.getText().toString());
+                binding.registerEmail.getText().toString(),
+                binding.registerPassword.getText().toString());
         //this is an Asynchronous call no statements after should rely on the result of connect
     }
 
@@ -198,7 +205,7 @@ public class RegisterFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.editTextTextEmailAddress.setError("Error Authentication " +
+                    binding.registerEmail.setError("Error Authentication " +
                             response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
                     Log.e("JSON Parse Erro", e.getMessage());
@@ -212,4 +219,12 @@ public class RegisterFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
+
+//    private void MakeRegisterBackgroundAnimation() {
+//        try {
+//            relativeLayout = findViewById(R.id.register_layout);
+//        } catch (Exception e) {
+//            Toast.makeText(this, "RegisterFragment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }

@@ -1,8 +1,8 @@
 package edu.uw.tcss450.team2;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 
 public class AuthActivity extends AppCompatActivity {
 

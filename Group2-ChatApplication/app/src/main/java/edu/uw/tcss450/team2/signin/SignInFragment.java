@@ -5,6 +5,8 @@
 
 package edu.uw.tcss450.team2.signin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +19,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.utils.PasswordValidator;
 import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
 
@@ -31,6 +35,7 @@ public class SignInFragment extends Fragment {
 
     private FragmentSignInBinding binding;
     private SignInViewModel mSignInModel;
+
 
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
@@ -46,6 +51,7 @@ public class SignInFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mSignInModel = new ViewModelProvider(getActivity())
                 .get(SignInViewModel.class);
     }
@@ -180,5 +186,7 @@ public class SignInFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
+
+
 
 }
