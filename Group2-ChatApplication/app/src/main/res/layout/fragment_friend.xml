@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.uw.tcss450.team2.fragments.FriendFragment">
+    tools:context="edu.uw.tcss450.team2.friend.FriendFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/friend_view"
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

@@ -5,10 +5,8 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.uw.tcss450.team2.fragments.LogoutFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
+    tools:context="edu.uw.tcss450.team2.fragments.LogoutFragment"
+    tools:showIn="@layout/toolbar">
 
     <TextView
         android:id="@+id/text_welcome"
@@ -21,5 +19,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

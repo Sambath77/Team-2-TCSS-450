@@ -108,7 +108,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
             {
                 Navigation.findNavController(mView).navigate(
                         ChatListFragmentDirections
-                                .actionNavigationChatToPersonalChatFragment());
+                                .actionChatFragmentToPersonalChatFragment());
 
             });
 

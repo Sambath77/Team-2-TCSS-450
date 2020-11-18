@@ -1,12 +1,5 @@
-/*
-   Author: Kim, Hyeong Suk, Spillers, Sam D, Tran, Anh Tu, Sambath Pech
-   Class: TCSS 450
-   Project: Chat application
-   Description: this is a chat apllicaiton which the user can be able to register and connect
-                to friends around the world
- */
-
 package edu.uw.tcss450.team2;
+
 
 
 import androidx.annotation.NonNull;
@@ -19,6 +12,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.ActionBar;
+
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,9 +28,16 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -55,11 +58,15 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 import edu.uw.tcss450.team2.utils.GpsTracker;
 //import im.delight.android.location.SimpleLocation;
+import android.widget.Toast;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
 
     private AppBarConfiguration mAppBarConfiguration;
+
     Toolbar toolbar;
     DrawerLayout mDrawLayout;
     ActionBarDrawerToggle mDrawerToggle;
@@ -70,37 +77,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     double latitude;
     //private SimpleLocation location;
 
+
+//    private DrawerLayout mDrawLayout;
+//    private ActionBarDrawerToggle mDrawerToggle;
+//    private SignInFragment signInFragment;
+    String email;
+    String jwt;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("WorldChat");
+        actionBar.setIcon(R.drawable.ic_world_language_24);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
-        //Find the toolbar Id
-        //drawer toolbar
-        toolbar = findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
 
         //Appbar id
-        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
-        setSupportActionBar(materialToolbar);
+//        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
+//        setSupportActionBar(materialToolbar);
 
         //main_layout is the id activity_main
-        mDrawLayout = findViewById(R.id.main_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawLayout,
-                toolbar, R.string.open, R.string.close);
+//        mDrawLayout = findViewById(R.id.main_layout);
+//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawLayout,
+//                toolbar, R.string.open, R.string.close);
 
-        mDrawLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+//        mDrawLayout.addDrawerListener(mDrawerToggle);
+//        mDrawerToggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.drawer_nav);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        //NavigationView navigationView1 = findViewById(R.id.main_toolbar);
+        //NavigationView navigationView = findViewById(R.id.drawer_nav);
+        //navigationView.setNavigationItemSelectedListener(this);
 
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
-        String email = args.getEmail();
-        String jwt = args.getJwt();
+        email = args.getEmail();
+        jwt = args.getJwt();
 //        String fName = args.getFName();
 //        String lName = args.getLname();
         new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
@@ -120,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_chat, R.id.navigation_weather).build();
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home,
+                R.id.navigation_chat, R.id.navigation_contact, R.id.navigation_weather).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -181,6 +196,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //    }
 
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.app_bar_search:
+                Toast.makeText(this, "Seach", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.notification_bar:
+                Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.profile:
+                //startActivity(new Intent(MainActivity.this, ProfileAcitvity.class));
+                break;
+            case R.id.log_out:
+                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController1 = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -188,76 +223,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
-
-
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.profile:
-                showDrawerFragment(new ProfileFragment());
-                break;
-            case R.id.friend:
-                showDrawerFragment(new FriendFragment());
-                break;
-            case R.id.gallery:
-                showDrawerFragment(new GalleryFragment());
-                break;
-            case R.id.history:
-                showDrawerFragment(new HistoryFragment());
-                break;
-            case R.id.setting:
-                showDrawerFragment(new SettingFragment());
-                break;
-            case R.id.log_out:
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
-                builder.setTitle("Log out?");
-                builder.setMessage("This will log you out!");
-                builder.setIcon(R.drawable.ic_baseline_error_24);
-                builder.setBackground(getResources().getDrawable(R.drawable.drawable_dialog, null));
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        showDrawerFragment(new LogoutFragment());
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                builder.show();
-
-                break;
-            default:
-                showDrawerFragment(new MoreFragment());
-                break;
-        }
-        mDrawLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    /*
-     * Helper class to navigate a item in menu to a new  fragment
-     * @params: Fragement
-     *
-     */
-    private void showDrawerFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawLayout.closeDrawer(GravityCompat.START);
-
-        } else {
-            super.onBackPressed();
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
+
+}
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//        int id = item.getItemId();
+//        switch (id) {
+//            case R.id.profile:
+//                startActivity(new Intent(this, Profile.class));
+//                break;
+//            case R.id.friend:
+//                showDrawerFragment(new FriendFragment());
+//                break;
+//            case R.id.log_out:
+//               // showDrawerFragment(new LogoutFragment());
+//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
+//                builder.setTitle("Log out?");
+//                builder.setMessage("This will log you out!");
+//                builder.setIcon(R.drawable.ic_baseline_error_24);
+//                builder.setBackground(getResources().getDrawable(R.drawable.drawable_dialog, null));
+//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        showDrawerFragment(new LogoutFragment());
+//                    }
+//                });
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                builder.show();
+//                break;
+//        }
+//        mDrawLayout.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+//
+/*
+ * Helper class to navigate a item in menu to a new  fragment
+ * @params: Fragement
+ *
+ */
+//    private void showDrawerFragment(Fragment fragment) {
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.main_layout, fragment);
+//        fragmentTransaction.commit();
+//    }
+//
+//
+//    @Override
+//    public void onBackPressed() {
+//        if (mDrawLayout.isDrawerOpen(GravityCompat.START)) {
+//            mDrawLayout.closeDrawer(GravityCompat.START);
+//
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
