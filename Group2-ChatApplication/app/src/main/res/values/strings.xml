@@ -53,4 +53,10 @@
     <string name="submit_button">Submit</string>
 
 
+    <string name="home_email">Temp User Email</string>
+    <string name="home_welcome">Welcome to our application!</string>
+    <string name="home_unreadChat">unread chat</string>
+    <string name="home_weather">current weather</string>
+
+
 </resources>

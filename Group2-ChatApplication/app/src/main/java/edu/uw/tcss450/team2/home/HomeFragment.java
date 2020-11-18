@@ -90,7 +90,8 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
 
 
-        binding.textEmail.setText("Welcome Home " + model.getEmail() + "!");
+        binding.textUserEmail.setText("temp user: " + model.getEmail());
+
 
 //        //TODO(flag) handling map
 //        mapView = view.findViewById(R.id.mapsView);
@@ -101,14 +102,16 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 //        }
 
         //TODO handling notification - need to replace these with actual messages not mock up data
-        binding.textPubdate.setText("You have 7 Unread Messages");
-//        binding.textTitle.setText("Hey, pls dont forget to ... - sambath777");
-        binding.buttonFullPost.setOnClickListener(button ->
+        binding.textUnreadChat.setText("You have 7 Unread Messages");
+
+        binding.layoutHomeUnreadChat.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
-                    HomeFragmentDirections.actionNavigationHomeToNavigationChat()));
-        binding.buttonHomeWeather.setOnClickListener(button ->
+                        HomeFragmentDirections.actionNavigationHomeToNavigationChat()));
+
+        binding.layoutHomeWeather.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
-                    HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
+                        HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
+
 
 
         //Handling Weather API
