@@ -7,8 +7,18 @@
     android:layout_height="match_parent"
     tools:context="edu.uw.tcss450.team2.fragments.LogoutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
+    <TextView
+        android:id="@+id/text_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="316dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="396dp"
+        android:text="Hello User"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"

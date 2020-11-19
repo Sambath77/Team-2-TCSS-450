@@ -9,6 +9,10 @@
         android:id="@+id/navigation_home"
         android:name="edu.uw.tcss450.team2.HomeFragment"
         android:label="@string/home_label"
+
+        android:name="edu.uw.tcss450.team2.home.HomeFragment"
+        android:label="@string/home_label"
+
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_chat"

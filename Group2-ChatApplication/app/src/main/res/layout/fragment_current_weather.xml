@@ -14,8 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="97dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2">
+        app:layout_constraintBottom_toTopOf="@+id/text_welcome"
+        app:layout_constraintTop_toTopOf="@+id/text_welcome">
 
         <ImageView
             android:id="@+id/imageView"

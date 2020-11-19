@@ -54,4 +54,15 @@
 
     <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com/</string>
 
+    <string name="home_email">Temp User Email</string>
+    <string name="home_welcome">Welcome to our application!</string>
+    <string name="home_unreadChat">unread chat</string>
+    <string name="home_weather">current weather</string>
+    <string name="home_location">current location</string>
+    <string name="home_temperature">current temperature</string>
+    <string name="home_windSpeed">current wind speed</string>
+    <string name="home_humidity">current humidity</string>
+    <string name="home_precipitation">current precipitation</string>
+
+
 </resources>

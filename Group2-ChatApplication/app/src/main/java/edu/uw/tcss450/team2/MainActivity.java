@@ -14,10 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.ActionBar;
+
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -30,11 +35,45 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.appbar.MaterialToolbar;
+
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationView;
+
+//import edu.uw.tcss450.team2.fragments.FriendFragment;
+//import edu.uw.tcss450.team2.fragments.GalleryFragment;
+import edu.uw.tcss450.team2.fragments.HistoryFragment;
+import edu.uw.tcss450.team2.fragments.LogoutFragment;
+//import edu.uw.tcss450.team2.fragments.MoreFragment;
+//import edu.uw.tcss450.team2.fragments.ProfileFragment;
+import edu.uw.tcss450.team2.fragments.SettingFragment;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import edu.uw.tcss450.team2.signin.SignInFragment;
+import edu.uw.tcss450.team2.utils.GpsTracker;
+//import im.delight.android.location.SimpleLocation;
+import android.widget.Toast;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -66,10 +105,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActivityMainBinding binding;
 
     private AppBarConfiguration mAppBarConfiguration;
+	
     Toolbar toolbar;
     DrawerLayout mDrawLayout;
     ActionBarDrawerToggle mDrawerToggle;
     private SignInFragment signInFragment;
+    //    private GpsTracker gpsTracker;
+//    private TextView tvLatitude,tvLongitude;
+    double longitude;
+    double latitude;
+    //private SimpleLocation location;
+
+
+//    private DrawerLayout mDrawLayout;
+//    private ActionBarDrawerToggle mDrawerToggle;
+//    private SignInFragment signInFragment;
+    String email;
+    String jwt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,9 +206,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
              */
         });
+//        //TODO handlong getting current lat/long
+//        tvLatitude = (TextView)findViewById(R.id.latitude);
+//        tvLongitude = (TextView)findViewById(R.id.longitude);
+//        try {
+//            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+//                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+        // construct a new instance of SimpleLocation
+//        location = new SimpleLocation(this);
+//
+//        // if we can't access the location yet
+//        if (!location.hasLocationEnabled()) {
+//            // ask the user to enable location access
+//            SimpleLocation.openSettings(this);
+//        }
+//        latitude = location.getLatitude();
+//        longitude = location.getLongitude();
+//        System.out.println("lat/long: " + latitude + longitude);
+
+//        findViewById(R.id.navigation_home).setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                final double latitude = location.getLatitude();
+//                final double longitude = location.getLongitude();
+//                System.out.println("lat/long: " + latitude + longitude);
+//                // TODO
+//            }
+//
+//        });
+
 
     }
 
+//    //TODO added by Hyeong, helper method for getting current lat/long
+//    public void getLocation(View view){
+//        gpsTracker = new GpsTracker(MainActivity.this);
+//        if(gpsTracker.canGetLocation()){
+//            double latitude = gpsTracker.getLatitude();
+//            double longitude = gpsTracker.getLongitude();
+//
+//            //System.out.println("lat/long = " + latitude + ", " + longitude);
+//            tvLatitude.setText(String.valueOf(latitude));
+//            tvLongitude.setText(String.valueOf(longitude));
+//        }else{
+//            gpsTracker.showSettingsAlert();
+//        }
+
+
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -284,3 +388,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 }
+
+
+
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//        int id = item.getItemId();
+//        switch (id) {
+//            case R.id.profile:
+//                startActivity(new Intent(this, Profile.class));
+//                break;
+//            case R.id.friend:
+//                showDrawerFragment(new FriendFragment());
+//                break;
+//            case R.id.log_out:
+//               // showDrawerFragment(new LogoutFragment());
+//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
+//                builder.setTitle("Log out?");
+//                builder.setMessage("This will log you out!");
+//                builder.setIcon(R.drawable.ic_baseline_error_24);
+//                builder.setBackground(getResources().getDrawable(R.drawable.drawable_dialog, null));
+//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        showDrawerFragment(new LogoutFragment());
+//                    }
+//                });
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                builder.show();
+//                break;
+//        }
+//        mDrawLayout.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+//
+/*
+ * Helper class to navigate a item in menu to a new  fragment
+ * @params: Fragement
+ *
+ */
+//    private void showDrawerFragment(Fragment fragment) {
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.main_layout, fragment);
+//        fragmentTransaction.commit();
+//    }
+//
+//
+//    @Override
+//    public void onBackPressed() {
+//        if (mDrawLayout.isDrawerOpen(GravityCompat.START)) {
+//            mDrawLayout.closeDrawer(GravityCompat.START);
+//
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
