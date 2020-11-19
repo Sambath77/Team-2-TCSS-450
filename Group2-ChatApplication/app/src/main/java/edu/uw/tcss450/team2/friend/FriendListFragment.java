@@ -5,24 +5,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONObject;
+
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FriendListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FriendListFragment extends Fragment {
 
     private FriendContactsViewModel mModel;
+    private MutableLiveData<JSONObject> mResponse;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +37,12 @@ public class FriendListFragment extends Fragment {
     public void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserInfoViewModel userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+
+        mResponse = new MutableLiveData<>();
+        mResponse.setValue(new JSONObject());
+
         mModel = new ViewModelProvider(getActivity()).get(FriendContactsViewModel.class);
+
         mModel.getContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
     }
 
@@ -45,6 +50,7 @@ public class FriendListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentFriendListBinding binding = FragmentFriendListBinding.bind(getView());
+
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(

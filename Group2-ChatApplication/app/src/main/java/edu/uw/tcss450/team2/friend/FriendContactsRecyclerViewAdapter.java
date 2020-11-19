@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragemntFriendCardBinding;
-import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
+import edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding;
 
 public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<FriendContactsRecyclerViewAdapter.ContactViewHolder> {
 
@@ -37,7 +36,7 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ContactViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragemnt_friend_card, parent, false));
+                .inflate(R.layout.fragment_friend_card, parent, false));
     }
 
     @Override
@@ -54,22 +53,18 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     class ContactViewHolder extends RecyclerView.ViewHolder {
 
         private final View mView;
-        private FragemntFriendCardBinding binding;
+        private @NonNull FragmentFriendCardBinding binding;
 
         public ContactViewHolder(@NonNull View view) {
             super(view);
             this.mView = view;
-            binding = FragemntFriendCardBinding.bind(view);
+            binding = FragmentFriendCardBinding.bind(view);
         }
 
 
         void setContact(final FriendContacts contact) {
             friendContacts = contact;
-//            final Resources res = mView.getContext().getResources();
-//            final MaterialCardView cardView = binding.cardRoot;
-//            if (mFrined.equals(contact.getmUsername())) {
-//                binding.textUsername.setText(contact.getmUsername());
-//            }
+
             binding.buttonFullView.setOnClickListener(view -> {
                         Navigation.findNavController(mView).navigate(FriendListFragmentDirections
                                 .actionNavigationContactToFriend(contact));

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragemntFriendCardBinding;
+
 
 public class FriendRecycleViewAdapter extends RecyclerView.Adapter<FriendRecycleViewAdapter.FriendViewHolder> {
 
@@ -33,7 +32,7 @@ public class FriendRecycleViewAdapter extends RecyclerView.Adapter<FriendRecycle
     @Override
     public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new FriendViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragemnt_friend_card, parent, false));
+                .inflate(R.layout.fragment_friend_card, parent, false));
     }
 
 
@@ -63,13 +62,13 @@ public class FriendRecycleViewAdapter extends RecyclerView.Adapter<FriendRecycle
     public class FriendViewHolder extends RecyclerView.ViewHolder {
 
         private final View mView;
-        private FragemntFriendCardBinding binding;
+        private edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding binding;
         private FriendListUserModel mBlog;
 
         public FriendViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragemntFriendCardBinding.bind(view);
+            binding = edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding.bind(view);
             //binding.buittonMore.setOnClickListener(this::handleMoreOrLess);
         }
 

@@ -76,8 +76,10 @@ public class SignInFragment extends Fragment {
                 this::observeResponse);
 
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
-        binding.emailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        //binding.emailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        //binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        binding.emailAddress.setText("test1@test.com");
+        binding.password.setText("test12345");
     }
 
 //    private void attemptSignIn(final View button) {
