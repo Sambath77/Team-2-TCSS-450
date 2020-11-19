@@ -59,17 +59,13 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
 
         void setContact(final FriendContacts contact) {
             friendContacts = contact;
-//            final Resources res = mView.getContext().getResources();
-//            final MaterialCardView cardView = binding.cardRoot;
-//            if (mFrined.equals(contact.getmUsername())) {
-//                binding.textUsername.setText(contact.getmUsername());
-//            }
-            binding.textUsername.setOnClickListener(view -> {
+
+            binding.buttonFullView.setOnClickListener(view -> {
                         Navigation.findNavController(mView).navigate(FriendListFragmentDirections
                                 .actionNavigationContactToFriend(contact));
                     }
             );
-            binding.buttonFullView.setText(contact.getmUsername());
+            binding.textUsername.setText(contact.getmUsername());
         }
     }
 }

@@ -97,7 +97,7 @@ public class SignInFragment extends Fragment {
      * @param: View is a button
      */
     private void attemptSignIn(final View button) {
-        navigateToSuccess("", "");
+//        navigateToSuccess("", "");
         validateEmail();
     }
 
