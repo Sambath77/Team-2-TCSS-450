@@ -50,15 +50,15 @@
 
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/switch_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="564dp"
-            android:text="Switch Theme"
-            android:textColor="?attr/textColor"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            tools:layout_editor_absoluteX="0dp" />
+<!--        <Switch-->
+<!--            android:id="@+id/switch_button"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="564dp"-->
+<!--            android:text="Switch Theme"-->
+<!--            android:textColor="?attr/textColor"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"-->
+<!--            tools:layout_editor_absoluteX="0dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
