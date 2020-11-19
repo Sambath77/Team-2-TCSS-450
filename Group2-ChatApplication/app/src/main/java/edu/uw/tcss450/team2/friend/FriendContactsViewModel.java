@@ -38,6 +38,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
     public FriendContactsViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
+
     }
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,

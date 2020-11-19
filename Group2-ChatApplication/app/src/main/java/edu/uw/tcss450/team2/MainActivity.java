@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
     double latitude;
     //private SimpleLocation location;
 
-    private Switch aSwitch;
+    //private Switch aSwitch;
 
 //    private DrawerLayout mDrawLayout;
 //    private ActionBarDrawerToggle mDrawerToggle;
@@ -67,28 +67,28 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.Theme_WeatherApp);
-        }
-
-        aSwitch = (Switch)findViewById(R.id.switch_button);
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            aSwitch.setChecked(true);
-        }
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                   // restartApp();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    //restartApp();
-                }
-            }
-        });
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            setTheme(R.style.DarkTheme);
+//        } else {
+//            setTheme(R.style.Theme_WeatherApp);
+//        }
+//
+//        aSwitch = (Switch)findViewById(R.id.switch_button);
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            aSwitch.setChecked(true);
+//        }
+//        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                   // restartApp();
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    //restartApp();
+//                }
+//            }
+//        });
         //Appbar id
 //        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
 //        setSupportActionBar(materialToolbar);
