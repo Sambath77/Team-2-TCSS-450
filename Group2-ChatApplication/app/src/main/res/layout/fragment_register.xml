@@ -1,131 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
+    android:background="@color/white"
+    android:id="@+id/register_layout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/register_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="@string/create_new_account"
-        android:background="@color/purple_700"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_pic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="40dp"
-        android:layout_marginStart="191dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="191dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/register_logo"
         android:scaleType="centerCrop"
-        android:src="@drawable/profilepic"
-        app:layout_constraintBottom_toTopOf="@+id/person_first_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_toolbar" />
+        android:padding="5dp"/>
 
     <EditText
         android:id="@+id/person_first_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/text_shape"
+        android:background="@drawable/login_shape"
         android:drawableLeft="@drawable/left_drawable"
-        android:ems="10"
         android:hint="@string/first_name"
+        android:textColorHint="?attr/textColor"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/person_last_name"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/profile_pic"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="3dp"/>
 
     <EditText
         android:id="@+id/person_last_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/text_shape"
-        android:drawableLeft="@drawable/left_drawable"
-        android:ems="10"
-        android:hint="@string/last_name"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/login_shape"
+        android:drawableLeft="@drawable/left_drawable"
+        android:hint="@string/last_name"
+        android:textColor="?attr/textColor"
+        android:textColorHint="?attr/textColor"
+        android:layout_below="@id/person_first_name"
+        android:padding="3dp"
+        />
 
     <EditText
         android:id="@+id/nickname"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/text_shape"
+        android:inputType="textPersonName"
+        android:layout_centerInParent="true"
+        android:background="@drawable/login_shape"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:padding="3dp"
+        android:textColorHint="?attr/textColor"
+        android:textColor="?attr/textColor"
         android:drawableLeft="@drawable/ic_person_pin_24dp"
-        android:ems="10"
         android:hint="@string/nickname_input"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_below="@id/person_last_name"/>
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
+        android:id="@+id/register_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/text_shape"
+        android:layout_centerInParent="true"
+        android:background="@drawable/login_shape"
+        android:inputType="textEmailAddress"
         android:drawableLeft="@drawable/draw_left_email"
-        android:ems="10"
+        android:layout_below="@id/nickname"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:hint="@string/email_address"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/nickname"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColorHint="?attr/textColor"
+        android:textColor="?attr/textColor"
+        android:padding="3dp"/>
 
     <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
+        android:id="@+id/register_password"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/text_shape"
+        android:layout_centerInParent="true"
+        android:inputType="textPassword"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_shape"
         android:drawableLeft="@drawable/password_left_drawable"
-        android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColorHint="?attr/textColor"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/register_email"
+        android:padding="3dp"/>
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:layout_width="wrap_content"
+        android:id="@+id/register_password_match"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="180dp"
-        android:background="@drawable/text_shape"
-        android:drawableLeft="@drawable/password_left_drawable"
-        android:ems="10"
-        android:hint="@string/confirm_password"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@drawable/login_shape"
+        android:drawableLeft="@drawable/password_left_drawable"
+        android:hint="@string/password"
+        android:textColorHint="?attr/textColor"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/register_password"
+        android:padding="3dp"/>
 
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="100dp"
         android:background="@drawable/round_shape"
         android:text="@string/register_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/register_password_match"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"/>
+</RelativeLayout>

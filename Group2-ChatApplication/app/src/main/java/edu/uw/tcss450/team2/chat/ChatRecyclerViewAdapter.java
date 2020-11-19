@@ -1,140 +1,126 @@
 package edu.uw.tcss450.team2.chat;
 
-import android.content.res.Resources;
-import android.view.Gravity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.shape.CornerFamily;
-
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragmentChatMessageBinding;
+import edu.uw.tcss450.team2.databinding.FragmentChatCardBinding;
 
-public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.MessageViewHolder> {
+public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ChatViewHolder> {
 
-    private final List<ChatMessage> mMessages;
-    private final String mEmail;
-    public ChatRecyclerViewAdapter(List<ChatMessage> messages, String email) {
-        this.mMessages = messages;
-        mEmail = email;
+    private final Map<ChatListUserModel, Boolean> mExpandedFlags;
+
+    //Store all of the blogs to present
+    private final List<ChatListUserModel> mUsers;
+
+    public ChatRecyclerViewAdapter(List<ChatListUserModel> items) {
+
+        this.mUsers = items;
+        mExpandedFlags = mUsers.stream()
+                .collect(Collectors.toMap(Function.identity(), user -> false));
+
     }
 
 
     @NonNull
     @Override
-    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MessageViewHolder(LayoutInflater
+    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ChatViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_chat_message, parent, false));
+                .inflate(R.layout.fragment_chat_card, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        holder.setMessage(mMessages.get(position));
+    public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
+        holder.setUser(mUsers.get(position));
     }
+
 
     @Override
     public int getItemCount() {
-        return mMessages.size();
+        return mUsers.size();
     }
 
-    class MessageViewHolder extends RecyclerView.ViewHolder {
-        private final View mView;
-        private FragmentChatMessageBinding binding;
-
-        public MessageViewHolder(@NonNull View view) {
+    /**
+     * Objects from this class represent an Individual row View from the List
+     * of rows in the Blog Recycler View.
+     */
+    public class ChatViewHolder extends RecyclerView.ViewHolder {
+        public final View mView;
+        public FragmentChatCardBinding binding;
+        private ChatListUserModel mUser;
+        public ChatViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragmentChatMessageBinding.bind(view);
+            binding = FragmentChatCardBinding.bind(view);
+            binding.buittonMore.setOnClickListener(this::handleMoreOrLess);
         }
-
-        void setMessage(final ChatMessage message) {
-            final Resources res = mView.getContext().getResources();
-            final MaterialCardView card = binding.cardRoot;
-
-            int standard = (int) res.getDimension(R.dimen.chat_margin);
-            int extended = (int) res.getDimension(R.dimen.chat_margin_sided);
-
-            if (mEmail.equals(message.getSender())) {
-                //This message is from the user. Format it as such
-                binding.textMessage.setText(message.getMessage());
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) card.getLayoutParams();
-                //Set the left margin
-                layoutParams.setMargins(extended, standard, standard, standard);
-                // Set this View to the right (end) side
-                ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
-                        Gravity.END;
-
-                card.setCardBackgroundColor(
-                        ColorUtils.setAlphaComponent(
-                            res.getColor(R.color.primaryLightColor, null),
-                            16));
-                binding.textMessage.setTextColor(
-                        res.getColor(R.color.secondaryTextColorFade, null));
-
-                card.setStrokeWidth(standard / 5);
-                card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.primaryLightColor, null),
-                        200));
-
-                //Round the corners on the left side
-                card.setShapeAppearanceModel(
-                        card.getShapeAppearanceModel()
-                                .toBuilder()
-                                .setTopLeftCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomLeftCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomRightCornerSize(0)
-                                .setTopRightCornerSize(0)
-                                .build());
-
-                card.requestLayout();
-            } else {
-                //This message is from another user. Format it as such
-                binding.textMessage.setText(message.getSender() +
-                        ": " + message.getMessage());
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) card.getLayoutParams();
-
-                //Set the right margin
-                layoutParams.setMargins(standard, standard, extended, standard);
-                // Set this View to the left (start) side
-                ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
-                        Gravity.START;
-
-                card.setCardBackgroundColor(
-                        ColorUtils.setAlphaComponent(
-                                res.getColor(R.color.secondaryLightColor, null),
-                                16));
-
-                card.setStrokeWidth(standard / 5);
-                card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.secondaryLightColor, null),
-                        200));
-
-                binding.textMessage.setTextColor(
-                        res.getColor(R.color.secondaryTextColorFade, null));
-
-                //Round the corners on the right side
-                card.setShapeAppearanceModel(
-                        card.getShapeAppearanceModel()
-                                .toBuilder()
-                                .setTopRightCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomRightCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomLeftCornerSize(0)
-                                .setTopLeftCornerSize(0)
-                                .build());
-                card.requestLayout();
+        /**
+         * When the button is clicked in the more state, expand the card to display
+         * the blog preview and switch the icon to the less state. When the button
+         * is clicked in the less state, shrink the card and switch the icon to the
+         * more state.
+         * @param button the button that was clicked
+         */
+        private void handleMoreOrLess(final View button) {
+            mExpandedFlags.put(mUser, !mExpandedFlags.get(mUser));
+            displayPreview();
+        }
+        /**
+         * Helper used to determine if the preview should be displayed or not.
+         */
+        private void displayPreview() {
+            /*
+            if (mExpandedFlags.get(mBlog)) {
+                if (binding.textPreview.getVisibility() == View.GONE) {
+                    binding.textPreview.setVisibility(View.VISIBLE);
+                    binding.buittonMore.setImageIcon(
+                            Icon.createWithResource(
+                                    mView.getContext(),
+                                    R.drawable.ic_less_grey_24dp));
+                } else {
+                    binding.textPreview.setVisibility(View.GONE);
+                    binding.buittonMore.setImageIcon(
+                            Icon.createWithResource(
+                                    mView.getContext(),
+                                    R.drawable.ic_more_grey_24dp));
+                }
             }
+             */
         }
+
+        void setUser(final ChatListUserModel user) {
+            mUser = user;
+
+
+            binding.buttonFullPost.setOnClickListener(view ->
+            {
+                Navigation.findNavController(mView).navigate(
+                        ChatListFragmentDirections
+                                .actionChatFragmentToPersonalChatFragment());
+
+            });
+
+            binding.textPubdate.setText(user.getUserName());
+            binding.textTitle.setText(user.getBriefMessage());
+            //binding.textPubdate.setText(user.getPubDate());
+            //Use methods in the HTML class to format the HTML found in the text
+            //final String preview = Html.fromHtml(user.getBriefMessage()).toString();
+            //binding.textPreview.setText(preview);
+            displayPreview();
+        }
+
     }
+
 }

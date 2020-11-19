@@ -5,26 +5,26 @@ import java.util.List;
 
 public class ChatListUserGenerator {
 
-    private static final ChatRoomModel[] CHAT_LIST_USER_MODELS;
+    private static final ChatListUserModel[] CHAT_LIST_USER_MODELS;
     public static final int COUNT = 20;
 
 
     static {
-        CHAT_LIST_USER_MODELS = new ChatRoomModel[COUNT];
+        CHAT_LIST_USER_MODELS = new ChatListUserModel[COUNT];
         for (int i = 0; i < CHAT_LIST_USER_MODELS.length; i++) {
-            ChatRoomModel chatRoomModel = new ChatRoomModel();
-            chatRoomModel.setChatId(1);
-            chatRoomModel.setRoomName("Chat room 1");
+            ChatListUserModel chatListUserModel = new ChatListUserModel();
+            chatListUserModel.setUserName("sambath777");
+            chatListUserModel.setBriefMessage("Hey, pls dont forget to ...");
 
-            CHAT_LIST_USER_MODELS[i] = chatRoomModel;
+            CHAT_LIST_USER_MODELS[i] = chatListUserModel;
         }
     }
 
-    public static List<ChatRoomModel> getUserList() {
+    public static List<ChatListUserModel> getUserList() {
         return Arrays.asList(CHAT_LIST_USER_MODELS);
     }
 
-    public static ChatRoomModel[] getUSERS() {
+    public static ChatListUserModel[] getUSERS() {
         return Arrays.copyOf(CHAT_LIST_USER_MODELS, CHAT_LIST_USER_MODELS.length);
     }
 

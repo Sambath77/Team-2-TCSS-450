@@ -35,6 +35,9 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="account_title">Account</string>
+    <string name="contact_label">Contact</string>
+    <string name="fragment_chat_list_lable">Fragment Personal Chat</string>
+    <string name="fragment_choose_location_container">Choose Location Container</string>
 
     <string name="create_new_account">Create A New Acccount</string>
     <string name="nickname_input">Nickname</string>
@@ -43,7 +46,7 @@
     <string name="email_account">Email</string>
 
 
-    <string name="read_more_chat">Join</string>
+    <string name="read_more_chat">Read More</string>
     <string name="cloudy_TEMP_title">Cloudy</string>
     <string name="degrees_F_TEMP_title">65°F</string>
     <string name="high_low_TEMP_title">67°/54°F</string>
@@ -51,7 +54,32 @@
     <string name="currently_title">Currently:</string>
     <string name="zip_code_title">Zip Code:</string>
     <string name="submit_button">Submit</string>
+    <string name="have_an_acc">Already have an account?</string>
+    <string name="new_user">Are you a new user?</string>
+    <string name="action_link">view</string>
 
-    <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com/</string>
+    <string name="profile_firstname">First Name</string>
+    <string name="profile_lastname">Last Name</string>
+    <string name="profile_username">User Name</string>
+    <string name="profile_email">Email</string>
+
+    <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com</string>
+
+    <string name="home_email">Temp User Email</string>
+    <string name="home_welcome">Welcome to our application!</string>
+    <string name="home_unreadChat">unread chat</string>
+    <string name="home_weather">current weather</string>
+    <string name="home_location">current location</string>
+    <string name="home_temperature">current temperature</string>
+    <string name="home_windSpeed">current wind speed</string>
+    <string name="home_humidity">current humidity</string>
+    <string name="home_precipitation">current precipitation</string>
+    <string name="sign_in_forgot_password">Forgot Password?</string>
+
+    <string name="switch_sign_in">Stay Signed in</string>
+    <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
+    <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
+    <string name="action_sign_out">Sign Out</string>
+
 
 </resources>
