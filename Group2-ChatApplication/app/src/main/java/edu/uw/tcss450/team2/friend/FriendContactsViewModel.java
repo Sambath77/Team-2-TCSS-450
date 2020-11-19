@@ -18,7 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,11 @@ public class FriendContactsViewModel extends AndroidViewModel {
     public FriendContactsViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
+
+        List<FriendContacts> lst = new ArrayList<>();
+        lst.add(new FriendContacts(1, 1, ""));
+
+        mContacts.setValue(lst);
     }
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
@@ -73,7 +80,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
 
 
     private void handelSuccess(final JSONObject response)  {
-        //List<FriendContacts> list;
+        List<FriendContacts> list = new ArrayList<>();
         try {
             //list = getMessageListByChatId(response.getInt("chatId"));
             JSONArray messages = response.getJSONArray("rows");
@@ -81,15 +88,15 @@ public class FriendContactsViewModel extends AndroidViewModel {
                 JSONObject message = messages.getJSONObject(i);
 
                 FriendContacts friendContacts = new FriendContacts(
-                        message.getInt("PrimaryKey"),
-                        message.getInt("MemberID_B"),
-                        message.getString("UserName")
+                        message.getInt("primarykey"),
+                        message.getInt("memberid_b"),
+                        message.getString("username")
                 );
 
-                mContacts.getValue().add(friendContacts);
+                list.add(friendContacts);
             }
 
-            mContacts.setValue(mContacts.getValue());
+            mContacts.setValue(list);
         }catch (JSONException e) {
             Log.e("JSON PARSE ERROR", "Found in handle Success FriendContactsViewModel");
             Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
