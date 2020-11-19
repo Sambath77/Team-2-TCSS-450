@@ -54,7 +54,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
 
     public void getContactFriend(String jwt, String email) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact/" + email;
+                "/contact/" + email;
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
