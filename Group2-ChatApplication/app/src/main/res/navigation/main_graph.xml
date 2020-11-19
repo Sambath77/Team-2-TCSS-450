@@ -60,8 +60,8 @@
         tools:layout="@layout/fragment_friend_post" >
 
         <argument
-            android:name="friendPost"
-            app:argType="edu.uw.tcss450.team2.friend.FriendListUserModel" />
+            android:name="contactList"
+            app:argType="edu.uw.tcss450.team2.friend.FriendContacts" />
     </fragment>
 
 </navigation>

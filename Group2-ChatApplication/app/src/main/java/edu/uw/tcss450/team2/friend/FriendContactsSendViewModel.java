@@ -53,7 +53,7 @@ public class FriendContactsSendViewModel extends AndroidViewModel {
 //        }
 
         Request request = new JsonObjectRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 url,
                 null, //push token found in the JSONObject body
                 mResponse::setValue, // we get a response but do nothing with it

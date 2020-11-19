@@ -3,7 +3,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/colorOffWhite"/>
+            <solid android:color="?attr/hintColor"/>
             <corners android:topLeftRadius="8dp"
                 android:bottomLeftRadius="8dp"/>
 

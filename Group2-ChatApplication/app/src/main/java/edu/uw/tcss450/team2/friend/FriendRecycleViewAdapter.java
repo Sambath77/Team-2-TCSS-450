@@ -1,7 +1,5 @@
 package edu.uw.tcss450.team2.friend;
 
-import android.graphics.drawable.Icon;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,11 +104,11 @@ public class FriendRecycleViewAdapter extends RecyclerView.Adapter<FriendRecycle
 
         void setFriend(final FriendListUserModel blog) {
             mBlog = blog;
-            binding.buttonFullView.setOnClickListener(view -> {
-                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
-                                .actionNavigationContactToFriend(blog));
-                    }
-            );
+//            binding.buttonFullView.setOnClickListener(view -> {
+//                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
+//                                .actionNavigationContactToFriend());
+//                    }
+//            );
             binding.textUsername.setText(blog.getUserName());
             //binding.text.setText(blog.getFriendFirstName());
             //displayPreview();
