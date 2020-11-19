@@ -80,6 +80,10 @@
     <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="send_email">Send Email</string>
+    <string name="set_new_password">Set New Password</string>
+    <string name="new_password">New Password:</string>
 
 
 </resources>
