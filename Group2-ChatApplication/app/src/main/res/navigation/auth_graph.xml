@@ -24,6 +24,12 @@
             android:name="password"
             app:argType="string"
             android:defaultValue="default"/>
+        <action
+            android:id="@+id/action_signInFragment_to_setPasswordFragment"
+            app:destination="@id/setPasswordFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_newPasswordFragment4"
+            app:destination="@id/newPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -51,4 +57,31 @@
 <!--            android:name="lname"-->
 <!--            app:argType="string" />-->
     </activity>
+    <fragment
+        android:id="@+id/setPasswordFragment"
+        android:name="edu.uw.tcss450.team2.signin.SetPasswordFragment"
+        android:label="fragment_set_password"
+        tools:layout="@layout/fragment_set_password" >
+        <action
+            android:id="@+id/action_setPasswordFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="edu.uw.tcss450.team2.signin.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" >
+        <action
+            android:id="@+id/action_newPasswordFragment4_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>

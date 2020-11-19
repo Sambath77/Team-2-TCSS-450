@@ -106,7 +106,19 @@
         android:layout_marginTop="10dp"
     />
 
-<!--    <ImageView-->
+    <Button
+        android:id="@+id/reset_password_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_info_button"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="73dp"
+        android:text="Forgot Password?" />
+
+    <!--    <ImageView-->
 <!--        android:id="@+id/app_logo"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->

@@ -22,42 +22,24 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
-public class SignInViewModel extends AndroidViewModel {
+public class SetPasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    /*
-     * constructor method
-     */
-    public SignInViewModel(@NonNull Application application) {
+    public SetPasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
-
-    /*
-     * A method to call when the server was updated
-     *
-     * @param: LifecycleOwner
-     * @param: Observer
-     */
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
-    public void clearResponse() {
-        mResponse.setValue(new JSONObject());
-    }
-
-    /*
-     *  helper method to handle a error
-     *
-     * @param: error
-     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -82,20 +64,20 @@ public class SignInViewModel extends AndroidViewModel {
         }
     }
 
+    public void connect(final String email, final String password, final String newPassword) {
+        String url = "https://team-2-tcss-450-webservices.herokuapp.com/resetpassword";
 
-    /*
-     * method to send the information to the end point
-     *
-     * @param: String email: user email
-     * @param: String password: user password
-     */
+        JSONObject body = new JSONObject();
+        try {
+            body.put("newpassword", newPassword);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-    public void connect(final String email, final String password) {
-        String url = "https://team-2-tcss-450-webservices.herokuapp.com/auth";
         Request request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.PUT,
                 url,
-                null, //no body for this get request
+                body,
                 mResponse::setValue,
                 this::handleError) {
             @Override
@@ -118,5 +100,4 @@ public class SignInViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
 }

@@ -74,6 +74,7 @@ public class SignInFragment extends Fragment {
                 ));
 
         binding.signInInfoButton.setOnClickListener(this::attemptSignIn);
+        binding.resetPasswordButton.setOnClickListener(this::navigateToResetPassword);
 
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
@@ -95,7 +96,7 @@ public class SignInFragment extends Fragment {
      * @param: View is a button
      */
     private void attemptSignIn(final View button) {
-        navigateToSuccess("", "");
+//        navigateToSuccess("", "");
         validateEmail();
     }
 
@@ -163,12 +164,22 @@ public class SignInFragment extends Fragment {
      * @param response the Response from the server
      */
     private void observeResponse(final JSONObject response) {
+        Log.d("temp", "response: " + response);
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.emailAddress.setError(
-                            "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
+                    if (response.getJSONObject("data").getString("message").contains("A new password must be set")) {
+                        mSignInModel.clearResponse();
+                        Navigation.findNavController(getView())
+                                .navigate(SignInFragmentDirections
+                                        .actionSignInFragmentToSetPasswordFragment(
+                                                binding.emailAddress.getText().toString(),
+                                                binding.password.getText().toString()));
+                    } else {
+                        binding.emailAddress.setError(
+                                "Error Authenticating: " +
+                                        response.getJSONObject("data").getString("message"));
+                    }
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
@@ -187,6 +198,11 @@ public class SignInFragment extends Fragment {
         }
     }
 
-
+    private void navigateToResetPassword(final View view) {
+        Navigation.findNavController(getView())
+                .navigate(SignInFragmentDirections.actionSignInFragmentToNewPasswordFragment4(
+                        binding.emailAddress.getText().toString()
+                ));
+    }
 
 }
