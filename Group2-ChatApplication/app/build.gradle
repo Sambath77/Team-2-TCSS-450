@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.auth0.android:jwtdecode:2.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
 
 
 }

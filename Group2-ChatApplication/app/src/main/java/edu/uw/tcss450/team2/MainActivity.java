@@ -2,9 +2,9 @@ package edu.uw.tcss450.team2;
 
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,10 +32,13 @@ import android.location.LocationManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 
 import android.view.View;
@@ -62,6 +65,13 @@ import android.widget.Toast;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
+
 
 public class MainActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
 
@@ -77,6 +87,7 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
     double latitude;
     //private SimpleLocation location;
 
+    private Switch aSwitch;
 
 //    private DrawerLayout mDrawLayout;
 //    private ActionBarDrawerToggle mDrawerToggle;
@@ -92,11 +103,31 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("WorldChat");
         actionBar.setIcon(R.drawable.ic_world_language_24);
-//        actionBar.setIcon(R.drawable.logo);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.Theme_WeatherApp);
+        }
 
+        aSwitch = (Switch)findViewById(R.id.switch_button);
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            aSwitch.setChecked(true);
+        }
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                   // restartApp();
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    //restartApp();
+                }
+            }
+        });
         //Appbar id
 //        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
 //        setSupportActionBar(materialToolbar);
@@ -116,8 +147,6 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
         email = args.getEmail();
         jwt = args.getJwt();
-//        String fName = args.getFName();
-//        String lName = args.getLname();
         new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
                 get(UserInfoViewModel.class);
 
@@ -197,6 +226,11 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
 
 //    }
 
+//    public void restartApp() {
+//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(i);
+//        finish();
+//    }
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -290,4 +324,5 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
 //        } else {
 //            super.onBackPressed();
 //        }
+//    }
 //    }

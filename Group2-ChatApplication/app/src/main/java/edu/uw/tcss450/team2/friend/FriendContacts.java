@@ -18,6 +18,8 @@ public class FriendContacts implements Serializable {
         this.mMemberId = mMemberId;
     }
 
+
+
     public static FriendContacts createFromJsonString(final String cmAsJson) throws JSONException {
         final JSONObject username = new JSONObject(cmAsJson);
         return new FriendContacts(username.getInt("ContactId"), username.getInt("MemberId"),username.getString("Username"));

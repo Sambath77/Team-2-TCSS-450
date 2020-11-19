@@ -10,19 +10,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragemntFriendCardBinding;
+import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
 
 public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<FriendContactsRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<FriendContacts> mContacts;
-    private final String mFrined;
+    private FriendContacts friendContacts;
 
-    public FriendContactsRecyclerViewAdapter(List<FriendContacts> mContacts, String mFrined) {
+
+    public FriendContactsRecyclerViewAdapter(List<FriendContacts> mContacts) {
         this.mContacts = mContacts;
-        this.mFrined = mFrined;
+
+
     }
 
 
@@ -58,11 +64,18 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
 
 
         void setContact(final FriendContacts contact) {
+            friendContacts = contact;
 //            final Resources res = mView.getContext().getResources();
 //            final MaterialCardView cardView = binding.cardRoot;
-            if (mFrined.equals(contact.getmUsername())) {
-                binding.textUsername.setText(contact.getmUsername());
-            }
+//            if (mFrined.equals(contact.getmUsername())) {
+//                binding.textUsername.setText(contact.getmUsername());
+//            }
+            binding.buttonFullView.setOnClickListener(view -> {
+                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
+                                .actionNavigationContactToFriend(contact));
+                    }
+            );
+            binding.textUsername.setText(contact.getmUsername());
         }
     }
 }

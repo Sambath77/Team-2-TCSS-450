@@ -106,11 +106,11 @@ public class FriendRecycleViewAdapter extends RecyclerView.Adapter<FriendRecycle
 
         void setFriend(final FriendListUserModel blog) {
             mBlog = blog;
-            binding.buttonFullView.setOnClickListener(view -> {
-                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
-                                .actionNavigationContactToFriend(blog));
-                    }
-            );
+//            binding.buttonFullView.setOnClickListener(view -> {
+//                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
+//                                .actionNavigationContactToFriend());
+//                    }
+//            );
             binding.textUsername.setText(blog.getUserName());
             //binding.text.setText(blog.getFriendFirstName());
             //displayPreview();
