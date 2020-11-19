@@ -1,77 +1,37 @@
 package edu.uw.tcss450.team2;
 
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.ActionBar;
-
-
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-
-
-
-import android.view.View;
-import android.widget.TextView;
-
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.navigation.NavigationView;
+
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import edu.uw.tcss450.team2.signin.SignInFragment;
 
 //import edu.uw.tcss450.team2.fragments.FriendFragment;
 //import edu.uw.tcss450.team2.fragments.GalleryFragment;
-import edu.uw.tcss450.team2.fragments.HistoryFragment;
-import edu.uw.tcss450.team2.fragments.LogoutFragment;
 //import edu.uw.tcss450.team2.fragments.MoreFragment;
 //import edu.uw.tcss450.team2.fragments.ProfileFragment;
-import edu.uw.tcss450.team2.fragments.SettingFragment;
-import edu.uw.tcss450.team2.model.UserInfoViewModel;
-import edu.uw.tcss450.team2.signin.SignInFragment;
-import edu.uw.tcss450.team2.utils.GpsTracker;
 //import im.delight.android.location.SimpleLocation;
-import android.widget.Toast;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import edu.uw.tcss450.team2.model.UserInfoViewModel;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.Toast;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 
 public class MainActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {

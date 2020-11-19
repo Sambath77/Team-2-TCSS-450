@@ -74,6 +74,7 @@
     <string name="home_windSpeed">current wind speed</string>
     <string name="home_humidity">current humidity</string>
     <string name="home_precipitation">current precipitation</string>
+    <string name="sign_in_forgot_password">Forgot Password?</string>
 
     <string name="switch_sign_in">Stay Signed in</string>
     <string name="keys_shared_prefs">My Auth App Shared Prefs</string>

@@ -5,9 +5,11 @@
 
 package edu.uw.tcss450.team2.signin;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,18 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.utils.PasswordValidator;
 import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
+import edu.uw.tcss450.team2.utils.PasswordValidator;
+
 
 import static edu.uw.tcss450.team2.utils.PasswordValidator.*;
 
@@ -95,7 +91,7 @@ public class SignInFragment extends Fragment {
      * @param: View is a button
      */
     private void attemptSignIn(final View button) {
-        navigateToSuccess("", "");
+//        navigateToSuccess("", "");
         validateEmail();
     }
 

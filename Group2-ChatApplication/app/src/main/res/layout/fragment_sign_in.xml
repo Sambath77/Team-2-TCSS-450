@@ -74,53 +74,50 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/password"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/register_info_button"
         android:background="@drawable/round_shape"
         android:onClick="@string/onClick_button"
-        android:text="@string/login_button"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/password"/>
-
-    <EditText
-        android:id="@+id/new_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/switch_signin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:padding="3dp"
-        android:text="@string/new_user"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:text="@string/login_button" />
 
     <Button
         android:id="@+id/register_info_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/round_shape"
         android:onClick="@string/onClick_button"
-        android:layout_centerInParent="true"
-        android:text="@string/register_button"
-        android:layout_below="@id/new_account"
-        android:layout_marginTop="10dp"
-    />
+        android:text="@string/register_button" />
 
     <Switch
         android:id="@+id/switch_signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/signIn_info_button"
-        android:layout_marginStart="-112dp"
-        android:layout_marginTop="8dp"
-        android:layout_toEndOf="@+id/signIn_info_button"
+        android:layout_width="146dp"
+        android:layout_height="38dp"
+        android:layout_below="@+id/password"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="70dp"
+        android:layout_toEndOf="@+id/register_info_button"
         android:checked="true"
         android:text="@string/switch_sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/switch_sign_in" />
+
+    <Button
+        android:id="@+id/forgot_password_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/switch_signin"
+        android:layout_alignStart="@+id/switch_signin"
+        android:layout_marginStart="-25dp"
+        android:layout_marginTop="9dp"
+        android:text="@string/sign_in_forgot_password" />
 
 
     <!--    <ImageView-->
