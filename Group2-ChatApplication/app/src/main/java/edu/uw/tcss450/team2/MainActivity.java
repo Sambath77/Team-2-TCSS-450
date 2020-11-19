@@ -116,8 +116,9 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
 //        Log.d("ACTIVITY", email);
 //        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
 //                get(UserInfoViewModel.class);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
 
+        //TODO 1. mock up notification in home page
+        BottomNavigationView navView = findViewById(R.id.nav_view);
         BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
         badgeDrawable.setVisible(true);
         badgeDrawable.setNumber(7);

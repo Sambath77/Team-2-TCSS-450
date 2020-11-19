@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
     }
@@ -100,7 +101,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
 
 
-        binding.textUserEmail.setText("temp user: " + model.getEmail());
+        binding.textUserEmail.setText(model.getEmail());
 
 
         //TODO handling notification - need to replace these with actual messages not mock up data
@@ -152,100 +153,4 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
 
     }
-
-
-    //TODO graveyard need to be removed later--------------------------------------------------------------------------------
-    //    //TODO need to add JavaDoc here
-//
-//    private void setLocation() {
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-//
-//        fusedLocationClient.getLastLocation()
-//                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        // Got last known location. In some rare situations this can be null.
-//                        if (location != null) {
-//                            // Logic to handle location object
-//                            currLatitude = location.getLatitude();
-//                            currLongitude = location.getLongitude();
-//                            System.out.println("Current lat: " + currLatitude);
-//                            System.out.println("Current long: " + currLongitude);
-//                        }
-//                    }});
-//
-//
-//    }
-    /**
-     * Empty constructor
-     *
-     */
-//    public HomeFragment() {
-//
-//    }
-
-
-    /**
-     * Returns an instance when called.
-     *
-     * @return new Fragment if Instance is null, other wise returns instance as it is
-     */
-//    public static HomeFragment getINSTANCE() {
-//        if(INSTANCE == null) {
-//            INSTANCE = new HomeFragment();
-//        }
-//        return INSTANCE;
-//    }
-
-    /**
-     * @param googleMap when google map is ready it will update
-     *        map variable with newly updated googleMap data.
-     */
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//        System.out.println("onMapReady triggered");
-//        MapsInitializer.initialize(getContext());
-//        map = googleMap;
-//    }
-
-    /**
-     * It checks the currentLocation of the User to find lat/long.
-     * this will be modified and used later when hitting Weather API
-     * with lat/long endpoint.
-     */
-//    private void getCurrentLocation() {
-//        //Initializing task location
-//        Task<Location> task = client.getLastLocation();
-//        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-//            @Override
-//            public void onSuccess(Location location) {
-//                if(location != null) {
-//                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-//                        @Override
-//                        public void onMapReady(GoogleMap googleMap) {
-//                            LatLng latLng = new LatLng(location.getLatitude(),
-//                                    location.getLongitude());
-//                            MarkerOptions options = new MarkerOptions().position(latLng)
-//                                    .title("I am here");
-//
-//                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-//
-//                            googleMap.addMarker(options);
-//
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//
-//    }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if(requestCode == 44) {
-//            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                getCurrentLocation();
-//            }
-//        }
-//    }
 }
