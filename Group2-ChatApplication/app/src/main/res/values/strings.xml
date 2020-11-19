@@ -51,6 +51,7 @@
     <string name="currently_title">Currently:</string>
     <string name="zip_code_title">Zip Code:</string>
     <string name="submit_button">Submit</string>
+<<<<<<< HEAD
 
     <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com/</string>
 
@@ -63,6 +64,9 @@
     <string name="home_windSpeed">current wind speed</string>
     <string name="home_humidity">current humidity</string>
     <string name="home_precipitation">current precipitation</string>
+=======
+>>>>>>> parent of bb0b8ef... Merge pull request #61 from Sambath77/Hyeong
 
+    <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com/</string>
 
 </resources>

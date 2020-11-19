@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
+>>>>>>> parent of bb0b8ef... Merge pull request #61 from Sambath77/Hyeong
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

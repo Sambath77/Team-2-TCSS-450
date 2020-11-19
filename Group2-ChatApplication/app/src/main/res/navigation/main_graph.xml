@@ -7,10 +7,8 @@
 
     <fragment
         android:id="@+id/navigation_home"
-
-        android:name="edu.uw.tcss450.team2.home.HomeFragment"
+        android:name="edu.uw.tcss450.team2.HomeFragment"
         android:label="@string/home_label"
-
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_chat"
@@ -33,10 +31,17 @@
         android:label="@string/chat_label"
         android:name="edu.uw.tcss450.team2.chat.ChatListFragment"
         >
+<<<<<<< HEAD
         <action
             android:id="@+id/action_navigation_chat_to_personalChatFragment"
             app:destination="@id/personalChatFragment" />
         <action
+=======
+        <action
+            android:id="@+id/action_navigation_chat_to_personalChatFragment"
+            app:destination="@id/personalChatFragment" />
+        <action
+>>>>>>> parent of bb0b8ef... Merge pull request #61 from Sambath77/Hyeong
             android:id="@+id/action_navigation_chat_to_chatRoomMemberFragment"
             app:destination="@id/chatRoomMemberFragment" />
     </fragment>

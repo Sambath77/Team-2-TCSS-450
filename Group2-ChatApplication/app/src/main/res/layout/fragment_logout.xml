@@ -7,18 +7,11 @@
     android:layout_height="match_parent"
     tools:context="edu.uw.tcss450.team2.fragments.LogoutFragment">
 
+<<<<<<< HEAD
+=======
+    <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/text_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="316dp"
-        android:layout_marginEnd="170dp"
-        android:layout_marginBottom="396dp"
-        android:text="Hello User"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> parent of bb0b8ef... Merge pull request #61 from Sambath77/Hyeong
 
     <TextView
         android:id="@+id/textView2"
@@ -32,4 +25,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="316dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="396dp"
+        android:text="Hello User"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+=======
+>>>>>>> parent of bb0b8ef... Merge pull request #61 from Sambath77/Hyeong
 </androidx.constraintlayout.widget.ConstraintLayout>
