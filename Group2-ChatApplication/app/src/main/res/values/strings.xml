@@ -80,11 +80,5 @@
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
 
-    <string name="profile_firstname">First Name</string>
-    <string name="profile_lastname">Last Name</string>
-    <string name="profile_username">User Name</string>
-    <string name="profile_email">Email</string>
-
-    <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com/</string>
 
 </resources>
