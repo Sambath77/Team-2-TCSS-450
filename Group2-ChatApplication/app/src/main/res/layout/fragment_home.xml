@@ -1,239 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_root"
+    android:id="@+id/card_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="65dp"
+        android:text="@string/home_title" />
+
+    <!--    <fragment-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:layout_marginTop="270dp"-->
+<!--        android:id="@+id/google_map"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_root"
+        android:id="@+id/layout_inner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/text_title"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <TextView
+            android:id="@+id/text_pubdate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#00008577"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:layout_marginTop="84dp"
+            android:background="@color/colorPrimary"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/colorOffWhite"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--            app:navigationIcon="@drawable/menu"-->
 
-
-        <TextView
-            android:id="@+id/text_user_email"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/button_full_post"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/home_email"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            android:layout_marginStart="285dp"
+            android:text="@string/read_more_chat"
+            android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/text_pubdate"
+            tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/text_welcome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/home_welcome"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_user_email" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_user_email"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:srcCompat="@drawable/profilepic"
-            android:contentDescription="TODO" />
+            android:layout_width="78dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_cloud_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/cloudy_TEMP_title"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/degrees_F_TEMP_title"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/high_low_TEMP_title"
+            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/precipitation_TEMP_title"
+            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/currently_title"
+            android:textColor="#A0A0A0"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <RelativeLayout
-                    android:id="@+id/layout_home_unreadChat"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/text_unreadChat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/image_chatIcon"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="-71dp"
-                        android:layout_toEndOf="@+id/image_chatIcon"
-                        android:text="@string/home_unreadChat"
-                        android:textSize="24sp" />
-
-                    <ImageView
-                        android:id="@+id/image_chatIcon"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@drawable/ic_chat_24dp" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="240dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <RelativeLayout
-                    android:id="@+id/layout_home_weather"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/text_Location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_toEndOf="@+id/image_weatherIcon"
-                        android:text="@string/home_location"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/text_weather"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_below="@+id/text_Location"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toEndOf="@+id/image_weatherIcon"
-                        android:text="@string/home_weather"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/text_Temperature"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_below="@+id/text_weather"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toEndOf="@+id/image_weatherIcon"
-                        android:text="@string/home_temperature"
-                        android:textSize="18sp" />
-
-
-                    <TextView
-                        android:id="@+id/text_windSpeed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_Temperature"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toEndOf="@+id/image_weatherIcon"
-                        android:text="@string/home_windSpeed"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/text_humidity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_windSpeed"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toEndOf="@+id/image_weatherIcon"
-                        android:text="@string/home_humidity"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/text_precipitation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/text_humidity"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toEndOf="@+id/image_weatherIcon"
-                        android:text="@string/home_precipitation"
-                        android:textSize="18sp" />
-
-                    <ImageView
-                        android:id="@+id/image_weatherIcon"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@drawable/ic_weather_24" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_Location"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="31dp"-->
-<!--            android:text="TextView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />-->
-<!--        <TextView-->
-<!--            android:id="@+id/text_Temperature"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="31dp"-->
-<!--            android:text="TextView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/text_Location" />-->
-<!--        <TextView-->
-<!--            android:id="@+id/text_CurrentWeather"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="31dp"-->
-<!--            android:text="TextView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/text_Temperature" />-->
-
+        <Button
+            android:id="@+id/button_home_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/read_more_chat"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapsView"
+        android:name="com.google.android.gms.maps.SupportMap"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="400dp" />
+
+</androidx.cardview.widget.CardView>

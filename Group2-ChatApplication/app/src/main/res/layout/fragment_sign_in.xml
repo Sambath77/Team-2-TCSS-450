@@ -1,211 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/signin_layout"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context="edu.uw.tcss450.team2.signin.SignInFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <de.hdodenhof.circleimageview.CircleImageView
+
+    <EditText
+        android:id="@+id/emailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="88dp"
+        android:autofillHints=""
+        android:background="@drawable/text_shape"
+        android:drawableLeft="@drawable/left_drawable"
+        android:ems="10"
+        android:hint="@string/email_address"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="210dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="400dp"
+        android:background="@drawable/text_shape"
+        android:drawableLeft="@drawable/password_left_drawable"
+        android:ems="10"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailAddress"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="210dp" />
+
+    <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".6"
         android:scaleType="centerCrop"
-        android:padding="5dp"
-       />
-
-<!--    <ImageView-->
-<!--            android:id="@+id/app_logo"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="150dp"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_marginTop="100dp"-->
-<!--            android:src="@drawable/logo"/>-->
-    <EditText
-            android:id="@+id/email_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/login_shape"
-            android:drawableLeft="@drawable/left_drawable"
-            android:hint="@string/email_address"
-            android:textColor="@color/black"
-            android:layout_below="@id/app_logo"
-            android:inputType="textEmailAddress"
-            android:textSize="20dp"
-            android:textStyle="bold"
-
-            android:padding="3dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            />
-
-    <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_shape"
-            android:drawableLeft="@drawable/password_left_drawable"
-            android:hint="@string/password"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:inputType="textPassword"
-
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/email_address"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:padding="3dp"/>
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"/>
 
     <Button
         android:id="@+id/signIn_info_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/register_info_button"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="190dp"
         android:background="@drawable/round_shape"
         android:onClick="@string/onClick_button"
-        android:text="@string/login_button" />
+        android:text="@string/login_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/register_info_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_alignStart="@+id/password"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="190dp"
         android:background="@drawable/round_shape"
         android:onClick="@string/onClick_button"
-        android:text="@string/register_button" />
-
-    <Switch
-        android:id="@+id/switch_signin"
-        android:layout_width="146dp"
-        android:layout_height="38dp"
-        android:layout_below="@+id/password"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="70dp"
-        android:layout_toEndOf="@+id/register_info_button"
-        android:checked="true"
-        android:text="@string/switch_sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/switch_sign_in" />
-
-    <Button
-        android:id="@+id/forgot_password_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/switch_signin"
-        android:layout_alignStart="@+id/switch_signin"
-        android:layout_marginStart="-25dp"
-        android:layout_marginTop="9dp"
-        android:text="@string/sign_in_forgot_password" />
-
-
-    <!--    <ImageView-->
-<!--        android:id="@+id/app_logo"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:src="@drawable/logo"/>-->
-<!--    <EditText-->
-<!--        android:id="@+id/email_address"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="200dp"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:background="@drawable/login_shape"-->
-<!--        android:drawableLeft="@drawable/left_drawable"-->
-<!--        android:hint="@string/email_address"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="20dp"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColorHint="@color/red"-->
-<!--        android:padding="3dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"-->
-<!--        />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/password"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/login_shape"-->
-<!--        android:drawableLeft="@drawable/password_left_drawable"-->
-<!--        android:hint="@string/password"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="20dp"-->
-<!--        android:inputType="textPassword"-->
-<!--        android:textColorHint="@color/red"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_below="@id/email_address"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginRight="30dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:padding="3dp"/>-->
-
-
-<!--    <Button-->
-<!--        android:id="@+id/signIn_info_button"-->
-<!--        style="@style/Widget.AppCompat.Button.Colored"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:background="@drawable/round_shape"-->
-<!--        android:onClick="@string/onClick_button"-->
-<!--        android:text="@string/login_button"-->
-<!--        android:textColor="@color/red"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_below="@id/password"/>-->
-
-<!--    <EditText-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/new_account"-->
-<!--        android:text="@string/new_user"-->
-<!--        android:layout_below="@id/signIn_info_button"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:textColor="@color/red"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textSize="20dp"-->
-<!--        android:padding="3dp"-->
-<!--        android:layout_centerInParent="true"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/register_info_button"-->
-<!--        style="@style/Widget.AppCompat.Button.Colored"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/round_shape"-->
-<!--        android:onClick="@string/onClick_button"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:textColor="@color/red"-->
-<!--        android:text="@string/register_button"-->
-<!--        android:layout_below="@id/new_account"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        />-->
+        android:text="@string/register_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signIn_info_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/reset_password_button"
@@ -218,4 +102,4 @@
         app:layout_constraintTop_toBottomOf="@+id/register_info_button" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
