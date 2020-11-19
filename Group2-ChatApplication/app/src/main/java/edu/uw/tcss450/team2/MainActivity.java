@@ -132,61 +132,12 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
-//        //TODO handlong getting current lat/long
-//        tvLatitude = (TextView)findViewById(R.id.latitude);
-//        tvLongitude = (TextView)findViewById(R.id.longitude);
-//        try {
-//            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-//                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-
-        // construct a new instance of SimpleLocation
-//        location = new SimpleLocation(this);
-//
-//        // if we can't access the location yet
-//        if (!location.hasLocationEnabled()) {
-//            // ask the user to enable location access
-//            SimpleLocation.openSettings(this);
-//        }
-//        latitude = location.getLatitude();
-//        longitude = location.getLongitude();
-//        System.out.println("lat/long: " + latitude + longitude);
-
-//        findViewById(R.id.navigation_home).setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                final double latitude = location.getLatitude();
-//                final double longitude = location.getLongitude();
-//                System.out.println("lat/long: " + latitude + longitude);
-//                // TODO
-//            }
-//
-//        });
-
-
     }
 
-//    //TODO added by Hyeong, helper method for getting current lat/long
-//    public void getLocation(View view){
-//        gpsTracker = new GpsTracker(MainActivity.this);
-//        if(gpsTracker.canGetLocation()){
-//            double latitude = gpsTracker.getLatitude();
-//            double longitude = gpsTracker.getLongitude();
-//
-//            //System.out.println("lat/long = " + latitude + ", " + longitude);
-//            tvLatitude.setText(String.valueOf(latitude));
-//            tvLongitude.setText(String.valueOf(longitude));
-//        }else{
-//            gpsTracker.showSettingsAlert();
-//        }
 
 
-//    }
+
+
 
 //    public void restartApp() {
 //        Intent i = new Intent(getApplicationContext(), MainActivity.class);
