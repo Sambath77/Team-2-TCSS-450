@@ -76,17 +76,18 @@ public class SignInFragment extends Fragment {
                 ));
 
         binding.signInInfoButton.setOnClickListener(this::attemptSignIn);
+        binding.resetPasswordButton.setOnClickListener(this::navigateToResetPassword);
 
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeSignInResponse);
 
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
-        binding.emailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        binding.emailAddress.setText(args.getEmail().equals("default") ? "test1@test.com" : args.getEmail());
+        binding.password.setText(args.getPassword().equals("default") ? "test12345" : args.getPassword());
 
-        binding.emailAddress.setText("test1@test.com");
-        binding.password.setText("test12345");
+//        binding.emailAddress.setText("test1@test.com");
+//        binding.password.setText("test12345");
 
 
 
@@ -103,6 +104,13 @@ public class SignInFragment extends Fragment {
 //        navigateToSuccess("", "", "", "");
 //        //validateEmail();
 //    }
+
+    private void navigateToResetPassword(final View view) {
+        Navigation.findNavController(getView())
+                .navigate(SignInFragmentDirections.actionSignInFragmentToNewPasswordFragment4(
+                        binding.emailAddress.getText().toString()
+                ));
+    }
 
     /*
      * helper method to verify the log in
@@ -181,9 +189,18 @@ public class SignInFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.emailAddress.setError(
-                            "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
+                    if (response.getJSONObject("data").getString("message").contains("A new password must be set")) {
+                        mSignInModel.clearResponse();
+                        Navigation.findNavController(getView())
+                                .navigate(SignInFragmentDirections
+                                        .actionSignInFragmentToSetPasswordFragment(
+                                                binding.emailAddress.getText().toString(),
+                                                binding.password.getText().toString()));
+                    } else {
+                        binding.emailAddress.setError(
+                                "Error Authenticating: " +
+                                        response.getJSONObject("data").getString("message"));
+                    }
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
