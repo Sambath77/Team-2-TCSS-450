@@ -17,4 +17,16 @@
         app:showAsAction="always"/>
 
 
+    <item
+        android:id="@+id/profile"
+        android:title="@string/profile_title"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:title="@string/log_out"
+        android:id="@+id/log_out"
+        app:showAsAction="never"/>
+
+
 </menu>

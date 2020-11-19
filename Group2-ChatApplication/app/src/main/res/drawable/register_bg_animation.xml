@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/register_bg_first_layer"
+        android:duration="5000"/>
+    <item android:drawable="@drawable/register_bg_second_layer"
+        android:duration="5000"/>
+    <item android:duration="5000"
+        android:drawable="@drawable/register_bg_thrid_layer"/>
+</animation-list>
