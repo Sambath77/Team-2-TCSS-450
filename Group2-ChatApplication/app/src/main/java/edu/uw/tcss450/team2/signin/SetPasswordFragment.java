@@ -78,11 +78,15 @@ public class SetPasswordFragment extends Fragment {
         SetPasswordFragmentArgs args = SetPasswordFragmentArgs.fromBundle(getArguments());
         mEmail = args.getEmail();
         mPassword = args.getPassword();
+
+        Log.d("temp", "here1");
     }
 
     // TODO
     private void observeSignInResponse(JSONObject response) {
+        Log.d("temp", "here2");
         if (response.length() > 0) {
+            Log.d("temp", "here3");
             if (response.has("code")) {
                 try {
                     binding.passwordField1.setError(
@@ -92,6 +96,7 @@ public class SetPasswordFragment extends Fragment {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
+                Log.d("temp", "here4");
                 navigateBackToSignIn(null);
                 Toast.makeText(getActivity(),
                         "New password set!",

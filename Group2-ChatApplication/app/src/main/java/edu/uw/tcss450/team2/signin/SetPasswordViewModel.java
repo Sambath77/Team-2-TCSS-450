@@ -36,7 +36,7 @@ public class SetPasswordViewModel extends AndroidViewModel {
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,
-                               @NonNull Observer<? super JSONObject> observer) {
+                                    @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
