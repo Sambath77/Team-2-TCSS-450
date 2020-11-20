@@ -17,7 +17,7 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass .
  */
 public class ChatFragment extends Fragment {
 

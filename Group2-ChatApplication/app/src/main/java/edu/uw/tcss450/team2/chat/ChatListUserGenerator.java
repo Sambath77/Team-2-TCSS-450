@@ -3,6 +3,9 @@ package edu.uw.tcss450.team2.chat;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *
+ */
 public class ChatListUserGenerator {
 
     private static final ChatRoomModel[] CHAT_LIST_USER_MODELS;

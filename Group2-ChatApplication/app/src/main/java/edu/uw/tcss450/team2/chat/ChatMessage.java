@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * Encapsulate chat message details.
+ *
  */
 public final class ChatMessage implements Serializable {
 

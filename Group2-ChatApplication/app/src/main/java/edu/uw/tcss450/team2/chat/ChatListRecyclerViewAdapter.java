@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatCardBinding;
 
+/**
+ *
+ */
 public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.ChatViewHolder> {
 
     private final Map<ChatRoomModel, Boolean> mExpandedFlags;

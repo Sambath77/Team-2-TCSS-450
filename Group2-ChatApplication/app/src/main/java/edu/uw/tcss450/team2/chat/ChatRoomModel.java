@@ -2,6 +2,9 @@ package edu.uw.tcss450.team2.chat;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class ChatRoomModel {
 
     private int chatId;

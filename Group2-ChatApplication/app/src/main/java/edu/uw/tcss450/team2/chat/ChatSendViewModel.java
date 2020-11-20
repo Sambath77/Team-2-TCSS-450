@@ -25,6 +25,9 @@ import java.util.Objects;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
+/**
+ *
+ */
 public class ChatSendViewModel extends AndroidViewModel {
 
     private final MutableLiveData<JSONObject> mResponse;

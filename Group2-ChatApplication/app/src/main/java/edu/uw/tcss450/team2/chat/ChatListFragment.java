@@ -32,6 +32,9 @@ import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
+/**
+ *
+ */
 public class ChatListFragment extends Fragment {
 
     private ChatListViewModel mModel;

@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ *
+ */
 public class ChatListViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<ChatRoomModel>> mRooms;
@@ -46,8 +49,16 @@ public class ChatListViewModel extends AndroidViewModel {
     }
 
     public void connectGet(String jwt, String userEmail) {
+
+
+
+
         this.mRooms.getValue().clear();
         this.jwt = jwt;
+
+
+
+
         String url =
                 "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/" + userEmail;
         Request request = new JsonObjectRequest(
@@ -72,6 +83,10 @@ public class ChatListViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
+
+
+
+
     }
 
 

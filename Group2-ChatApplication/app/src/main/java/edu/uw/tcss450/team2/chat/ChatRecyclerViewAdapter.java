@@ -19,6 +19,9 @@ import java.util.List;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatMessageBinding;
 
+/**
+ *
+ */
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.MessageViewHolder> {
 
     private final List<ChatMessage> mMessages;
