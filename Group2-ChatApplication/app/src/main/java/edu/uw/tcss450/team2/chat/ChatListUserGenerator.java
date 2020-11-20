@@ -3,28 +3,31 @@ package edu.uw.tcss450.team2.chat;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *
+ */
 public class ChatListUserGenerator {
 
-    private static final ChatListUserModel[] CHAT_LIST_USER_MODELS;
+    private static final ChatRoomModel[] CHAT_LIST_USER_MODELS;
     public static final int COUNT = 20;
 
 
     static {
-        CHAT_LIST_USER_MODELS = new ChatListUserModel[COUNT];
+        CHAT_LIST_USER_MODELS = new ChatRoomModel[COUNT];
         for (int i = 0; i < CHAT_LIST_USER_MODELS.length; i++) {
-            ChatListUserModel chatListUserModel = new ChatListUserModel();
-            chatListUserModel.setUserName("sambath777");
-            chatListUserModel.setBriefMessage("Hey, pls dont forget to ...");
+            ChatRoomModel chatRoomModel = new ChatRoomModel();
+            chatRoomModel.setChatId(1);
+            chatRoomModel.setRoomName("Chat room 1");
 
-            CHAT_LIST_USER_MODELS[i] = chatListUserModel;
+            CHAT_LIST_USER_MODELS[i] = chatRoomModel;
         }
     }
 
-    public static List<ChatListUserModel> getUserList() {
+    public static List<ChatRoomModel> getUserList() {
         return Arrays.asList(CHAT_LIST_USER_MODELS);
     }
 
-    public static ChatListUserModel[] getUSERS() {
+    public static ChatRoomModel[] getUSERS() {
         return Arrays.copyOf(CHAT_LIST_USER_MODELS, CHAT_LIST_USER_MODELS.length);
     }
 

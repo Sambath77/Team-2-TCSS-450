@@ -9,32 +9,50 @@ import java.io.Serializable;
 
 public class FriendContacts implements Serializable {
     private final String mUsername;
-    private final int mContactId;
-    private final int mMemberId;
+    private final String nfName;
+    private final String nlName;
 
-    public FriendContacts(int mContactId, int mMemberId, String mUsername) {
+    public FriendContacts(String fName, String lName, String mUsername) {
+
+        this.nfName = fName;
+        this.nlName = lName;
         this.mUsername = mUsername;
-        this.mContactId = mContactId;
-        this.mMemberId = mMemberId;
     }
 
 
 
+    /**
+     * Static factory method to turn a properly formatted JSON String into a
+     * FriendContacts object.
+     * @param cmAsJson the String to be parsed into a ChatMessage Object.
+     * @return a FriendContacts Object with the details contained in the JSON String.
+     * @throws JSONException when cmAsString cannot be parsed into a FriendContacts.
+     */
     public static FriendContacts createFromJsonString(final String cmAsJson) throws JSONException {
         final JSONObject username = new JSONObject(cmAsJson);
-        return new FriendContacts(username.getInt("ContactId"), username.getInt("MemberId"),username.getString("Username"));
+        return new FriendContacts(username.getString("firstname"),
+                username.getString("lastname"),username.getString("username"));
     }
 
+    /*
+     * method to return the username
+     */
     public String getmUsername() {
         return mUsername;
     }
 
-    public int getmContactId() {
-        return mContactId;
+    /*
+     * method to return the first name
+     */
+    public String getmFName() {
+        return nfName;
     }
 
-    public int getmMemberId() {
-        return mMemberId;
+    /*
+     * method to return the last name
+     */
+    public String getmLName() {
+        return nlName;
     }
 
 

@@ -115,4 +115,11 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Clears the JSON response object
+     */
+    public void clearResponse() {
+        mResponse.setValue(new JSONObject());
+    }
+
 }

@@ -1,10 +1,15 @@
 package edu.uw.tcss450.team2.friend;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.card.MaterialCardView;
+
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +62,12 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
         }
 
 
+        /*
+         * method to set up the contact and display the username
+         * @param: contact is the contact list
+         */
         void setContact(final FriendContacts contact) {
+
             friendContacts = contact;
 
             binding.buttonFullView.setOnClickListener(view -> {

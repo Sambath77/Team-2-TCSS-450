@@ -5,9 +5,11 @@
 
 package edu.uw.tcss450.team2.signin;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,23 +17,27 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450.team2.model.PushyTokenViewModel;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
+
 import edu.uw.tcss450.team2.R;
+
 import edu.uw.tcss450.team2.utils.PasswordValidator;
+
 import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
+import edu.uw.tcss450.team2.utils.PasswordValidator;
+
 
 import static edu.uw.tcss450.team2.utils.PasswordValidator.*;
 
 
 public class SignInFragment extends Fragment {
+
+    private PushyTokenViewModel mPushyTokenViewModel;
+    private UserInfoViewModel mUserViewModel;
 
     private FragmentSignInBinding binding;
     private SignInViewModel mSignInModel;
@@ -54,6 +60,9 @@ public class SignInFragment extends Fragment {
 
         mSignInModel = new ViewModelProvider(getActivity())
                 .get(SignInViewModel.class);
+
+        mPushyTokenViewModel = new ViewModelProvider(getActivity())
+                .get(PushyTokenViewModel.class);
     }
 
     @Override
@@ -75,15 +84,28 @@ public class SignInFragment extends Fragment {
 
         binding.signInInfoButton.setOnClickListener(this::attemptSignIn);
 
+        binding.forgotPasswordButton.setOnClickListener(this::navigateToResetPassword);
+
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
-                this::observeResponse);
+                this::observeSignInResponse);
 
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
-        //binding.emailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        //binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        binding.emailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+
         binding.emailAddress.setText("test1@test.com");
         binding.password.setText("test12345");
+
+
+
+        mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->
+                binding.signInInfoButton.setEnabled(!token.isEmpty()));
+
+        mPushyTokenViewModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::observePushyPutResponse);
+
     }
 
 //    private void attemptSignIn(final View button) {
@@ -97,7 +119,11 @@ public class SignInFragment extends Fragment {
      * @param: View is a button
      */
     private void attemptSignIn(final View button) {
+
+        //navigateToSuccess("", "");
+
 //        navigateToSuccess("", "");
+
         validateEmail();
     }
 
@@ -164,13 +190,97 @@ public class SignInFragment extends Fragment {
      *
      * @param response the Response from the server
      */
-    private void observeResponse(final JSONObject response) {
+    private void observeSignInResponse(final JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
                     binding.emailAddress.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                try {
+                    mUserViewModel = new ViewModelProvider(getActivity(),
+                            new UserInfoViewModel.UserInfoViewModelFactory(
+                                    binding.emailAddress.getText().toString(),
+                                    response.getString("token")
+                            )).get(UserInfoViewModel.class);
+                    //navigateToSuccess(mUserViewModel.getEmail(), mUserViewModel.getJwt());
+                    sendPushyToken();
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+
+    }
+
+    /**
+     * Helper to abstract the request to send the pushy token to the web service
+     */
+    private void sendPushyToken() {
+        mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getJwt());
+    }
+
+    /**
+     * An observer on the HTTP Response from the web server. This observer should be
+     * attached to PushyTokenViewModel.
+     *
+     * @param response the Response from the server
+     */
+    private void observePushyPutResponse(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                //this error cannot be fixed by the user changing credentials...
+                binding.emailAddress.setError(
+                        "Error Authenticating on Push Token. Please contact support");
+            } else {
+                navigateToSuccess(
+                        binding.emailAddress.getText().toString(),
+                        mUserViewModel.getJwt()
+                );
+            }
+        }
+    }
+
+
+    /**
+     * Navigates to the reset password fragment
+     * @param view See above
+     */
+    private void navigateToResetPassword(View view) {
+        Navigation.findNavController(getView()).navigate(SignInFragmentDirections.actionSignInFragmentToNewPasswordFragment(
+                binding.emailAddress.getText().toString()
+        ));
+    }
+
+    /**
+     * An observer on the HTTP Response from the web server. This observer should be
+     * attached to SignInViewModel.
+     *
+     * @param response the Response from the server
+     */
+    private void observeResponse(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    if (response.getJSONObject("data").getString("message").contains("A new password must be set")) {
+                        mSignInModel.clearResponse();
+                        Navigation.findNavController(getView())
+                                .navigate(SignInFragmentDirections
+                                        .actionSignInFragmentToSetPasswordFragment(
+                                                binding.emailAddress.getText().toString(),
+                                                binding.password.getText().toString()));
+                    } else {
+                        binding.emailAddress.setError(
+                                "Error Authenticating: " +
+                                        response.getJSONObject("data").getString("message"));
+                    }
+
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
@@ -188,7 +298,6 @@ public class SignInFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
-
 
 
 }
