@@ -155,6 +155,10 @@ public class SignInFragment extends Fragment {
                         .actionSignInFragmentToMainActivity(email, jwt));
     }
 
+    /**
+     * Navigates to the reset password fragment
+     * @param view See above
+     */
     private void navigateToResetPassword(View view) {
         Navigation.findNavController(getView()).navigate(SignInFragmentDirections.actionSignInFragmentToNewPasswordFragment(
                 binding.emailAddress.getText().toString()
@@ -201,7 +205,4 @@ public class SignInFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
-
-
-
 }

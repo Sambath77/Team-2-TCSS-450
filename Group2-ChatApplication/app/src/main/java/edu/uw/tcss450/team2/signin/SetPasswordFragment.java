@@ -33,6 +33,9 @@ import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdLowerCase;
 import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdSpecialChar;
 import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdUpperCase;
 
+/**
+ * Fragment to set a new password for a user
+ */
 public class SetPasswordFragment extends Fragment {
 
     private FragmentSetPasswordBinding binding;
@@ -82,7 +85,10 @@ public class SetPasswordFragment extends Fragment {
         Log.d("temp", "here1");
     }
 
-    // TODO
+    /**
+     * Observes a chance in the json object
+     * @param response The new json object
+     */
     private void observeSignInResponse(JSONObject response) {
         Log.d("temp", "here2");
         if (response.length() > 0) {
@@ -112,6 +118,10 @@ public class SetPasswordFragment extends Fragment {
 
     }
 
+    /**
+     * Checks that the password is valid
+     * @param view The view required to make this be an action listener
+     */
     private void checkPasswords(View view) {
         mPassWordValidator.processResult(
                 mPassWordValidator.apply(binding.passwordField1.getText().toString()),
@@ -119,10 +129,17 @@ public class SetPasswordFragment extends Fragment {
                 result -> binding.passwordField1.setError("Please enter a valid Password."));
     }
 
+    /**
+     * Sends a request to set the given user with the given temporary password to the given new password
+     */
     private void attemptToSetPassword() {
         mSetPasswordViewModel.connect(mEmail, mPassword, binding.passwordField1.getText().toString());
     }
 
+    /**
+     * Navigates safely back to sign in page
+     * @param view See above
+     */
     private void navigateBackToSignIn(View view) {
         Navigation.findNavController(getView()).navigate(
                 SetPasswordFragmentDirections.actionSetPasswordFragmentToSignInFragment());

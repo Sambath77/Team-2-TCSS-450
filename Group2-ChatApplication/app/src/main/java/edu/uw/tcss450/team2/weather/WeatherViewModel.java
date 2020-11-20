@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team2.signin;
+package edu.uw.tcss450.team2.weather;
 
 import android.app.Application;
 import android.util.Base64;
@@ -9,8 +9,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -26,38 +26,23 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
-/**
- * Handles sending a request to reset the password
- */
-public class NewPasswordViewModel extends AndroidViewModel {
+public class WeatherViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    /**
-     * Creates a new newpasswordviewmodel
-     * @param application See parent
-     */
-    public NewPasswordViewModel(@NonNull Application application) {
+    public WeatherViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
-    /**
-     * Adds given objects as an observer to the jsonobject
-     * @param owner The lifecycle owner
-     * @param observer The observer
-     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
-    /**
-     * handles errors during the request
-     * @param error The error encountered during the request
-     */
     private void handleError(final VolleyError error) {
+        Log.e("TEST", "error: " + error);
         if (Objects.isNull(error.networkResponse)) {
             try {
                 mResponse.setValue(new JSONObject("{" +
@@ -81,26 +66,22 @@ public class NewPasswordViewModel extends AndroidViewModel {
         }
     }
 
-    /**
-     * Connects to the web server to request that the given user's password be reset.
-     * @param email The user whose password is to be reset.
-     */
-    public void connect(final String email) {
-        String url = "https://team-2-tcss-450-webservices.herokuapp.com/resetpassword";
-
-        JSONObject body = new JSONObject();
-        try {
-            body.put("email", email);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void connect(final String location) {
+        String url = "https://team-2-tcss-450-webservices.herokuapp.com/weather";
 
         Request request = new JsonObjectRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 url,
-                body,
+                null,
                 mResponse::setValue,
-                this::handleError);
+                this::handleError){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("location", location);
+                return headers;
+            }
+        };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
@@ -109,5 +90,35 @@ public class NewPasswordViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
+    }
+
+    public static void interpretWeather(JSONObject response) {
+        Log.e("WEATHERVIEWMODEL", "response: " + response);
+        try {
+            JSONObject body = new JSONObject(response.getString("body"));
+            Log.e("WEATHERVIEWMODEL", "body: " + body);
+            Log.e("WEATHERVIEWMODEL", "body.names(): " + body.names());
+            JSONObject current = new JSONObject(body.getString("current"));
+            JSONObject forecast = new JSONObject(body.getString("forecast"));
+            Log.e("WEATHERVIEWMODEL", "current: " + current);
+            Log.e("WEATHERVIEWMODEL", "forecast: " + forecast);
+            Log.e("WEATHERVIEWMODEL", "current condition: " + current.getJSONObject("condition").getString("text"));
+            String weatherDiscriptor = current.getJSONObject("condition").getString("text");
+            double currentTemp = current.getDouble("temp_f");
+            Log.e("WEATHERVIEWMODEL", "weatherDiscriptor: " + weatherDiscriptor);
+            Log.e("WEATHERVIEWMODEL", "currentTemp: " + currentTemp);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static double currentTemperature(JSONObject response) throws JSONException {
+        return new JSONObject(new JSONObject(response.getString("body")).getString("current")).getDouble("temp_f");
+    }
+
+    public static String currentDescription(JSONObject response) throws JSONException {
+        return new JSONObject(new JSONObject(response.getString("body")).getString("current")).getJSONObject("condition").getString("text");
     }
 }

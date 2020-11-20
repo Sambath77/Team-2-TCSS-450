@@ -49,11 +49,14 @@ public class SignInViewModel extends AndroidViewModel {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Clears the JSON response object
+     */
     public void clearResponse() {
         mResponse.setValue(new JSONObject());
     }
 
-    /*
+    /**
      *  helper method to handle a error
      *
      * @param: error

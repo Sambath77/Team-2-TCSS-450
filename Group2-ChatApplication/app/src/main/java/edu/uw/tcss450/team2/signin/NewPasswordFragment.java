@@ -29,6 +29,9 @@ import static edu.uw.tcss450.team2.utils.PasswordValidator.checkExcludeWhiteSpac
 import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdLength;
 import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdSpecialChar;
 
+/**
+ * Fragment to reset a user's password
+ */
 public class NewPasswordFragment extends Fragment {
 
     private FragmentNewPasswordBinding binding;
@@ -68,6 +71,10 @@ public class NewPasswordFragment extends Fragment {
         binding.emailTextField.setText(args.getEmail());
     }
 
+    /**
+     * Observes the change JSONObject for when a request is returned
+     * @param response The new JSONObject
+     */
     private void observeSignInResponse(JSONObject response) {
         if (response.length() > 0) {
             if (response.has("code")) {
@@ -93,6 +100,10 @@ public class NewPasswordFragment extends Fragment {
         }
     }
 
+    /**
+     * Attempts to reset password by first validating the email in the text field
+     * @param view Text view parameter required to let this be an action listener.
+     */
     private void attemptToResetPassword(View view) {
         String emailText = binding.emailTextField.getText().toString();
 
@@ -102,10 +113,16 @@ public class NewPasswordFragment extends Fragment {
                 result -> binding.emailTextField.setError("Please enter a valid Email address."));
     }
 
+    /**
+     * Sends request to reset password
+     */
     private void validEmailResetPassword() {
         mNewPasswordViewModel.connect(binding.emailTextField.getText().toString());
     }
 
+    /**
+     * Returns to the sign in page
+     */
     private void navigateBackToSignIn(View view) {
         Navigation.findNavController(getView()).navigate(
                 NewPasswordFragmentDirections
