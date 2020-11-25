@@ -194,9 +194,18 @@ public class SignInFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.emailAddress.setError(
-                            "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
+                    if (response.getJSONObject("data").getString("message").contains("A new password must be set")) {
+                        mSignInModel.clearResponse();
+                        Navigation.findNavController(getView())
+                                .navigate(SignInFragmentDirections
+                                        .actionSignInFragmentToSetPasswordFragment(
+                                                binding.emailAddress.getText().toString(),
+                                                binding.password.getText().toString()));
+                    } else {
+                        binding.emailAddress.setError(
+                                "Error Authenticating: " +
+                                        response.getJSONObject("data").getString("message"));
+                    }
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
