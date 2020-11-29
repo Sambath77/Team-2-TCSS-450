@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatRoomMemberFragment"
             app:destination="@id/chatRoomMemberFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_createChatRoomFragment"
+            app:destination="@id/createChatRoomFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalChatFragment"
@@ -88,5 +91,9 @@
             android:name="contactList"
             app:argType="edu.uw.tcss450.team2.friend.FriendContacts" />
     </fragment>
+    <fragment
+        android:id="@+id/createChatRoomFragment"
+        android:name="edu.uw.tcss450.team2.chat.createChatRoom.CreateChatRoomFragment"
+        android:label="CreateChatRoomFragment" />
 
 </navigation>

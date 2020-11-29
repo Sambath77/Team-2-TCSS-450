@@ -50,14 +50,8 @@ public class ChatListViewModel extends AndroidViewModel {
 
     public void connectGet(String jwt, String userEmail) {
 
-
-
-
-        this.mRooms.getValue().clear();
+        this.mRooms.setValue(new ArrayList<>());
         this.jwt = jwt;
-
-
-
 
         String url =
                 "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/" + userEmail;

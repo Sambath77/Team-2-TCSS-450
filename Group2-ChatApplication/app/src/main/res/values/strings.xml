@@ -60,7 +60,7 @@
 
 
     <string name="base_url">https://team-2-tcss-450-webservices.herokuapp.com/</string>
-    
+
     <string name="profile_firstname">First Name</string>
     <string name="profile_lastname">Last Name</string>
     <string name="profile_username">User Name</string>
@@ -87,5 +87,7 @@
     <string name="set_new_password">Set New Password</string>
     <string name="new_password">New Password:</string>
 
+
+    <string name="create_chat_room">Create Chat Rooms</string>
 
 </resources>

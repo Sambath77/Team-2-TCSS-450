@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
+import edu.uw.tcss450.team2.friend.FriendListFragmentDirections;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 /**
@@ -76,10 +78,15 @@ public class ChatListFragment extends Fragment {
                 binding.listRoot.setAdapter(
                         new ChatListRecyclerViewAdapter(userList)
                 );
-                binding.layoutWait.setVisibility(View.GONE);
+                //binding.layoutWait.setVisibility(View.GONE);
             }
         });
 
+        binding.createChatRoomBtn.setOnClickListener(event -> {
+                    Navigation.findNavController(view).navigate(ChatListFragmentDirections
+                            .actionNavigationChatToCreateChatRoomFragment());
+                }
+        );
 
     }
 
