@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentCreateChatRoomBinding;
 import edu.uw.tcss450.team2.friend.FriendContacts;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
@@ -107,6 +108,7 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
             }
 
             mContacts.setValue(list);
+
         }catch (JSONException e) {
             Log.e("JSON PARSE ERROR", "Found in handle Success FriendContactsViewModel");
             Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());

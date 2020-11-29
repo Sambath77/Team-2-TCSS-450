@@ -178,10 +178,10 @@ public class SignInFragment extends Fragment {
 //                        .actionSignInFragmentToMainActivity(email, jwt, fName, lName));
 //    }
 
-    private void navigateToSuccess(final String email, final String jwt) {
+    private void navigateToSuccess(final String email, final String jwt, int memberId) {
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
-                        .actionSignInFragmentToMainActivity(email, jwt));
+                        .actionSignInFragmentToMainActivity(email, jwt, memberId));
     }
 
     /**
@@ -214,7 +214,8 @@ public class SignInFragment extends Fragment {
                     mUserViewModel = new ViewModelProvider(getActivity(),
                             new UserInfoViewModel.UserInfoViewModelFactory(
                                     binding.emailAddress.getText().toString(),
-                                    response.getString("token")
+                                    response.getString("token"),
+                                    response.getInt("memberid")
                             )).get(UserInfoViewModel.class);
                     //navigateToSuccess(mUserViewModel.getEmail(), mUserViewModel.getJwt());
                     sendPushyToken();
@@ -250,7 +251,8 @@ public class SignInFragment extends Fragment {
             } else {
                 navigateToSuccess(
                         binding.emailAddress.getText().toString(),
-                        mUserViewModel.getJwt()
+                        mUserViewModel.getJwt(),
+                        mUserViewModel.getMemberId()
                 );
             }
         }
@@ -297,7 +299,8 @@ public class SignInFragment extends Fragment {
                 try {
                     navigateToSuccess(
                             binding.emailAddress.getText().toString(),
-                            response.getString("token")
+                            response.getString("token"),
+                            response.getInt("memberId")
                     );
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());

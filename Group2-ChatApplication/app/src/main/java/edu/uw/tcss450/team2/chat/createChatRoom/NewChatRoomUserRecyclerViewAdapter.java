@@ -27,13 +27,12 @@ public class NewChatRoomUserRecyclerViewAdapter extends RecyclerView.Adapter<New
     private final List<UserModel> mContacts;
     private UserModel friendContacts;
 
-    private final Map<UserModel, Boolean> mEditUser;
+    private Map<UserModel, Boolean> mEditUser;
 
-    public NewChatRoomUserRecyclerViewAdapter(List<UserModel> mContacts) {
+    public NewChatRoomUserRecyclerViewAdapter(List<UserModel> mContacts, Map<UserModel, Boolean> mEditUser) {
         this.mContacts = mContacts;
 
-        mEditUser = mContacts.stream()
-                .collect(Collectors.toMap(Function.identity(), blog -> false));
+        this.mEditUser = mEditUser;
     }
 
 

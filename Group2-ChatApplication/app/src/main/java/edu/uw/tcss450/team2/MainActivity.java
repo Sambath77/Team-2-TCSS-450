@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 //    private SignInFragment signInFragment;
     String email;
     String jwt;
+    int memberId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +142,9 @@ public class MainActivity extends AppCompatActivity {
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
         email = args.getEmail();
         jwt = args.getJwt();
+        memberId = args.getMemberId();
 
-        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
+        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, memberId)).
                 get(UserInfoViewModel.class);
 
 //        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, fName, lName)).

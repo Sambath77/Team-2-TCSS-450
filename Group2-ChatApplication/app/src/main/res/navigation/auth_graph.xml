@@ -50,7 +50,9 @@
         <argument
             android:name="jwt"
             app:argType="string" />
-<!--        <argument-->
+        <argument android:name="memberId"
+            app:argType="integer" />
+        <!--        <argument-->
 <!--            android:name="fName"-->
 <!--            app:argType="string" />-->
 <!--        <argument-->
