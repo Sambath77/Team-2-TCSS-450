@@ -94,6 +94,10 @@
     <fragment
         android:id="@+id/createChatRoomFragment"
         android:name="edu.uw.tcss450.team2.chat.createChatRoom.CreateChatRoomFragment"
-        android:label="CreateChatRoomFragment" />
+        android:label="CreateChatRoomFragment" >
+        <action
+            android:id="@+id/action_createChatRoomFragment_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
 
 </navigation>
