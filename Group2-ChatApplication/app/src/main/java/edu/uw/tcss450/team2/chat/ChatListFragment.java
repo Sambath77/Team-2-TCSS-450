@@ -72,13 +72,14 @@ public class ChatListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentChatListBinding binding = FragmentChatListBinding.bind(getView());
 
+        mModel.setBinding(binding);
 
         mModel.addUserListObserver(getViewLifecycleOwner(), userList -> {
             if (!userList.isEmpty()) {
                 binding.listRoot.setAdapter(
                         new ChatListRecyclerViewAdapter(userList)
                 );
-                //binding.layoutWait.setVisibility(View.GONE);
+                binding.layoutWait.setVisibility(View.GONE);
             }
         });
 

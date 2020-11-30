@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_createChatRoomFragment"
             app:destination="@id/createChatRoomFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_manageMembersFragment"
+            app:destination="@id/manageMembersFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalChatFragment"
@@ -98,6 +101,14 @@
         <action
             android:id="@+id/action_createChatRoomFragment_to_navigation_chat"
             app:destination="@id/navigation_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageMembersFragment"
+        android:name="edu.uw.tcss450.team2.chat.manageMembers.ManageMembersFragment"
+        android:label="ManageMembersFragment" >
+        <argument
+            android:name="chatId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

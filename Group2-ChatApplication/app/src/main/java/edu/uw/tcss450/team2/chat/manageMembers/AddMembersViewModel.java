@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team2.chat.createChatRoom;
+package edu.uw.tcss450.team2.chat.manageMembers;
 
 import android.app.Application;
 import android.util.Log;
@@ -26,22 +26,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragmentCreateChatRoomBinding;
-import edu.uw.tcss450.team2.friend.FriendContacts;
+import edu.uw.tcss450.team2.chat.createChatRoom.UserModel;
+import edu.uw.tcss450.team2.databinding.FragmentManageMembersBinding;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 
-public class NewChatRoomUserViewModel extends AndroidViewModel {
+public class AddMembersViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<UserModel>> mContacts;
-    private FragmentCreateChatRoomBinding binding;
 
-    public NewChatRoomUserViewModel(@NonNull Application application) {
+    private UserInfoViewModel userInfoViewModel;
+    private int chatId;
+    private FragmentManageMembersBinding binding;
+
+    private ManageMembersViewModel manageMembersViewModel;
+
+    public AddMembersViewModel(@NonNull Application application) {
         super(application);
 
         mContacts = new MutableLiveData<>();
         mContacts.setValue(new ArrayList<>());
+
+    }
+
+    public void setManageMembersViewModel(ManageMembersViewModel manageMembersViewModel) {
+        this.manageMembersViewModel = manageMembersViewModel;
+    }
+
+    public void setUserInfoViewModel(UserInfoViewModel userInfoViewModel) {
+        this.userInfoViewModel = userInfoViewModel;
+    }
+
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
+    }
+
+    public void setBinding(FragmentManageMembersBinding binding) {
+        this.binding = binding;
     }
 
     /*
@@ -53,24 +75,24 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
         mContacts.observe(owner, observer);
     }
 
-    public void setBinding(FragmentCreateChatRoomBinding binding) {
-        this.binding = binding;
-    }
-
     /*
      * method to setup a contact friend from the web server
      *
      */
 
-    public void getContactFriend(String jwt, String email) {
-        String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact/" + email;
+    public void getMembers(String jwt, int chatId, int memberId) throws JSONException {
+        String url =
+                "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/getContactsNotBelongChatRoom";
+
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("chatId", chatId);
+        jsonBody.put("memberId", memberId);
 
         Request request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null, //no body for this get request
-                this::handelSuccess,
+                jsonBody, //no body for this get request
+                this::handelSuccessForGetMembers,
                 this::handleError) {
                 public Map<String, String> getHeaders() {
                     Map<String, String> headers = new HashMap<>();
@@ -89,12 +111,49 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
     }
 
 
-    /*
-     * helper method to handle the successful for client requests
-     * @param: response is the JSONObject that response to the end point
-     */
+    public void addMember(String jwt, int chatId, int memberId) throws JSONException {
+        binding.layoutWait.setVisibility(View.VISIBLE);
+        String url =
+                "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/addMemberToChatRoom";
 
-    private void handelSuccess(final JSONObject response)  {
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("chatId", chatId);
+        jsonBody.put("memberId", memberId);
+
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                jsonBody, //no body for this get request
+                this::handelSuccessForAddMember,
+                this::handleError) {
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+
+    private void handelSuccessForAddMember(final JSONObject response)  {
+        try {
+            getMembers(this.userInfoViewModel.getJwt(), chatId, userInfoViewModel.getMemberId());
+            manageMembersViewModel.getMembers(userInfoViewModel.getJwt(), chatId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void handelSuccessForGetMembers(final JSONObject response)  {
         List<UserModel> list = new ArrayList<>();
         try {
 

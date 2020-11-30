@@ -94,9 +94,15 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
             binding.buittonMore.setOnClickListener(view ->
             {
+                /*
                 Navigation.findNavController(mView).navigate(
                         ChatListFragmentDirections
                                 .actionNavigationChatToChatRoomMemberFragment(chatRoomModel.getChatId()));
+                 */
+
+                Navigation.findNavController(mView).navigate(
+                        ChatListFragmentDirections
+                                .actionNavigationChatToManageMembersFragment(chatRoomModel.getChatId()));
 
             });
         }

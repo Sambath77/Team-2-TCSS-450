@@ -68,6 +68,7 @@ public class CreateChatRoomFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding = FragmentCreateChatRoomBinding.bind(getView());
+        mModel.setBinding(binding);
 
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (contactList != null) {
@@ -75,7 +76,6 @@ public class CreateChatRoomFragment extends Fragment {
                         .collect(Collectors.toMap(Function.identity(), blog -> false));
                 binding.listRoot.setAdapter(
                         new NewChatRoomUserRecyclerViewAdapter(contactList, mEditUser));
-                binding.layoutWait.setVisibility(View.GONE);
             }
         });
 
