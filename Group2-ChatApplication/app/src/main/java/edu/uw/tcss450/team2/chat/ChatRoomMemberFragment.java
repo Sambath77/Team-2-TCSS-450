@@ -44,6 +44,7 @@ public class ChatRoomMemberFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+
         connectGet(userInfoViewModel.getJwt(), this.getArguments().getInt("chatId"));
 
         return inflater.inflate(R.layout.fragment_chat_room_member, container, false);

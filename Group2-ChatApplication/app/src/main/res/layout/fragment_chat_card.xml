@@ -63,7 +63,7 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="27dp"
             android:background="@android:drawable/screen_background_light_transparent"
             app:layout_constraintBottom_toBottomOf="@+id/text_title"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,11 +74,12 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical|right"
+            android:text="@string/read_more_chat"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_preview"
-            android:text="@string/read_more_chat"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

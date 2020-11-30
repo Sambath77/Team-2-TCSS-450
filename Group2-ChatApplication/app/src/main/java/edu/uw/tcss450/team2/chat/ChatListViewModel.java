@@ -2,6 +2,7 @@ package edu.uw.tcss450.team2.chat;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
+
 /**
  *
  */
@@ -34,6 +37,7 @@ public class ChatListViewModel extends AndroidViewModel {
     private MutableLiveData<List<ChatRoomModel>> mRooms;
     private String jwt;
     private ChatRoomModel currentChatRoomModel;
+    private FragmentChatListBinding binding;
 
     public ChatListViewModel(@NonNull Application application) {
         super(application);
@@ -98,6 +102,8 @@ public class ChatListViewModel extends AndroidViewModel {
             }
 
             mRooms.setValue(mRooms.getValue());
+            binding.layoutWait.setVisibility(View.GONE);
+
         }catch (JSONException e) {
             Log.e("JSON PARSE ERROR", "Found in handle Success ChatViewModel");
             Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
@@ -115,6 +121,10 @@ public class ChatListViewModel extends AndroidViewModel {
                             " " +
                             data);
         }
+    }
+
+    public void setBinding(FragmentChatListBinding binding) {
+        this.binding = binding;
     }
 
 }
