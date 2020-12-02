@@ -77,24 +77,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_contact"
-        android:name="edu.uw.tcss450.team2.friend.FriendListFragment"
-        tools:layout="@layout/fragment_friend_list">
-        <action
-            android:id="@+id/action_navigation_contact_to_friend"
-            app:destination="@id/fragment_friend_post" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_friend_post"
-        android:name="edu.uw.tcss450.team2.friend.FriendPostFragment"
-
-        tools:layout="@layout/fragment_friend_post" >
-
-        <argument
-            android:name="contactList"
-            app:argType="edu.uw.tcss450.team2.friend.FriendContacts" />
-    </fragment>
-    <fragment
         android:id="@+id/createChatRoomFragment"
         android:name="edu.uw.tcss450.team2.chat.createChatRoom.CreateChatRoomFragment"
         android:label="CreateChatRoomFragment" >
@@ -110,5 +92,25 @@
             android:name="chatId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_contact"
+        android:name="edu.uw.tcss450.team2.friend.FriendListFragment"
+        tools:layout="@layout/fragment_friend_list">
+        <action
+            android:id="@+id/action_friendListFragment_to_friendPostFragment"
+            app:destination="@id/fragment_friend_post" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_friend_post"
+        android:name="edu.uw.tcss450.team2.friend.FriendPostFragment"
 
+        tools:layout="@layout/fragment_friend_post" >
+        <argument
+            android:name="contactList"
+            app:argType="edu.uw.tcss450.team2.friend.FriendContacts" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_find_friend"
+        android:name="edu.uw.tcss450.team2.search.SearchContactsListFragment"
+        tools:layout="@layout/fragment_search_contacts_list"/>
 </navigation>

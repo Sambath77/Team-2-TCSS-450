@@ -2,6 +2,7 @@ package edu.uw.tcss450.team2;
 
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Switch aSwitch;
 
-//    private DrawerLayout mDrawLayout;
+    //    private DrawerLayout mDrawLayout;
 //    private ActionBarDrawerToggle mDrawerToggle;
 //    private SignInFragment signInFragment;
     String email;
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                   // restartApp();
+                    // restartApp();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     //restartApp();
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home,
-                R.id.navigation_chat, R.id.navigation_contact, R.id.navigation_weather).build();
+                R.id.navigation_chat, R.id.navigation_contact, R.id.navigation_find_friend, R.id.navigation_weather).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-                    mNewMessageModel.addMessageCountObserver(this, count -> {
+        mNewMessageModel.addMessageCountObserver(this, count -> {
             /*
             BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
             badge.setMaxCharacterCount(2);
@@ -195,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 badge.setVisible(false);
             }
              */
-                    });
+        });
 
     }
 
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//    public void restartApp() {
+    //    public void restartApp() {
 //        Intent i = new Intent(getApplicationContext(), MainActivity.class);
 //        startActivity(i);
 //        finish();
@@ -213,9 +214,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.app_bar_search:
-                Toast.makeText(this, "Seach", Toast.LENGTH_SHORT).show();
-                break;
+
             case R.id.notification_bar:
                 Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
                 break;
@@ -223,7 +222,8 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, ProfileAcitvity.class));
                 break;
             case R.id.log_out:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                signOut();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -287,6 +287,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void signOut() {
+        SharedPreferences prefs = getSharedPreferences(
+                getString(R.string.keys_shared_prefs),
+                Context.MODE_PRIVATE);
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        finishAndRemoveTask();
+    }
 
 
 }
@@ -350,4 +357,3 @@ public class MainActivity extends AppCompatActivity {
 //            super.onBackPressed();
 //        }
 //    }
-

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +34,17 @@ public class FriendPostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FriendPostFragmentArgs args = FriendPostFragmentArgs.fromBundle(getArguments());
         FragmentFriendPostBinding binding = FragmentFriendPostBinding.bind(getView());
+        String s = args.getContactList().getmFName() + " " + args.getContactList().getmLName();
+        binding.profileTextUsername.setText(s);
 
-        binding.textUsername.setText(args.getContactList().getmUsername());
+        binding.profileTextEmail.setText(args.getContactList().getEmail());
 
-        binding.textFirst.setText(args.getContactList().getmFName());
-
-        binding.textLast.setText(args.getContactList().getmLName());
+//        binding.sendButton.setOnClickListener(button -> {
+//
+//                Navigation.findNavController(getView()).navigate(FriendPostFragmentDirections
+//                        .actionFragmentFriendPostToFriendChatFragment());
+//
+//        });
 
     }
 }

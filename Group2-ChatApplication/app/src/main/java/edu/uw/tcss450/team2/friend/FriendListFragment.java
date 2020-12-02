@@ -1,5 +1,6 @@
 package edu.uw.tcss450.team2.friend;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,13 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONObject;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding;
 import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
@@ -23,14 +29,14 @@ public class FriendListFragment extends Fragment {
 
     private FriendContactsViewModel mModel;
     private MutableLiveData<JSONObject> mResponse;
+    private FriendContactsRecyclerViewAdapter mFriendContactsRecyclerViewAdapter;
+    private FriendContacts mContacts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_friend_list, container, false);
-
-
     }
 
     @Override
@@ -44,6 +50,8 @@ public class FriendListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(FriendContactsViewModel.class);
 
         mModel.getContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
+        // mModel.DeleteContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), mContacts.getEmail());
+
     }
 
     @Override
@@ -52,45 +60,40 @@ public class FriendListFragment extends Fragment {
         FragmentFriendListBinding binding = FragmentFriendListBinding.bind(getView());
 
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+            mFriendContactsRecyclerViewAdapter = new FriendContactsRecyclerViewAdapter(contactList);
+
             if (!contactList.isEmpty()) {
-                binding.listRoot.setAdapter(
-                        new FriendContactsRecyclerViewAdapter(contactList));
+                binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
                 binding.layoutWait.setVisibility(View.GONE);
+
+                mFriendContactsRecyclerViewAdapter.setOnItemClickListener(position -> {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
+                    builder.setTitle("Remove Friend");
+                    builder.setMessage("Do you want to remove your friend?");
+                    builder.setIcon(R.drawable.ic_baseline_error_24);
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            contactList.remove(position);
+                            mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
+                        }
+
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.show();
+//                        contactList.remove(position);
+//                        mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
+                    //deleteFriend();
+                });
+
             }
         });
     }
 
 
-//    private FriendViewModel mModel;
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//
-//        View view = inflater.inflate(R.layout.fragment_friend_list, container, false);
-////        if (view instanceof RecyclerView) {
-////            ((RecyclerView) view).setAdapter(
-////                    new FriendRecycleViewAdapter(FriendListGenerator.getFriendList()));
-////        }
-//
-//        return view;
-//
-//    }
-//
-//    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        mModel = new ViewModelProvider(getActivity()).get(FriendViewModel.class);
-//        //mModel.connectGet();
-//    }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        FragmentFriendListBinding binding = FragmentFriendListBinding.bind(getView());
-//        mModel.addFriendListObserver(getViewLifecycleOwner(), friendList -> {
-//            if (!friendList.isEmpty()) {
-//                binding.listRoot.setAdapter(new FriendRecycleViewAdapter(friendList) );
-//                binding.layoutWait.setVisibility(View.GONE);
-//            }
-//        });
-//    }
 }

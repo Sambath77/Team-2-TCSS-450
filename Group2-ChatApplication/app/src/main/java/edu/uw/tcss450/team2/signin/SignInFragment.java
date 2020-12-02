@@ -5,6 +5,8 @@
 
 package edu.uw.tcss450.team2.signin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+import com.auth0.android.jwt.JWT;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,22 +112,12 @@ public class SignInFragment extends Fragment {
 
     }
 
-//    private void attemptSignIn(final View button) {
-//        navigateToSuccess("", "", "", "");
-//        //validateEmail();
-//    }
-
     /*
      * helper method to verify the log in
      *
      * @param: View is a button
      */
     private void attemptSignIn(final View button) {
-
-        //navigateToSuccess("", "");
-
-//        navigateToSuccess("", "");
-
         validateEmail();
     }
 
@@ -171,17 +165,21 @@ public class SignInFragment extends Fragment {
      * Helper to abstract the navigation to the Activity past Authentication.
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
-     */
-//    private void navigateToSuccess(final String email, final String jwt, String fName, String lName) {
-//        Navigation.findNavController(getView())
-//                .navigate(SignInFragmentDirections
-//                        .actionSignInFragmentToMainActivity(email, jwt, fName, lName));
-//    }
+    */
 
     private void navigateToSuccess(final String email, final String jwt, int memberId) {
+        if (binding.switchSignin.isChecked()) {
+            SharedPreferences prefs = getActivity().getSharedPreferences(
+                    getString(R.string.keys_shared_prefs), Context.MODE_PRIVATE);
+
+            //Store the credentials in SharePrefs
+            prefs.edit().putString(getString(R.string.keys_prefs_jwt), jwt).apply();
+        }
+
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections
                         .actionSignInFragmentToMainActivity(email, jwt, memberId));
+        getActivity().finish();
     }
 
     /**
@@ -311,5 +309,21 @@ public class SignInFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+            JWT jwt = new JWT(token);
+            if (!jwt.isExpired(0)) {
+                String email = jwt.getClaim("email").asString();
+                navigateToSuccess(email, token, mUserViewModel.getMemberId());
+                return;
+            }
+        }
+    }
 }

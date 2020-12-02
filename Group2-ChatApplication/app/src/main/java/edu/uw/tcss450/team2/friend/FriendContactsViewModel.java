@@ -32,7 +32,7 @@ import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 public class FriendContactsViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<FriendContacts>> mContacts;
-
+    private List<FriendContacts> list;
 
 
 
@@ -41,10 +41,8 @@ public class FriendContactsViewModel extends AndroidViewModel {
         mContacts = new MutableLiveData<>();
 
 
-        List<FriendContacts> lst = new ArrayList<>();
-        lst.add(new FriendContacts("N/A", "N/A", "N/A"));
+        list = new ArrayList<>();
 
-        mContacts.setValue(lst);
 
     }
 
@@ -58,7 +56,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
     }
 
     /*
-     * method to setup a contact friend from the web server
+     * method to setup a contact edu.uw.tcss450.team2.friend from the web server
      *
      */
 
@@ -95,18 +93,19 @@ public class FriendContactsViewModel extends AndroidViewModel {
      */
 
     private void handelSuccess(final JSONObject response)  {
-        List<FriendContacts> list = new ArrayList<>();
+
         try {
 
-            JSONArray messages = response.getJSONArray("rows");
-            for(int i = 0; i < messages.length(); i++) {
-                JSONObject message = messages.getJSONObject(i);
+            JSONArray contacts = response.getJSONArray("rows");
+            for(int i = 0; i < contacts.length(); i++) {
+                JSONObject message = contacts.getJSONObject(i);
 
                 FriendContacts friendContacts = new FriendContacts(
                         message.getString("firstname"),
                         message.getString("lastname"),
-                        message.getString("username")
-                );
+                        message.getString("username"),
+                        message.getString("email"),
+                        message.getInt("memberid"));
 
                 list.add(friendContacts);
             }
@@ -133,5 +132,39 @@ public class FriendContactsViewModel extends AndroidViewModel {
                             " " +
                             data);
         }
+    }
+
+    public void DeleteContactFriend(String jwt, String email, String email_B) {
+        String url = getApplication().getResources().getString(R.string.base_url) +
+                "contact/" + email + "/" + email_B;
+//
+//        JSONObject body = new JSONObject();
+//        try {
+//            body.put("email", email);
+//            body.put("email_B", email_B);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        Request request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null, //no body for this get request
+                this::handelSuccess,
+                this::handleError) {
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
     }
 }

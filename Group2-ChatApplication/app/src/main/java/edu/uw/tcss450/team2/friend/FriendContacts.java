@@ -6,17 +6,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FriendContacts implements Serializable {
-    private final String mUsername;
-    private final String nfName;
-    private final String nlName;
+    private String mUsername;
+    private String nfName;
+    private String nlName;
+    private String email;
+    private int memberId;
+    private List<Integer> list;
 
-    public FriendContacts(String fName, String lName, String mUsername) {
+    public FriendContacts(String fName, String lName, String mUsername, String email, int memberId) {
 
         this.nfName = fName;
         this.nlName = lName;
         this.mUsername = mUsername;
+        this.email = email;
+        this.memberId = memberId;
+        list = new ArrayList<>();
     }
 
 
@@ -31,7 +39,10 @@ public class FriendContacts implements Serializable {
     public static FriendContacts createFromJsonString(final String cmAsJson) throws JSONException {
         final JSONObject username = new JSONObject(cmAsJson);
         return new FriendContacts(username.getString("firstname"),
-                username.getString("lastname"),username.getString("username"));
+                username.getString("lastname"),
+                username.getString("username"),
+                username.getString("email"),
+                username.getInt("memberId"));
     }
 
     /*
@@ -55,7 +66,24 @@ public class FriendContacts implements Serializable {
         return nlName;
     }
 
+    /*
+     * method to return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
+    /*
+    * method to return the memberId
+     */
+    public int getMemberId() {
+        return memberId;
+    }
+
+
+    public void changedUsername(String text) {
+        mUsername = text;
+    }
     @Override
     public boolean equals(@Nullable Object other) {
         boolean result = false;
@@ -63,5 +91,10 @@ public class FriendContacts implements Serializable {
             result = mUsername == ((FriendContacts) other).mUsername;
         }
         return result;
+    }
+
+    public List<Integer> getMemberIdList(int memberId) {
+        list.add(memberId);
+        return list;
     }
 }
