@@ -309,21 +309,21 @@ public class SignInFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        SharedPreferences prefs =
-                getActivity().getSharedPreferences(
-                        getString(R.string.keys_shared_prefs),
-                        Context.MODE_PRIVATE);
-        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
-            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
-            JWT jwt = new JWT(token);
-            if (!jwt.isExpired(0)) {
-                String email = jwt.getClaim("email").asString();
-                navigateToSuccess(email, token, mUserViewModel.getMemberId());
-                return;
-            }
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        SharedPreferences prefs =
+//                getActivity().getSharedPreferences(
+//                        getString(R.string.keys_shared_prefs),
+//                        Context.MODE_PRIVATE);
+//        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+//            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+//            JWT jwt = new JWT(token);
+//            if (!jwt.isExpired(0)) {
+//                String email = jwt.getClaim("email").asString();
+//                navigateToSuccess(email, token, mUserViewModel.getMemberId());
+//                return;
+//            }
+//        }
+//    }
 }

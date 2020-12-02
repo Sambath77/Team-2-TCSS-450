@@ -50,7 +50,7 @@ public class FriendListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(FriendContactsViewModel.class);
 
         mModel.getContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
-        // mModel.DeleteContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), mContacts.getEmail());
+
 
     }
 
@@ -66,29 +66,35 @@ public class FriendListFragment extends Fragment {
                 binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
                 binding.layoutWait.setVisibility(View.GONE);
 
-                mFriendContactsRecyclerViewAdapter.setOnItemClickListener(position -> {
-                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
-                    builder.setTitle("Remove Friend");
-                    builder.setMessage("Do you want to remove your friend?");
-                    builder.setIcon(R.drawable.ic_baseline_error_24);
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            contactList.remove(position);
-                            mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
-                        }
+                mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        String str = contactList.get(position).getmFName() + " " + contactList.get(position).getmLName();
+                        contactList.get(position).changedUsername(str);
+                        mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
+                    }
 
-                    });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    builder.show();
-//                        contactList.remove(position);
-//                        mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
-                    //deleteFriend();
+                    @Override
+                    public void onDeleteClick(int position) {
+                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
+                        builder.setTitle("Remove Friend");
+                        builder.setMessage("Do you want to remove your friend?");
+                        builder.setIcon(R.drawable.ic_baseline_error_24);
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                contactList.remove(position);
+                                mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        builder.show();
+                    }
                 });
 
             }
