@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team2.search;
+package edu.uw.tcss450.team2.friend;
 
 import android.app.Application;
 import android.util.Log;
@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
 public class DeleteFriendViewModel extends AndroidViewModel {
 
@@ -36,17 +38,23 @@ public class DeleteFriendViewModel extends AndroidViewModel {
     }
 
     public void deleteFriend(String jwt, String email_A, String email_B) {
-        String url = getApplication().getResources().getString(R.string.base_url) +
-                "search/" + email_A + "/" + email_B;
+            String url = getApplication().getResources().getString(R.string.base_url) +
+                    "contact/" + email_A + "/" + email_B;
 
-        Request request = new JsonObjectRequest(Request.Method.DELETE, url, null, mutableLiveData::setValue,
-                this::handleError) {
-            public Map<String, String> getHeader() {
-                Map<String, String> header = new HashMap<>();
-                header.put("Authorization", jwt);
-                return header;
+            Request request = new JsonObjectRequest(Request.Method.DELETE,
+                    url, null, mutableLiveData::setValue, this::handleError) {
+                public Map<String, String> getHeaders() {
+                    Map<String, String> header = new HashMap<>();
+                    header.put("Authorization", jwt);
+                    return header;
+                };
             };
-        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext()).addToRequestQueue(request);
     }
 
     private void handleError(final VolleyError error) {

@@ -207,6 +207,25 @@
                         app:srcCompat="@drawable/ic_weather_24" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints" >
+
+        <Switch
+            android:id="@+id/switch_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="564dp"
+            android:text="Switch Theme"
+            android:textColor="?attr/textColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp" />>
+
         </LinearLayout>
 
         <!--        <TextView-->

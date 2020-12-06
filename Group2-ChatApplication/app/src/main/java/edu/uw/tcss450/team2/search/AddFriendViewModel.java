@@ -40,31 +40,33 @@ public class AddFriendViewModel extends AndroidViewModel {
         mutableLiveData.observe(owner, observer);
     }
 
-    public void getAddFriend(String jwt, String email_A, int memberid) {
+    public void getAddFriend(String jwt, String email, int memberid) {
+
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "search/";
+                "contact";
+
         JSONObject body = new JSONObject();
+
         try {
-            body.put("email_A", email_A);
+            body.put("email", email);
             body.put("memberid", memberid);
         } catch (JSONException e){
             e.printStackTrace();
         }
 
-        Request request = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                body, //push token found in the JSONObject body
-                mutableLiveData::setValue, // we get a response but do nothing with it
-                this::handleError) {
-            public Map<String, String> getHeader() {
+        Request request = new JsonObjectRequest(Request.Method.POST,
+                url, body, mutableLiveData::setValue, this::handleError) {
+            public Map<String, String> getHeaders() {
                 Map<String, String> header = new HashMap<>();
                 header.put("Authorization", jwt);
                 return header;
-            }
+            };
         };
-        request.setRetryPolicy(new DefaultRetryPolicy(10_000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+
+        request.setRetryPolicy(new DefaultRetryPolicy(10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext()).addToRequestQueue(request);
     }
 

@@ -43,15 +43,16 @@
             android:textStyle="italic"
             android:layout_marginBottom="10dp"/>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/delete_button"
-            android:layout_width="206dp"
-            android:layout_height="42dp"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="1dp"
             android:foregroundGravity="right"
-            android:src="@drawable/ic_delete"
+            app:srcCompat="@drawable/ic_delete"
             android:textStyle="bold" />
 
     </RelativeLayout>

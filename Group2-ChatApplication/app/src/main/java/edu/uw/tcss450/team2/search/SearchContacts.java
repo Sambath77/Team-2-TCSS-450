@@ -5,19 +5,22 @@ import androidx.annotation.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchContacts {
+import java.io.Serializable;
+
+public class SearchContacts implements Serializable {
 
     private String mSearchUsername;
     private String mSearchEmail;
     private String mFirstname;
     private String mLastname;
-
+    private int memberid;
     public SearchContacts(String mFirstname, String mLastname,String mSearchUsername,
-                          String mSearchEmail) {
+                          String mSearchEmail, int memberid) {
         this.mFirstname = mFirstname;
         this.mLastname = mLastname;
         this.mSearchUsername = mSearchUsername;
         this.mSearchEmail = mSearchEmail;
+        this.memberid = memberid;
 
     }
 
@@ -33,7 +36,8 @@ public class SearchContacts {
         return new SearchContacts(searchName.getString("firstname"),
                 searchName.getString("lastname"),
                 searchName.getString("username"),
-                searchName.getString("email"));
+                searchName.getString("email"),
+                searchName.getInt("memberid"));
     }
 
     public void changedUsername(String text) {
@@ -55,6 +59,9 @@ public class SearchContacts {
         return mLastname;
     }
 
+    public int getMemberid() {
+        return memberid;
+    }
     @Override
     public boolean equals(@Nullable Object other) {
         boolean result = false;

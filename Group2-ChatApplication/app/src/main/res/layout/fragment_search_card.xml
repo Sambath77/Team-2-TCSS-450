@@ -19,7 +19,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="2dp"
-            android:src="@drawable/ic_baseline_contact_mail_24"/>
+            android:src="@drawable/ic_baseline_contact_mail_24" />
 
         <TextView
             android:id="@+id/search_text_username"
@@ -29,7 +29,7 @@
             android:text="Username"
             android:textColor="?attr/textColor"
             android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/searach_text_email"
@@ -37,25 +37,36 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/search_text_username"
             android:layout_marginLeft="60dp"
+            android:layout_marginBottom="10dp"
             android:text="Email"
             android:textColor="?attr/secondTextColor"
-            android:textStyle="italic"
-            android:layout_marginBottom="10dp"/>
+            android:textStyle="italic" />
 
-        <Button
+
+        <ImageButton
             android:id="@+id/add_button"
-            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="240dp"
+            android:layout_marginLeft="320dp"
             android:layout_marginTop="5dp"
             android:foregroundGravity="right"
-            android:text="Add Friend"
-            android:textStyle="bold"/>
+            android:src="@drawable/ic_add_24"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="10dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+           android:visibility="gone"/>
+
+
 
     </RelativeLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>

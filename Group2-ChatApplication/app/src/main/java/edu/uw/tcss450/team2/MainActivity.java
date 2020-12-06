@@ -50,6 +50,7 @@ import edu.uw.tcss450.team2.chat.ChatMessage;
 import edu.uw.tcss450.team2.chat.ChatViewModel;
 
 import edu.uw.tcss450.team2.databinding.ActivityMainBinding;
+import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.team2.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.services.PushReceiver;
@@ -76,10 +77,11 @@ public class MainActivity extends AppCompatActivity {
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
 
-    private ActivityMainBinding binding;
+   // private ActivityMainBinding binding;
 
     private AppBarConfiguration mAppBarConfiguration;
-    private Switch aSwitch;
+    private Switch mSwitch;
+    private FragmentHomeBinding binding;
 
     //    private DrawerLayout mDrawLayout;
 //    private ActionBarDrawerToggle mDrawerToggle;
@@ -101,28 +103,29 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.Theme_WeatherApp);
-        }
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            setTheme(R.style.DarkTheme);
+//        } else {
+//            setTheme(R.style.Theme_WeatherApp);
+//        }
 
-        aSwitch = (Switch)findViewById(R.id.switch_button);
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            aSwitch.setChecked(true);
-        }
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    // restartApp();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    //restartApp();
-                }
-            }
-        });
+        //aSwitch = (Switch)findViewById(R.id.switch_button);
+
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            aSwitch.setChecked(true);
+//        }
+//        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    // restartApp();
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    //restartApp();
+//                }
+//            }
+//        });
 
         //Appbar id
 //        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
@@ -156,9 +159,9 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO 1. mock up notification in home page
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(7);
+//        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
+//        badgeDrawable.setVisible(true);
+//        badgeDrawable.setNumber(2);
 
 
         // Passing each menu ID as a set of Ids because each
@@ -197,19 +200,43 @@ public class MainActivity extends AppCompatActivity {
             }
              */
         });
-
+        //switchTheme();
     }
 
 
 
+    private void switchTheme() {
+
+//        mSwitch = (Switch) findViewById(R.id.switch_button);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.Theme_WeatherApp);
+        }
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.switchButton.setChecked(true);
+        }
+        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                     restartApp();
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    restartApp();
+                }
+            }
+        });
+    }
 
 
-
-    //    public void restartApp() {
-//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-//        startActivity(i);
-//        finish();
-//    }
+        public void restartApp() {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
+    }
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -222,8 +249,8 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, ProfileAcitvity.class));
                 break;
             case R.id.log_out:
-                //Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-                signOut();
+                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                //signOut();
                 break;
         }
         return super.onOptionsItemSelected(item);
