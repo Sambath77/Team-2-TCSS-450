@@ -64,14 +64,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 
-
-
-
-
-
-
-
-
 public class MainActivity extends AppCompatActivity {
 
     private MainPushMessageReceiver mPushMessageReceiver;
@@ -103,30 +95,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-//            setTheme(R.style.DarkTheme);
-//        } else {
-//            setTheme(R.style.Theme_WeatherApp);
-//        }
-
-        //aSwitch = (Switch)findViewById(R.id.switch_button);
-
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-//            aSwitch.setChecked(true);
-//        }
-//        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    // restartApp();
-//                } else {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    //restartApp();
-//                }
-//            }
-//        });
-
         //Appbar id
 //        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
 //        setSupportActionBar(materialToolbar);
@@ -151,17 +119,12 @@ public class MainActivity extends AppCompatActivity {
         new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, memberId)).
                 get(UserInfoViewModel.class);
 
-//        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, fName, lName)).
-//                get(UserInfoViewModel.class);
-//        Log.d("ACTIVITY", email);
-//        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
-//                get(UserInfoViewModel.class);
 
         //TODO 1. mock up notification in home page
         BottomNavigationView navView = findViewById(R.id.nav_view);
-//        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-//        badgeDrawable.setVisible(true);
-//        badgeDrawable.setNumber(2);
+        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
+        badgeDrawable.setVisible(true);
+        badgeDrawable.setNumber(2);
 
 
         // Passing each menu ID as a set of Ids because each
@@ -207,26 +170,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchTheme() {
 
-//        mSwitch = (Switch) findViewById(R.id.switch_button);
+       // mSwitch = (Switch) findViewById(R.id.switch_button);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
-            setTheme(R.style.Theme_WeatherApp);
+            setTheme(R.style.LightTheme);
         }
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             binding.switchButton.setChecked(true);
         }
-        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                     restartApp();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    restartApp();
-                }
+        binding.switchButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                 restartApp();
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                restartApp();
             }
         });
     }
