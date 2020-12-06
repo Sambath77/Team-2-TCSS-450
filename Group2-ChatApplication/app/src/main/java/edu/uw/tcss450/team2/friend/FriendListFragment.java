@@ -107,6 +107,7 @@ public class FriendListFragment extends Fragment {
 
                 binding.btnCancelBtn.setOnClickListener(button -> {
                     binding.seachContacts.setText("");
+                    binding.listRoot.setVisibility(View.GONE);
                 });
 
                 mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {
