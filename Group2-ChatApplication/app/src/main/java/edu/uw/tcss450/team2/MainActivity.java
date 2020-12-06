@@ -18,6 +18,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -68,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
-
-   // private ActivityMainBinding binding;
-
     private AppBarConfiguration mAppBarConfiguration;
     private Switch mSwitch;
     private FragmentHomeBinding binding;
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchTheme() {
 
-       // mSwitch = (Switch) findViewById(R.id.switch_button);
+        mSwitch = (Switch) findViewById(R.id.switch_button);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
@@ -178,25 +178,27 @@ public class MainActivity extends AppCompatActivity {
             setTheme(R.style.LightTheme);
         }
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            binding.switchButton.setChecked(true);
+            mSwitch.setChecked(true);
         }
-        binding.switchButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                 restartApp();
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                restartApp();
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
             }
         });
     }
 
 
-        public void restartApp() {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
-        finish();
+    public void restartApp() {
+    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+    startActivity(i);
+    finish();
     }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -206,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.profile:
-                //startActivity(new Intent(MainActivity.this, ProfileAcitvity.class));
+                createFragment(new ProfileFragment());
                 break;
             case R.id.log_out:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
@@ -283,6 +285,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void createFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_layout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 }
 
 
@@ -333,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
 //        fragmentTransaction.replace(R.id.main_layout, fragment);
 //        fragmentTransaction.commit();
 //    }
-//
+////
 //
 //    @Override
 //    public void onBackPressed() {
