@@ -130,6 +130,7 @@ public class SearchContactsListFragment extends Fragment {
 
                 binding.buttonCancelBtn.setOnClickListener(button -> {
                     binding.seachFriend.setText("");
+                    binding.recyclerView.setVisibility(View.GONE);
                 });
 
 //                searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
