@@ -78,16 +78,14 @@ public class MainActivity extends AppCompatActivity {
     //    private DrawerLayout mDrawLayout;
 //    private ActionBarDrawerToggle mDrawerToggle;
 //    private SignInFragment signInFragment;
-    String email;
-    String jwt;
-    int memberId;
+    private String email;
+    private String jwt;
+    private int memberId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("WorldChat");
