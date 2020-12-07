@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     String email;
     String jwt;
     int memberId;
+    int messageCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,23 +107,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.Theme_WeatherApp);
         }
-
-        aSwitch = (Switch)findViewById(R.id.switch_button);
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            aSwitch.setChecked(true);
-        }
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    // restartApp();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    //restartApp();
-                }
-            }
-        });
+//TODO need to put it back at appropriate location
+//        aSwitch = (Switch)findViewById(R.id.switch_button);
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            aSwitch.setChecked(true);
+//        }
+//        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    // restartApp();
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    //restartApp();
+//                }
+//            }
+//        });
 
         //Appbar id
 //        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         jwt = args.getJwt();
         memberId = args.getMemberId();
 
-        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, memberId)).
+         UserInfoViewModel tempUserViewModel = new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, memberId)).
                 get(UserInfoViewModel.class);
 
 //        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, fName, lName)).
@@ -154,11 +155,11 @@ public class MainActivity extends AppCompatActivity {
 //        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
 //                get(UserInfoViewModel.class);
 
-        //TODO 1. mock up notification in home page
+        //TODO 1. mock up notification in home page - need to replace with actual notification
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(7);
+//        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
+//        badgeDrawable.setVisible(true);
+//        badgeDrawable.setNumber(7);
 
 
         // Passing each menu ID as a set of Ids because each
@@ -183,19 +184,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
-            /*
-            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
+            //TODO this place causes an error
+            //BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
+            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_chat);
+            //BadgeDrawable badge2 = navView.getOrCreateBadge(R.id.image_chatIcon);
             badge.setMaxCharacterCount(2);
+
+            //TODO need to be erased
+            System.out.println("Incoming Message Count: "+ count);
+
+//            R.id.text_unreadChat
+
+            tempUserViewModel.setUnreadMessageCount(count);
+
             if (count > 0) {
                 //new messages! update and show the notification badge.
                 badge.setNumber(count);
                 badge.setVisible(true);
+
+//                badge2.setNumber(count);
+//                badge2.setVisible(true);
             } else {
                 //user did some action to clear the new messages, remove the badge
                 badge.clearNumber();
                 badge.setVisible(false);
+
+//                badge2.setNumber(count);
+//                badge2.setVisible(true);
             }
-             */
+
+
         });
 
     }

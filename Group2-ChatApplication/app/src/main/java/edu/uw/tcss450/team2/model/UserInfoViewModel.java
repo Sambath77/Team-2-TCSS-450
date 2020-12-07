@@ -11,7 +11,7 @@ public class UserInfoViewModel extends ViewModel {
     private final String mEmail;
     private final String jwt;
     private final int memberId;
-
+    private int unreadMessageCount;
 
     public UserInfoViewModel(String mEmail, String jwt, int memberId) {
         this.mEmail = mEmail;
@@ -31,6 +31,13 @@ public class UserInfoViewModel extends ViewModel {
         return memberId;
     }
 
+    public void setUnreadMessageCount(int myCount) {
+        this.unreadMessageCount = myCount;
+    }
+
+    public int getUnreadMessageCount() {
+        return this.unreadMessageCount;
+    }
 
 
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {

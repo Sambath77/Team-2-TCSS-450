@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,11 +59,33 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
     private FusedLocationProviderClient fusedLocationClient;
     private double currLatitude;
     private double currLongitude;
+    private int unreadMessageCount;
+
+    UserInfoViewModel model;
+
+    Handler mHandler = new Handler();
+
+    Runnable mRunnableTask = new Runnable()
+    {
+        @Override
+        public void run() {
+            unreadMessageCount = model.getUnreadMessageCount();
+
+            //TODO handling notification - need to replace these with actual messages not mock up data
+            binding.textUnreadChat.setText("You have " + unreadMessageCount + " Unread Messages");
+
+            // this will repeat this task again at specified time interval
+            mHandler.postDelayed(this, 200);
+        }
+    };
+
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        model = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
         mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
@@ -93,16 +118,22 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         FragmentHomeBinding binding = FragmentHomeBinding.bind(getView());
         //Note argument sent to the ViewModelProvider constructor. It is the Activity that
         //holds this fragment.
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
+
 
 
 
         binding.textUserEmail.setText(model.getEmail());
 
 
-        //TODO handling notification - need to replace these with actual messages not mock up data
-        binding.textUnreadChat.setText("You have 7 Unread Messages");
+
+//--------------------------------------------------
+
+
+        // Call this to start the task first time
+        mHandler.postDelayed(mRunnableTask, 2000);
+
+
+//--------------------------------------------------
 
         binding.layoutHomeUnreadChat.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
@@ -111,6 +142,9 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         binding.layoutHomeWeather.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
                         HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
+
+
+
 
         //setter for lat and long
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
