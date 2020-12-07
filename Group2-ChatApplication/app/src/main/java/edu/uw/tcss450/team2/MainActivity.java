@@ -279,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
@@ -287,6 +286,10 @@ public class MainActivity extends AppCompatActivity {
         private ChatViewModel mModel =
                 new ViewModelProvider(MainActivity.this)
                         .get(ChatViewModel.class);
+
+        private UserInfoViewModel userInfoViewModel =
+                new ViewModelProvider(MainActivity.this).get(UserInfoViewModel.class);
+
         @Override
         public void onReceive(Context context, Intent intent) {
             NavController nc =
@@ -297,9 +300,15 @@ public class MainActivity extends AppCompatActivity {
                 ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
-                if (nd.getId() != R.id.navigation_chat) {
+                if (nd.getId() != R.id.personalChatFragment) {
                     mNewMessageModel.increment();
                 }
+
+                if(!userInfoViewModel.getChatRoomsIdForNewMessage().contains(intent.getIntExtra("chatid", -1))) {
+                    userInfoViewModel.getChatRoomsIdForNewMessage().add(intent.getIntExtra("chatid", -1));
+                }
+
+
                 //Inform the view model holding chatroom messages of the new
                 //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
