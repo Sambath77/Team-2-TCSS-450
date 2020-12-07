@@ -10,13 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatCardBinding;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 /**
  *
@@ -28,10 +31,13 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
     //Store all of the chat rooms to present
     private List<ChatRoomModel> chatRooms;
 
-    private List<Integer> chatRoomsIdForNewMessage;
+    private Map<Integer, ChatMessage> chatRoomsIdForNewMessage;
 
-    public ChatListRecyclerViewAdapter(List<ChatRoomModel> items, List<Integer> chatRoomsId) {
+    private UserInfoViewModel userInfoViewModel;
 
+    public ChatListRecyclerViewAdapter(List<ChatRoomModel> items, Map<Integer, ChatMessage> chatRoomsId, UserInfoViewModel userInfoViewModel) {
+
+        this.userInfoViewModel = userInfoViewModel;
         this.chatRooms = items;
 
         mExpandedFlags = chatRooms.stream()
@@ -43,7 +49,7 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
     private void sortChatRoomsBasedOnTime() {
         for(int i = 0; i < chatRooms.size(); i ++) {
-            if(chatRoomsIdForNewMessage.contains(new Integer(chatRooms.get(i).getChatId()))) {
+            if(chatRoomsIdForNewMessage.containsKey(new Integer(chatRooms.get(i).getChatId()))) {
                 ChatRoomModel temp = chatRooms.get(i);
                 chatRooms.remove(i);
                 chatRooms.add(0, temp);
@@ -99,15 +105,27 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
                 Navigation.findNavController(mView).navigate(
                         ChatListFragmentDirections
                                 .actionNavigationChatToPersonalChatFragment(chatRoomModel.getChatId()));
+                userInfoViewModel.setCurrentChatRoom(mChatRoom.getChatId());
                 chatRoomsIdForNewMessage.remove(new Integer(mChatRoom.getChatId()));
             });
 
-            binding.textPubdate.setText("Room Id: " + chatRoomModel.getChatId() + "");
-            if(chatRoomsIdForNewMessage.contains(mChatRoom.getChatId())) {
-                binding.textPubdate.setBackgroundColor(Color.BLACK);
+            //binding.textPubdate.setText("Room Id: " + chatRoomModel.getChatId() + "");
+            binding.textPubdate.setText(chatRoomModel.getRoomName());
+
+            if(chatRoomsIdForNewMessage.containsKey(mChatRoom.getChatId())) {
+                ChatMessage chatMessage = chatRoomsIdForNewMessage.get(new Integer(mChatRoom.getChatId()));
+
+                if(chatMessage.getMessage().length() <= 36) {
+                    binding.textTitle.setText(chatMessage.getSender() + ": " + chatMessage.getMessage());
+                }
+                else {
+                    binding.textTitle.setText(chatMessage.getSender() + ": " + chatMessage.getMessage().substring(0, 42) + "...");
+                }
+
+                binding.dateReceived.setText(getTimeReceived(chatMessage.getDateReceived(), new Date()));
             }
 
-            binding.textTitle.setText(chatRoomModel.getRoomName());
+            //binding.textTitle.setText(chatRoomModel.getRoomName());
 
             binding.buittonMore.setImageIcon(
                     Icon.createWithResource(
@@ -118,11 +136,7 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
             binding.buittonMore.setOnClickListener(view ->
             {
-                /*
-                Navigation.findNavController(mView).navigate(
-                        ChatListFragmentDirections
-                                .actionNavigationChatToChatRoomMemberFragment(chatRoomModel.getChatId()));
-                 */
+
                 Navigation.findNavController(mView).navigate(
                         ChatListFragmentDirections
                                 .actionNavigationChatToManageMembersFragment(chatRoomModel.getChatId()));
@@ -131,5 +145,24 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
         }
 
     }
+
+    private String getTimeReceived(Date date1, Date date2) {
+        long duration  = date2.getTime() - date1.getTime();
+        long diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
+        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+
+        if(diffInDays > 0)
+            return diffInDays + " day(s) ago";
+        if(diffInHours > 0)
+            return diffInHours + " hr(s) ago";
+        if(diffInMinutes > 0)
+            return diffInMinutes + " minute(s) ago";
+
+        return diffInSeconds + " second(s) ago";
+
+    }
+
 
 }

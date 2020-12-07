@@ -64,6 +64,8 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Date;
+
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 
@@ -300,13 +302,24 @@ public class MainActivity extends AppCompatActivity {
                 ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
-                if (nd.getId() != R.id.personalChatFragment) {
+
+                cm.setDateReceived(new Date());
+                int chatId = intent.getIntExtra("chatid", -1);
+
+                userInfoViewModel.getChatRoomsIdForNewMessage().
+                        put(chatId, cm);
+
+                if(nd.getId() == R.id.navigation_chat) {
+                    userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
+                }
+                else if (nd.getId() == R.id.personalChatFragment && userInfoViewModel.getCurrentChatRoom() == chatId) {
+                    userInfoViewModel.getChatRoomsIdForNewMessage().remove(new Integer(chatId));
+                }
+                else {
                     mNewMessageModel.increment();
                 }
 
-                if(!userInfoViewModel.getChatRoomsIdForNewMessage().contains(intent.getIntExtra("chatid", -1))) {
-                    userInfoViewModel.getChatRoomsIdForNewMessage().add(intent.getIntExtra("chatid", -1));
-                }
+
 
 
                 //Inform the view model holding chatroom messages of the new

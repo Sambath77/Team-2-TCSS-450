@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -16,6 +17,7 @@ public final class ChatMessage implements Serializable {
     private final String mMessage;
     private final String mSender;
     private final String mTimeStamp;
+    private Date dateReceived;
 
     public ChatMessage(int messageId, String message, String sender, String timeStamp) {
         mMessageId = messageId;
@@ -37,6 +39,14 @@ public final class ChatMessage implements Serializable {
                 msg.getString("message"),
                 msg.getString("email"),
                 msg.getString("timestamp"));
+    }
+
+    public Date getDateReceived() {
+        return dateReceived;
+    }
+
+    public void setDateReceived(Date dateReceived) {
+        this.dateReceived = dateReceived;
     }
 
     public String getMessage() {

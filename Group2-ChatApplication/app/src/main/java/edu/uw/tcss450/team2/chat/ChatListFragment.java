@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.uw.tcss450.team2.MainActivity;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
 import edu.uw.tcss450.team2.friend.FriendListFragmentDirections;
@@ -60,6 +61,7 @@ public class ChatListFragment extends Fragment {
 
 
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
+        userInfoViewModel.setChatListViewModel(mModel);
 
 
         mModel.connectGet(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
@@ -78,7 +80,7 @@ public class ChatListFragment extends Fragment {
         mModel.addUserListObserver(getViewLifecycleOwner(), userList -> {
             if (!userList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatListRecyclerViewAdapter(userList, userInfoViewModel.getChatRoomsIdForNewMessage())
+                        new ChatListRecyclerViewAdapter(userList, userInfoViewModel.getChatRoomsIdForNewMessage(), userInfoViewModel)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }
