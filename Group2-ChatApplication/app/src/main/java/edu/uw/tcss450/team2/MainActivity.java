@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-
         //Appbar id
 //        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
 //        setSupportActionBar(materialToolbar);
@@ -150,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO 1. mock up notification in home page - need to replace with actual notification
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
         BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
         badgeDrawable.setVisible(true);
         badgeDrawable.setNumber(2);
@@ -157,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
 //        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
 //        badgeDrawable.setVisible(true);
 //        badgeDrawable.setNumber(7);
-
 
 
         // Passing each menu ID as a set of Ids because each
