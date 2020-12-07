@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.log_out:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-                //signOut();
+                signOut();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -279,7 +279,10 @@ public class MainActivity extends AppCompatActivity {
                 getString(R.string.keys_shared_prefs),
                 Context.MODE_PRIVATE);
         prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
-        finishAndRemoveTask();
+        Intent i = new Intent(getApplicationContext(), AuthActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        //finishAndRemoveTask();
     }
 
 

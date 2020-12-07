@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+
 import com.auth0.android.jwt.JWT;
 
 import org.json.JSONException;
@@ -174,6 +175,7 @@ public class SignInFragment extends Fragment {
 
             //Store the credentials in SharePrefs
             prefs.edit().putString(getString(R.string.keys_prefs_jwt), jwt).apply();
+            prefs.edit().putInt("memberId", memberId).apply();
         }
 
         Navigation.findNavController(getView())
@@ -309,21 +311,27 @@ public class SignInFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        SharedPreferences prefs =
-//                getActivity().getSharedPreferences(
-//                        getString(R.string.keys_shared_prefs),
-//                        Context.MODE_PRIVATE);
-//        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
-//            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
-//            JWT jwt = new JWT(token);
-//            if (!jwt.isExpired(0)) {
-//                String email = jwt.getClaim("email").asString();
-//                navigateToSuccess(email, token, mUserViewModel.getMemberId());
-//                return;
-//            }
-//        }
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+            int memberId = prefs.getInt("memberId", 0);
+            JWT jwt = new JWT(token);
+            // Check to see if the web token is still valid or not. To make a JWT expire after a
+            // longer or shorter time period, change the expiration time when the JWT is
+            // created on the web service.
+            if(!jwt.isExpired(0)) {
+                String email = jwt.getClaim("email").asString();
+
+                navigateToSuccess(email, token, memberId);
+                return;
+            }
+        }
+    }
+
 }

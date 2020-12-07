@@ -51,7 +51,7 @@ dependencies {
     implementation 'me.pushy:sdk:1.0.54'
     implementation 'com.auth0.android:jwtdecode:2.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
 
 
 
