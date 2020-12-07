@@ -13,17 +13,17 @@
         android:layout_height="wrap_content"
         android:background="#FFFFFF">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#00008577"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!--            app:navigationIcon="@drawable/menu"-->
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#00008577"-->
+<!--            android:minHeight="?attr/actionBarSize"-->
+<!--            android:theme="?attr/actionBarTheme"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--        &lt;!&ndash;            app:navigationIcon="@drawable/menu"&ndash;&gt;-->
 
 
         <TextView
@@ -31,12 +31,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="35dp"
             android:text="@string/home_email"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/text_welcome"
@@ -52,14 +52,14 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_user_email"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:srcCompat="@drawable/profilepic"
-            android:contentDescription="TODO" />
+            android:contentDescription="TODO"
+            tools:ignore="MissingConstraints" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -216,12 +216,14 @@
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints" >
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="564dp"
-            android:text="Switch Theme"
+            android:layout_marginTop="490dp"
+            android:checked="false"
+            android:text="Light Mode"
+            android:layout_marginLeft="10dp"
             android:textColor="?attr/textColor"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="0dp" />>

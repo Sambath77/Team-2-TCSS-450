@@ -117,6 +117,16 @@ public class FriendListFragment extends Fragment {
                         String str = contactList.get(position).getmFName() + " " + contactList.get(position).getmLName();
                         contactList.get(position).changedUsername(str);
                         mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
+//                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
+//                        builder.setTitle("Information");
+//                        builder.setMessage(str);
+//                        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        });
+//                        mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
                     }
 
                     @Override

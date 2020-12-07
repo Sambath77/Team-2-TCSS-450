@@ -86,9 +86,9 @@ public class SearchContactsListFragment extends Fragment {
                     searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-                            String str = searchContacts.get(position).getmFirstname() + " " + searchContacts.get(position).getmLastname();
-                            searchContacts.get(position).changedUsername(str);
-                            searchContactsRecyclerViewAdapter.notifyItemChanged(position);
+//                            String str = searchContacts.get(position).getmFirstname() + " " + searchContacts.get(position).getmLastname();
+//                            searchContacts.get(position).changedUsername(str);
+//                            searchContactsRecyclerViewAdapter.notifyItemChanged(position);
                         }
 
                         @Override

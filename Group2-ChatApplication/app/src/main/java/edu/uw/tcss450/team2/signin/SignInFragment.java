@@ -67,6 +67,8 @@ public class SignInFragment extends Fragment {
 
         mPushyTokenViewModel = new ViewModelProvider(getActivity())
                 .get(PushyTokenViewModel.class);
+
+       // mUserViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
     }
 
     @Override

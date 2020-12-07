@@ -14,6 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -74,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Switch mSwitch;
     private FragmentHomeBinding binding;
-
+    private SwitchCompat switchCompat;
+    private SharedPreferences sharedPreferences = null;
     //    private DrawerLayout mDrawLayout;
 //    private ActionBarDrawerToggle mDrawerToggle;
 //    private SignInFragment signInFragment;
@@ -120,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO 1. mock up notification in home page
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(2);
+//        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
+//        badgeDrawable.setVisible(true);
+//        badgeDrawable.setNumber(7);
 
 
         // Passing each menu ID as a set of Ids because each
@@ -168,26 +170,52 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchTheme() {
 
-        mSwitch = (Switch) findViewById(R.id.switch_button);
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.LightTheme);
+        switchCompat = findViewById(R.id.switch_button);
+        sharedPreferences = getSharedPreferences("night", 0);
+        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
+        if (booleanValue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            switchCompat.setChecked(true);
         }
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            mSwitch.setChecked(true);
-        }
-        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    switchCompat.setChecked(true);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("night node", true);
+                    editor.commit();
                 } else {
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    switchCompat.setChecked(true);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("night node", false);
+                    editor.commit();
                 }
             }
         });
+//
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            setTheme(R.style.DarkTheme);
+//        } else {
+//            setTheme(R.style.LightTheme);
+//        }
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            mSwitch.setChecked(true);
+//        }
+//        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                } else {
+//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                }
+//            }
+//        });
     }
 
 
@@ -206,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.profile:
-                createFragment(new ProfileFragment());
+                //createFragment(new ProfileFragment());
                 break;
             case R.id.log_out:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
@@ -286,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
     private void createFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_layout, fragment);
+        fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

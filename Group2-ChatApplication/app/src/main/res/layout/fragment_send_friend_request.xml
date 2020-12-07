@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/search_layout_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/accept_usernam_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_accept_person_24" />
+
+    <TextView
+        android:id="@+id/accept_text_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="36dp"
+        android:layout_alignParentTop="true"
+        android:text="Full name"
+        android:layout_centerInParent="true"
+        android:textColor="?attr/textColor"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/accept_email"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="2dp"
+        android:src="@drawable/ic_accept_email_24"
+        android:layout_below="@id/accept_usernam_image"/>
+
+    <TextView
+        android:id="@+id/accept_text_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accept_text_username"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="50dp"
+        android:textSize="25sp"
+        android:text="Email"
+
+        android:textColor="?attr/textColor"
+        android:textStyle="italic" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/accept_btn"
+        android:layout_below="@id/accept_email"
+        android:text="Accept"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel_btn_request"
+        android:layout_below="@id/accept_email"
+        android:text="Accept"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="250dp"/>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
+
