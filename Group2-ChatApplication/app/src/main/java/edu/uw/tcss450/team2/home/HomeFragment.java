@@ -63,10 +63,10 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
     private FusedLocationProviderClient fusedLocationClient;
     private double currLatitude;
     private double currLongitude;
-<<<<<<< HEAD
+
     private SharedPreferences sharedPreferences;
     private SwitchCompat switchCompat;
-=======
+
     private int unreadMessageCount;
 
     UserInfoViewModel model;
@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         }
     };
 
->>>>>>> f193c243e71dc3a40664b2dc7049d0c0f348e234
+
 
 
     @Override

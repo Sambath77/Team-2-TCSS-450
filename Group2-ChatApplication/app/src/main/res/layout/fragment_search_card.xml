@@ -45,13 +45,11 @@
 
         <ImageButton
             android:id="@+id/add_button"
-            style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="350dp"
+            android:layout_marginLeft="300dp"
             android:layout_marginTop="9dp"
-            android:foregroundGravity="right"
             android:src="@drawable/ic_add_24"
             android:textStyle="bold" />
 

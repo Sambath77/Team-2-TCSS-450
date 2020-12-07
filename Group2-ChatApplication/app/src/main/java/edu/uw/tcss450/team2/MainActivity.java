@@ -152,16 +152,16 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO 1. mock up notification in home page - need to replace with actual notification
         BottomNavigationView navView = findViewById(R.id.nav_view);
-<<<<<<< HEAD
+
 //        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
 //        badgeDrawable.setVisible(true);
 //        badgeDrawable.setNumber(7);
-=======
+
 
         BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
         badgeDrawable.setVisible(true);
         badgeDrawable.setNumber(2);
->>>>>>> f193c243e71dc3a40664b2dc7049d0c0f348e234
+
 
 //        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
 //        badgeDrawable.setVisible(true);
