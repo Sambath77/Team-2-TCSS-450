@@ -69,6 +69,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
 
+        <TextView
+            android:id="@+id/dateReceived"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toStartOf="@+id/button_full_post"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title" />
+
         <Button
             android:id="@+id/button_full_post"
             style="@style/Widget.AppCompat.Button.Borderless"

@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.uw.tcss450.team2.MainActivity;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
 import edu.uw.tcss450.team2.friend.FriendListFragmentDirections;
@@ -41,6 +42,7 @@ public class ChatListFragment extends Fragment {
 
     private ChatListViewModel mModel;
     private MutableLiveData<JSONObject> mResponse;
+    private UserInfoViewModel userInfoViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,13 +54,14 @@ public class ChatListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        UserInfoViewModel userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
 
 
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
+        userInfoViewModel.setChatListViewModel(mModel);
 
 
         mModel.connectGet(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
@@ -77,7 +80,7 @@ public class ChatListFragment extends Fragment {
         mModel.addUserListObserver(getViewLifecycleOwner(), userList -> {
             if (!userList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatListRecyclerViewAdapter(userList)
+                        new ChatListRecyclerViewAdapter(userList, userInfoViewModel.getChatRoomsIdForNewMessage(), userInfoViewModel)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }
