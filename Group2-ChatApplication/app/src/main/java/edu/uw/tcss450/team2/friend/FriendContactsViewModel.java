@@ -144,37 +144,5 @@ public class FriendContactsViewModel extends AndroidViewModel {
         }
     }
 
-    public void DeleteContactFriend(String jwt, String email, String email_B) {
-        String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact/" + email + "/" + email_B;
-//
-//        JSONObject body = new JSONObject();
-//        try {
-//            body.put("email", email);
-//            body.put("email_B", email_B);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-        Request request = new JsonObjectRequest(
-                Request.Method.DELETE,
-                url,
-                null, //no body for this get edu.uw.tcss450.team2.request
-                this::handelSuccess,
-                this::handleError) {
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("Authorization", jwt);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
+
 }

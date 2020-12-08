@@ -35,7 +35,7 @@
         </activity>
 
 
-<!--            android:theme="@style/Theme.WeatherApp"/>-->
+        <!--            android:theme="@style/Theme.WeatherApp"/>-->
 
 
         <activity android:name=".ProfileAcitvity">
@@ -55,7 +55,7 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".MainActivity"></activity>
-      
+
 
 
 

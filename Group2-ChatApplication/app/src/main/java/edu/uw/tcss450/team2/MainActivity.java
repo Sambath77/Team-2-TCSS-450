@@ -4,6 +4,7 @@ package edu.uw.tcss450.team2;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -60,6 +61,7 @@ import edu.uw.tcss450.team2.home.HomeFragmentDirections;
 import edu.uw.tcss450.team2.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.notification.NotificationFragment;
+import edu.uw.tcss450.team2.search.SearchContactsListFragment;
 import edu.uw.tcss450.team2.services.PushReceiver;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 
@@ -238,26 +240,27 @@ public class MainActivity extends AppCompatActivity {
     private void switchTheme() {
 
 
-        switchCompat = findViewById(R.id.switch_button);
+        //switchCompat = findViewById(R.id.switch_button);
+
         sharedPreferences = getSharedPreferences("night", 0);
         boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
         if (booleanValue) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            switchCompat.setChecked(true);
+            binding.switchButton.setChecked(true);
         }
 
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    switchCompat.setChecked(true);
+                    binding.switchButton.setChecked(true);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("night node", true);
                     editor.commit();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    switchCompat.setChecked(true);
+                    binding.switchButton.setChecked(true);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("night node", false);
                     editor.commit();
@@ -300,14 +303,19 @@ public class MainActivity extends AppCompatActivity {
             case R.id.notification_bar:
                 //Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
 
-                break;
+                return true;
             case R.id.profile:
                 //createFragment(new ProfileFragment());
-                break;
+                Intent i = new Intent(this,  ProfileAcitvity.class);
+                startActivity(i);
+                return true;
             case R.id.log_out:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
                 signOut();
-                break;
+                return true;
+            case R.id.find_friend:
+                createFragment(new SearchContactsListFragment());
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
