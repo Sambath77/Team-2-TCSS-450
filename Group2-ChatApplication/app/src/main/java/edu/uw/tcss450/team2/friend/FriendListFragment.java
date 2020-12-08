@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
 
@@ -106,9 +108,11 @@ public class FriendListFragment extends Fragment {
                     }
                 });
 
-                binding.btnCancelBtn.setOnClickListener(button -> {
-                    binding.seachContacts.setText("");
-                   // binding.listRoot.setVisibility(View.GONE);
+                binding.btnSearchBtn.setOnClickListener(button -> {
+//                    binding.seachContacts.setText("");
+//                   // binding.listRoot.setVisibility(View.GONE);
+                     Navigation.findNavController(view).navigate(FriendListFragmentDirections
+                                .actionNavigationContactToNavigationFindFriend());
                 });
 
                 mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {
