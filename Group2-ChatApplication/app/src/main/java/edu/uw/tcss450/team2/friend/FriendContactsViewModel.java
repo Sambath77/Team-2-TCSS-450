@@ -95,6 +95,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
      */
     private void handelSuccess(final JSONObject response)  {
 
+        list = new ArrayList<>();
         try {
 
             JSONArray contacts = response.getJSONArray("rows");
