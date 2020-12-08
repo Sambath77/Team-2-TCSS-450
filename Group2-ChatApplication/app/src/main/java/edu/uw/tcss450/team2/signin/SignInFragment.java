@@ -232,7 +232,7 @@ public class SignInFragment extends Fragment {
     }
 
     /**
-     * Helper to abstract the request to send the pushy token to the web service
+     * Helper to abstract the edu.uw.tcss450.team2.request to send the pushy token to the web service
      */
     private void sendPushyToken() {
         mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getJwt());

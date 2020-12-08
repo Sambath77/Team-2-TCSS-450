@@ -27,7 +27,7 @@ import java.util.Objects;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
 /**
- * Handles sending a request to reset the password
+ * Handles sending a edu.uw.tcss450.team2.request to reset the password
  */
 public class NewPasswordViewModel extends AndroidViewModel {
 
@@ -54,8 +54,8 @@ public class NewPasswordViewModel extends AndroidViewModel {
     }
 
     /**
-     * handles errors during the request
-     * @param error The error encountered during the request
+     * handles errors during the edu.uw.tcss450.team2.request
+     * @param error The error encountered during the edu.uw.tcss450.team2.request
      */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
@@ -82,7 +82,7 @@ public class NewPasswordViewModel extends AndroidViewModel {
     }
 
     /**
-     * Connects to the web server to request that the given user's password be reset.
+     * Connects to the web server to edu.uw.tcss450.team2.request that the given user's password be reset.
      * @param email The user whose password is to be reset.
      */
     public void connect(final String email) {
@@ -106,7 +106,7 @@ public class NewPasswordViewModel extends AndroidViewModel {
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }

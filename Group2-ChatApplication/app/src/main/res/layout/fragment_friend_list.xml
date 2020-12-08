@@ -13,10 +13,11 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:background="@drawable/login_shape"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:padding="3dp"
         android:drawableStart="@drawable/ic_search_24dp"
-        android:hint="Search Username..."
+        android:hint="Search..."
+        android:drawableEnd="@drawable/ic_search_clear_24"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -27,9 +28,9 @@
         android:id="@+id/btn_cancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="290dp"/>
+        android:text="Search"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="300dp"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

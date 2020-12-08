@@ -80,14 +80,14 @@ public class ChatViewModel extends AndroidViewModel {
     }
 
     /**
-     * Makes a request to the web service to get the first batch of messages for a given Chat Room.
+     * Makes a edu.uw.tcss450.team2.request to the web service to get the first batch of messages for a given Chat Room.
      * Parses the response and adds the ChatMessage object to the List associated with the
      * ChatRoom. Informs observers of the update.
      *
      * Subsequent requests to the web service for a given chat room should be made from
      * getNextMessages()
      *
-     * @param chatId the chatroom id to request messages of
+     * @param chatId the chatroom id to edu.uw.tcss450.team2.request messages of
      * @param jwt the users signed JWT
      */
     public void getFirstMessages(final int chatId, final String jwt) {
@@ -97,7 +97,7 @@ public class ChatViewModel extends AndroidViewModel {
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                null, //no body for this get request
+                null, //no body for this get edu.uw.tcss450.team2.request
                 this::handelSuccess,
                 this::handleError) {
 
@@ -114,7 +114,7 @@ public class ChatViewModel extends AndroidViewModel {
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
 
@@ -122,15 +122,15 @@ public class ChatViewModel extends AndroidViewModel {
     }
 
     /**
-     * Makes a request to the web service to get the next batch of messages for a given Chat Room.
-     * This request uses the earliest known ChatMessage in the associated list and passes that
+     * Makes a edu.uw.tcss450.team2.request to the web service to get the next batch of messages for a given Chat Room.
+     * This edu.uw.tcss450.team2.request uses the earliest known ChatMessage in the associated list and passes that
      * messageId to the web service.
      * Parses the response and adds the ChatMessage object to the List associated with the
      * ChatRoom. Informs observers of the update.
      *
      * Subsequent calls to this method receive earlier and earlier messages.
      *
-     * @param chatId the chatroom id to request messages of
+     * @param chatId the chatroom id to edu.uw.tcss450.team2.request messages of
      * @param jwt the users signed JWT
      */
     public void getNextMessages(final int chatId, final String jwt) {
@@ -143,7 +143,7 @@ public class ChatViewModel extends AndroidViewModel {
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                null, //no body for this get request
+                null, //no body for this get edu.uw.tcss450.team2.request
                 this::handelSuccess,
                 this::handleError) {
 
@@ -160,7 +160,7 @@ public class ChatViewModel extends AndroidViewModel {
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
 

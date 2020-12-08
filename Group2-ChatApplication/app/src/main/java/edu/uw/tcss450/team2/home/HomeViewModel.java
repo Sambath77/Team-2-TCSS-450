@@ -96,21 +96,21 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void connectGet(final double theLatitude, final double theLongitude) {
 //        String url = "https://hsk26-lab4-backend.herokuapp.com/hello";
-//        Request request = new JsonObjectRequest(
+//        Request edu.uw.tcss450.team2.request = new JsonObjectRequest(
 //                Request.Method.GET,
 //                url,
-//                null,  // no body for this get request
+//                null,  // no body for this get edu.uw.tcss450.team2.request
 //                this::handleResult,
 //                this::handleError
 //        );
 
-//        request.setRetryPolicy(new DefaultRetryPolicy(
+//        edu.uw.tcss450.team2.request.setRetryPolicy(new DefaultRetryPolicy(
 //                10_000,
 //                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 //                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        // Instantiate the RequestQueue and add the request to the queue
-//        Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
+        // Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
+//        Volley.newRequestQueue(getApplication().getApplicationContext()).add(edu.uw.tcss450.team2.request);
 
 
 
@@ -141,7 +141,7 @@ public class HomeViewModel extends AndroidViewModel {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        //Instantiate the RequestQueue and add the request to the queue
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
 
 

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team2.search;
+package edu.uw.tcss450.team2.request;
 
 import android.os.Bundle;
 
@@ -6,13 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentSendFriendRequestBinding;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import edu.uw.tcss450.team2.search.AddFriendViewModel;
+import edu.uw.tcss450.team2.search.SearchContactsRecyclerViewAdapter;
+import edu.uw.tcss450.team2.search.SearchContactsViewModel;
 
 /**
  * A simple {@link Fragment} subclass.

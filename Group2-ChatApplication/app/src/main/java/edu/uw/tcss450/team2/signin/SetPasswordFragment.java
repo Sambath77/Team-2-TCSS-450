@@ -130,7 +130,7 @@ public class SetPasswordFragment extends Fragment {
     }
 
     /**
-     * Sends a request to set the given user with the given temporary password to the given new password
+     * Sends a edu.uw.tcss450.team2.request to set the given user with the given temporary password to the given new password
      */
     private void attemptToSetPassword() {
         mSetPasswordViewModel.connect(mEmail, mPassword, binding.passwordField1.getText().toString());
