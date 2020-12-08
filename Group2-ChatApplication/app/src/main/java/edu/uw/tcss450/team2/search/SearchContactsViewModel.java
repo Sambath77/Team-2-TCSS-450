@@ -79,6 +79,7 @@ public class SearchContactsViewModel extends AndroidViewModel {
 
     private void handleSuccess(final JSONObject response) {
 //        List<SearchContacts> list = new ArrayList<>();
+        searchList = new ArrayList<>();
         try {
 
             JSONArray searchs = response.getJSONArray("rows");
