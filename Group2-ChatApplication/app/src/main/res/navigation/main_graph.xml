@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_friendListFragment_to_friendPostFragment"
             app:destination="@id/fragment_friend_post" />
+        <action
+            android:id="@+id/action_navigation_contact_to_navigation_find_friend"
+            app:destination="@id/navigation_find_friend" />
     </fragment>
     <fragment
         android:id="@+id/fragment_friend_post"
