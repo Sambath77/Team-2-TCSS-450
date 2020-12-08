@@ -95,6 +95,8 @@ public class CreateChatRoomFragment extends Fragment {
                 for (Integer memberId: memberIds) {
                     memberIdJson.put(memberId);
                 }
+
+                jsonBody.put("memberId", userInfoViewModel.getMemberId());
                 jsonBody.put("roomName", binding.chatRoomNameTxt.getText());
                 jsonBody.put("members", memberIdJson);
 

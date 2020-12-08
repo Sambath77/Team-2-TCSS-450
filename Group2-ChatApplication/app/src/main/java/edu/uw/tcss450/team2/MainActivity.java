@@ -58,6 +58,7 @@ import edu.uw.tcss450.team2.databinding.ActivityMainBinding;
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.team2.home.HomeFragmentDirections;
 import edu.uw.tcss450.team2.model.NewMessageCountViewModel;
+import edu.uw.tcss450.team2.model.NewNotificationCountViewModel;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.notification.NotificationFragment;
 import edu.uw.tcss450.team2.services.PushReceiver;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
+    private NewNotificationCountViewModel mNewNotificationModel;
     private AppBarConfiguration mAppBarConfiguration;
     private Switch mSwitch;
     private FragmentHomeBinding binding;
@@ -183,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
+        mNewNotificationModel = new ViewModelProvider(this).get(NewNotificationCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.navigation_chat) {
@@ -190,10 +193,9 @@ public class MainActivity extends AppCompatActivity {
                 //This will need some extra logic for your project as it should have
                 //multiple chat rooms.
                 mNewMessageModel.reset();
-                layoutId = R.id.navigation_chat;
             }
-            if(destination.getId() == R.id.navigation_home) {
-                layoutId = R.id.navigation_home;
+            if(destination.getId() == R.id.navigation_notification) {
+                mNewNotificationModel.reset();
             }
 
         });
@@ -203,41 +205,47 @@ public class MainActivity extends AppCompatActivity {
             //BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
             BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_chat);
             //BadgeDrawable badge2 = navView.getOrCreateBadge(R.id.image_chatIcon);
-            badge.setMaxCharacterCount(2);
+            //badge.setMaxCharacterCount(2);
 
             //TODO need to be erased
             System.out.println("Incoming Message Count: "+ count);
 
-//            R.id.text_unreadChat
-
-            tempUserViewModel.setUnreadMessageCount(count);
-
             if (count > 0) {
-                //new messages! update and show the notification badge.
                 badge.setNumber(count);
                 badge.setVisible(true);
-
-//                badge2.setNumber(count);
-//                badge2.setVisible(true);
             } else {
-                //user did some action to clear the new messages, remove the badge
                 badge.clearNumber();
                 badge.setVisible(false);
-
-//                badge2.setNumber(count);
-//                badge2.setVisible(true);
             }
 
 
         });
         //switchTheme();
+
+        mNewNotificationModel.addMessageCountObserver(this, count -> {
+            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
+            //badge.setMaxCharacterCount(2);
+
+            tempUserViewModel.setUnreadMessageCount(count);
+
+            if (count > 0) {
+                badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+
+
+        });
+
+
+
     }
 
 
 
     private void switchTheme() {
-
-
         switchCompat = findViewById(R.id.switch_button);
         sharedPreferences = getSharedPreferences("night", 0);
         boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
@@ -342,16 +350,29 @@ public class MainActivity extends AppCompatActivity {
                     Navigation.findNavController(
                             MainActivity.this, R.id.nav_host_fragment);
             NavDestination nd = nc.getCurrentDestination();
-            if (intent.hasExtra("chatMessage")) {
+
+            if(intent.hasExtra("AddMemberToChatRoom")
+                || intent.hasExtra("RemoveMemberToChatRoom")
+                || intent.hasExtra("CreateNewChatRoom")) {
+                mNewNotificationModel.increment();
+                if(nd.getId() == R.id.navigation_chat) {
+                    userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
+                }
+            }
+            else if (intent.hasExtra("chatMessage")) {
                 ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
 
-                cm.setDateReceived(new Date());
+
                 int chatId = intent.getIntExtra("chatid", -1);
 
-                userInfoViewModel.getChatRoomsIdForNewMessage().
-                        put(chatId, cm);
+                //if(!userInfoViewModel.getChatRoomsIdForNewMessage().containsKey(new Integer(chatId))) {
+
+                //}
+
+                cm.setDateReceived(new Date());
+                userInfoViewModel.getChatRoomsIdForNewMessage().put(chatId, cm);
 
                 if(nd.getId() == R.id.navigation_chat) {
                     userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
@@ -363,13 +384,14 @@ public class MainActivity extends AppCompatActivity {
                     mNewMessageModel.increment();
                 }
 
-
-
-
                 //Inform the view model holding chatroom messages of the new
                 //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
+
+
+
+
         }
     }
 

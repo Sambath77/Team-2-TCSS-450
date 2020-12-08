@@ -18,7 +18,7 @@
             app:destination="@id/navigation_chat" />
         <action
             android:id="@+id/action_navigation_home_to_nav_notification"
-            app:destination="@id/nav_notification" />
+            app:destination="@id/navigation_notification" />
     </fragment>
 
     <fragment
@@ -120,7 +120,7 @@
         android:name="edu.uw.tcss450.team2.search.SearchContactsListFragment"
         tools:layout="@layout/fragment_search_contacts_list"/>
     <fragment
-        android:id="@+id/nav_notification"
+        android:id="@+id/navigation_notification"
         android:name="edu.uw.tcss450.team2.notification.NotificationFragment"
         android:label="NotificationFragment" />
 </navigation>
