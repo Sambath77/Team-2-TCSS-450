@@ -72,7 +72,7 @@ public class NewPasswordFragment extends Fragment {
     }
 
     /**
-     * Observes the change JSONObject for when a request is returned
+     * Observes the change JSONObject for when a edu.uw.tcss450.team2.request is returned
      * @param response The new JSONObject
      */
     private void observeSignInResponse(JSONObject response) {
@@ -114,7 +114,7 @@ public class NewPasswordFragment extends Fragment {
     }
 
     /**
-     * Sends request to reset password
+     * Sends edu.uw.tcss450.team2.request to reset password
      */
     private void validEmailResetPassword() {
         mNewPasswordViewModel.connect(binding.emailTextField.getText().toString());

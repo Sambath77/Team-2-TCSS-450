@@ -69,7 +69,7 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                null, //no body for this get request
+                null, //no body for this get edu.uw.tcss450.team2.request
                 this::handelSuccess,
                 this::handleError) {
                 public Map<String, String> getHeaders() {
@@ -83,7 +83,7 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
@@ -121,7 +121,7 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
     }
 
     /*
-    * helper method to handle a error from the request
+    * helper method to handle a error from the edu.uw.tcss450.team2.request
     * @param: error
     */
     private void handleError(final VolleyError error) {

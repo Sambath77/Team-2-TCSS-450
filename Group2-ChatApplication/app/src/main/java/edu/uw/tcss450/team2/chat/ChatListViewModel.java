@@ -62,7 +62,7 @@ public class ChatListViewModel extends AndroidViewModel {
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
-                null, //no body for this get request
+                null, //no body for this get edu.uw.tcss450.team2.request
                 this::handelSuccess,
                 this::handleError) {
 
@@ -78,7 +78,7 @@ public class ChatListViewModel extends AndroidViewModel {
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
 
