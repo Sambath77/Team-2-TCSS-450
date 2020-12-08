@@ -50,13 +50,16 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
+import edu.uw.tcss450.team2.chat.ChatListFragmentDirections;
 import edu.uw.tcss450.team2.chat.ChatMessage;
 import edu.uw.tcss450.team2.chat.ChatViewModel;
 
 import edu.uw.tcss450.team2.databinding.ActivityMainBinding;
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
+import edu.uw.tcss450.team2.home.HomeFragmentDirections;
 import edu.uw.tcss450.team2.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import edu.uw.tcss450.team2.notification.NotificationFragment;
 import edu.uw.tcss450.team2.services.PushReceiver;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 
@@ -69,6 +72,7 @@ import java.util.Date;
 
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.signin.SignInFragment;
+import edu.uw.tcss450.team2.signin.SignInFragmentDirections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     private int memberId;
     int messageCount;
 
-
+    private int layoutId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +190,12 @@ public class MainActivity extends AppCompatActivity {
                 //This will need some extra logic for your project as it should have
                 //multiple chat rooms.
                 mNewMessageModel.reset();
+                layoutId = R.id.navigation_chat;
             }
+            if(destination.getId() == R.id.navigation_home) {
+                layoutId = R.id.navigation_home;
+            }
+
         });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
@@ -289,7 +298,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.notification_bar:
-                Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.profile:
                 //createFragment(new ProfileFragment());
