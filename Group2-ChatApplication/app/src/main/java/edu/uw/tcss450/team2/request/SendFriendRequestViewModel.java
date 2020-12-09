@@ -1,8 +1,8 @@
-package edu.uw.tcss450.team2.friend;
+package edu.uw.tcss450.team2.request;
 
 import android.app.Application;
-import android.app.admin.FactoryResetProtectionPolicy;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -27,34 +27,28 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentSendFriendRequestListBinding;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
-import edu.uw.tcss450.team2.search.SearchContacts;
+
+public class SendFriendRequestViewModel extends AndroidViewModel {
 
 
-public class FriendContactsViewModel extends AndroidViewModel {
+    private MutableLiveData<List<SendFriendRequest>> mSend;
+    private List<SendFriendRequest> list;
+    private SendFriendRequest searchContacts;
+    private List<SendFriendRequest> mList;
+    private FragmentSendFriendRequestListBinding binding;
 
-    private MutableLiveData<List<FriendContacts>> mContacts;
-    private List<FriendContacts> list;
-    private FriendContacts searchContacts;
-    private List<FriendContacts> mList;
-
-
-
-    public FriendContactsViewModel(@NonNull Application application) {
+    public SendFriendRequestViewModel(@NonNull Application application) {
         super(application);
-        mContacts = new MutableLiveData<>();
+        mSend = new MutableLiveData<>();
         list = new ArrayList<>();
-        searchContacts = new FriendContacts("", "", "", "", 0 );
         mList = new ArrayList<>();
     }
 
-    /*
-     * method to send observer to alert the notification
-     */
-
-    public void addContactListObserver(@NonNull LifecycleOwner owner,
-                                       @NonNull Observer<? super List<FriendContacts>> observer) {
-        mContacts.observe(owner, observer);
+    public void sendRequestObserver(@NonNull LifecycleOwner owner,
+                                       @NonNull Observer<? super List<SendFriendRequest>> observer) {
+        mSend.observe(owner, observer);
     }
 
     /*
@@ -62,9 +56,9 @@ public class FriendContactsViewModel extends AndroidViewModel {
      *
      */
 
-    public void getContactFriend(String jwt, String email) {
+    public void getSendRequest(String jwt, String email) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact/" + email;
+                "request/" + email;
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -72,11 +66,11 @@ public class FriendContactsViewModel extends AndroidViewModel {
                 null, //no body for this get edu.uw.tcss450.team2.request
                 this::handelSuccess,
                 this::handleError) {
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<>();
-                    // add headers <key,value>
-                    headers.put("Authorization", jwt);
-                    return headers;
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
             }
         };
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -87,7 +81,6 @@ public class FriendContactsViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
 
     /*
      * helper method to handle the successful for client requests
@@ -103,23 +96,22 @@ public class FriendContactsViewModel extends AndroidViewModel {
             for(int i = 0; i < contacts.length(); i++) {
                 JSONObject message = contacts.getJSONObject(i);
 
-                FriendContacts friendContacts = new FriendContacts(
-                        message.getString("firstname"),
-                        message.getString("lastname"),
+                SendFriendRequest sendFriendRequest = new SendFriendRequest(
                         message.getString("username"),
                         message.getString("email"),
                         message.getInt("memberid"));
 
-                    list.add(friendContacts);
+                list.add(sendFriendRequest);
+                binding.acceptRecyclerViewWait.setVisibility(View.GONE);
 
             }
 
             if (list.isEmpty()) {
                 mList = new ArrayList<>();
                 mList.add(searchContacts);
-                mContacts.setValue(mList);
+                mSend.setValue(mList);
             } else {
-                mContacts.setValue(list);
+                mSend.setValue(list);
             }
 
 
@@ -130,9 +122,9 @@ public class FriendContactsViewModel extends AndroidViewModel {
     }
 
     /*
-    * helper method to handle a error from the edu.uw.tcss450.team2.request
-    * @param: error
-    */
+     * helper method to handle a error from the edu.uw.tcss450.team2.request
+     * @param: error
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             Log.e("NETWORK ERROR", error.getMessage());
@@ -145,6 +137,4 @@ public class FriendContactsViewModel extends AndroidViewModel {
                             data);
         }
     }
-
-
 }

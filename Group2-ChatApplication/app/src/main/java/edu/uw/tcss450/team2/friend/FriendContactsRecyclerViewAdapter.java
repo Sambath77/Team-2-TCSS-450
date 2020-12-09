@@ -68,9 +68,8 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     class ContactViewHolder extends RecyclerView.ViewHolder {
 
         private final View mView;
-        private @NonNull
-        FragmentFriendCardBinding binding;
-        private UserInfoViewModel model;
+        private FragmentFriendCardBinding binding;
+
 
         public ContactViewHolder(@NonNull View view) {
             super(view);
@@ -125,4 +124,5 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
 
 
     }
+
 }

@@ -12,13 +12,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.SearchView;
 
 import org.json.JSONObject;
 
@@ -26,12 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragmentSearchCardBinding;
 import edu.uw.tcss450.team2.databinding.FragmentSearchContactsListBinding;
-import edu.uw.tcss450.team2.friend.FriendContacts;
-import edu.uw.tcss450.team2.friend.FriendContactsRecyclerViewAdapter;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
-import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
+import edu.uw.tcss450.team2.request.AddFriendViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +36,7 @@ public class SearchContactsListFragment extends Fragment {
     private MutableLiveData<JSONObject> listMutableLiveData;
     private List<SearchContacts> mFriendContacts;
     private SearchContactsRecyclerViewAdapter searchContactsRecyclerViewAdapter;
-    private AddFriendViewModel mAddModel;
+    private AddSendRequestViewModel mAddModel;
     private UserInfoViewModel userInfoViewModel;
 
     @Override
@@ -64,7 +56,7 @@ public class SearchContactsListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(SearchContactsViewModel.class);
         mModel.getSearchContacts(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
 
-        mAddModel = new ViewModelProvider(getActivity()).get(AddFriendViewModel.class);
+        mAddModel = new ViewModelProvider(getActivity()).get(AddSendRequestViewModel.class);
 
     }
 
@@ -93,7 +85,12 @@ public class SearchContactsListFragment extends Fragment {
 
                         @Override
                         public void onAddClick(int position) {
-                            mAddModel.getAddFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), searchContacts.get(position).getMemberid());
+                            mAddModel.getAddSendRequest(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), searchContacts.get(position).getmSearchEmail());
+
+                        }
+
+                        @Override
+                        public void onDeleteClick(int position) {
 
                         }
                     });

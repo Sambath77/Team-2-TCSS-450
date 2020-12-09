@@ -96,4 +96,11 @@
     -->
     <string name="hello_world">Hello Square World!</string>
 
+    <string name="cancel_search">Cancel</string>
+
+    <string name="profile_toolbar">Profile</string>
+    <string name="logout_toolbar">Logout</string>
+    <string name="find_friend_toolbar">Find Friend</string>
+    <string name="request_friend_toolbar">Friend Request</string>
+
 </resources>

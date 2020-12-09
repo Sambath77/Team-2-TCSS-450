@@ -70,6 +70,7 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Date;
 
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home,
-                R.id.navigation_chat, R.id.navigation_contact, R.id.navigation_notification, R.id.navigation_weather).build();
+                R.id.navigation_chat, R.id.navigation_contact, R.id.navigation_weather).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -251,34 +252,34 @@ public class MainActivity extends AppCompatActivity {
         //switchCompat = findViewById(R.id.switch_button);
 
 
-    private void switchTheme() {
-        switchCompat = findViewById(R.id.switch_button);
-
-        sharedPreferences = getSharedPreferences("night", 0);
-        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
-        if (booleanValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            binding.switchButton.setChecked(true);
-        }
-
-        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    binding.switchButton.setChecked(true);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("night node", true);
-                    editor.commit();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    binding.switchButton.setChecked(true);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("night node", false);
-                    editor.commit();
-                }
-            }
-        });
+//    private void switchTheme() {
+//        switchCompat = findViewById(R.id.switch_button);
+//
+//        sharedPreferences = getSharedPreferences("night", 0);
+//        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
+//        if (booleanValue) {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            binding.switchButton.setChecked(true);
+//        }
+//
+//        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    binding.switchButton.setChecked(true);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putBoolean("night node", true);
+//                    editor.commit();
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    binding.switchButton.setChecked(true);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putBoolean("night node", false);
+//                    editor.commit();
+//                }
+//            }
+//        });
 //
 //        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
 //            setTheme(R.style.DarkTheme);
@@ -298,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-    }
+
 
 
     public void restartApp() {
@@ -313,20 +314,17 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.notification_bar:
-                //Toast.makeText(this, "Notificaiton", Toast.LENGTH_SHORT).show();
-
-                return true;
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_global_navigation_notification);
             case R.id.profile:
-                //createFragment(new ProfileFragment());
-                Intent i = new Intent(this,  ProfileAcitvity.class);
-                startActivity(i);
+
                 return true;
             case R.id.log_out:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
                 signOut();
                 return true;
             case R.id.find_friend:
-                createFragment(new SearchContactsListFragment());
+                //createFragment(new SearchContactsListFragment());
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_global_navigation_find_friend);
                 return true;
         }
         return super.onOptionsItemSelected(item);
