@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentSendFriendRequestListBinding;
+import edu.uw.tcss450.team2.friend.FriendContacts;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
 public class SendFriendRequestViewModel extends AndroidViewModel {
@@ -35,13 +36,14 @@ public class SendFriendRequestViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<SendFriendRequest>> mSend;
     private List<SendFriendRequest> list;
-    private SendFriendRequest searchContacts;
+    private SendFriendRequest sendFriendRequest;
     private List<SendFriendRequest> mList;
     private FragmentSendFriendRequestListBinding binding;
 
     public SendFriendRequestViewModel(@NonNull Application application) {
         super(application);
         mSend = new MutableLiveData<>();
+        sendFriendRequest = new SendFriendRequest("", "",  0 );;
         list = new ArrayList<>();
         mList = new ArrayList<>();
     }
@@ -108,7 +110,7 @@ public class SendFriendRequestViewModel extends AndroidViewModel {
 
             if (list.isEmpty()) {
                 mList = new ArrayList<>();
-                mList.add(searchContacts);
+                mList.add(sendFriendRequest);
                 mSend.setValue(mList);
             } else {
                 mSend.setValue(list);

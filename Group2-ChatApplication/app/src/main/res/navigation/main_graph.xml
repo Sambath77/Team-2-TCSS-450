@@ -119,14 +119,14 @@
     <fragment
         android:id="@+id/navigation_notification"
         android:name="edu.uw.tcss450.team2.notification.NotificationFragment"
-        android:label="Notification Fragment"/>
+        />
     <action
         android:id="@+id/action_global_navigation_find_friend"
         app:destination="@id/navigation_find_friend" />
     <fragment
         android:id="@+id/sendFriendRequestListFragment"
         android:name="edu.uw.tcss450.team2.request.SendFriendRequestListFragment"
-        android:label="SendFriendRequestListFragment"
+
         tools:layout="@layout/fragment_send_friend_request"/>
     <action
         android:id="@+id/action_global_sendFriendRequestListFragment"

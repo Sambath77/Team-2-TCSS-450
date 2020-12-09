@@ -315,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.notification_bar:
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_global_navigation_notification);
+                return true;
             case R.id.profile:
 
                 return true;
@@ -325,6 +326,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.find_friend:
                 //createFragment(new SearchContactsListFragment());
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_global_navigation_find_friend);
+                return true;
+
+            case R.id.friend_request:
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_global_sendFriendRequestListFragment);
                 return true;
         }
         return super.onOptionsItemSelected(item);
