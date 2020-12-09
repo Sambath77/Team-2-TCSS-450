@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
             //badge.setMaxCharacterCount(2);
 
-            tempUserViewModel.setUnreadMessageCount(count);
+            //tempUserViewModel.setUnreadMessageCount(count);
 
             if (count > 0) {
                 badge.setNumber(count);
@@ -361,21 +361,31 @@ public class MainActivity extends AppCompatActivity {
                             MainActivity.this, R.id.nav_host_fragment);
             NavDestination nd = nc.getCurrentDestination();
 
+            int chatId = intent.getIntExtra("chatid", -1);
+
             if(intent.hasExtra("AddMemberToChatRoom")
                 || intent.hasExtra("RemoveMemberToChatRoom")
-                || intent.hasExtra("CreateNewChatRoom")) {
+                || intent.hasExtra("CreateNewChatRoom")
+                || intent.hasExtra("DeleteChatRoom")) {
                 mNewNotificationModel.increment();
                 if(nd.getId() == R.id.navigation_chat) {
                     userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
                 }
+
+                if(intent.hasExtra("RemoveMemberToChatRoom") || intent.hasExtra("DeleteChatRoom")) {
+                    if(nd.getId() == R.id.personalChatFragment && userInfoViewModel.getCurrentChatRoom() == chatId) {
+                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).
+                            navigate(HomeFragmentDirections.actionNavigationHomeToChatFragment());
+                    }
+                }
+
             }
             else if (intent.hasExtra("chatMessage")) {
                 ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
 
-
-                int chatId = intent.getIntExtra("chatid", -1);
+                //int chatId = intent.getIntExtra("chatid", -1);
 
                 //if(!userInfoViewModel.getChatRoomsIdForNewMessage().containsKey(new Integer(chatId))) {
 

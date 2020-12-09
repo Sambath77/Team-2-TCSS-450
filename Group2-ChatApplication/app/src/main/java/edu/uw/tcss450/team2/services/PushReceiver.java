@@ -79,6 +79,11 @@ public class PushReceiver extends BroadcastReceiver {
                 i.putExtras(intent.getExtras());
             }
 
+            if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("DeleteChatRoom")) {
+                i.putExtra("DeleteChatRoom", "");
+                i.putExtras(intent.getExtras());
+            }
+
             context.sendBroadcast(i);
 
         } else {

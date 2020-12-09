@@ -62,7 +62,7 @@ public class ChatListFragment extends Fragment {
 
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
         userInfoViewModel.setChatListViewModel(mModel);
-
+        mModel.setUserInfoViewModel(userInfoViewModel);
 
         mModel.connectGet(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
     }
@@ -78,7 +78,8 @@ public class ChatListFragment extends Fragment {
         mModel.addUserListObserver(getViewLifecycleOwner(), userList -> {
             if (!userList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatListRecyclerViewAdapter(userList, userInfoViewModel.getChatRoomsIdForNewMessage(), userInfoViewModel)
+                        new ChatListRecyclerViewAdapter(userList, userInfoViewModel.getChatRoomsIdForNewMessage(),
+                                userInfoViewModel, binding, mModel)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }

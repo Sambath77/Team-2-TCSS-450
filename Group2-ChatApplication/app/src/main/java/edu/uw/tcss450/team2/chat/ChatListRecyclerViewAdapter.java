@@ -2,6 +2,7 @@ package edu.uw.tcss450.team2.chat;
 
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,31 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.chat.createChatRoom.UserModel;
 import edu.uw.tcss450.team2.databinding.FragmentChatCardBinding;
+import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
+import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 /**
@@ -35,7 +52,16 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
     private UserInfoViewModel userInfoViewModel;
 
-    public ChatListRecyclerViewAdapter(List<ChatRoomModel> items, Map<Integer, ChatMessage> chatRoomsId, UserInfoViewModel userInfoViewModel) {
+    private FragmentChatListBinding binding;
+
+    private ChatListViewModel chatListViewModel;
+
+    public ChatListRecyclerViewAdapter(List<ChatRoomModel> items, Map<Integer,
+            ChatMessage> chatRoomsId, UserInfoViewModel userInfoViewModel, FragmentChatListBinding binding,
+                                       ChatListViewModel chatListViewModel) {
+
+        this.binding = binding;
+        this.chatListViewModel = chatListViewModel;
 
         this.userInfoViewModel = userInfoViewModel;
         this.chatRooms = items;
@@ -125,13 +151,19 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
                 binding.dateReceived.setText(getTimeReceived(chatMessage.getDateReceived(), new Date()));
             }
 
-            //binding.textTitle.setText(chatRoomModel.getRoomName());
+            binding.deleteRoom.setImageIcon(
+                    Icon.createWithResource(
+                            mView.getContext(),
+                            R.drawable.ic_baseline_close_24));
+
+            binding.deleteRoom.setOnClickListener(view -> {
+                chatListViewModel.deleteChatRoom(userInfoViewModel.getJwt(), chatRoomModel.getChatId());
+            });
 
             binding.buittonMore.setImageIcon(
                     Icon.createWithResource(
                             mView.getContext(),
                             R.drawable.ic_member));
-
 
 
             binding.buittonMore.setOnClickListener(view ->
