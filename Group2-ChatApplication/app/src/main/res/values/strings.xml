@@ -68,7 +68,7 @@
 
     <string name="home_email">Temp User Email</string>
     <string name="home_welcome">Welcome to our application!</string>
-    <string name="home_unreadChat">unread chat</string>
+    <string name="home_unreadChat">You have 0 unread messages.</string>
     <string name="home_weather">current weather</string>
     <string name="home_location">current location</string>
     <string name="home_temperature">current temperature</string>

@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
             unreadMessageCount = model.getUnreadMessageCount();
 
             //TODO handling notification - need to replace these with actual messages not mock up data
-            binding.textUnreadChat.setText("You have " + unreadMessageCount + " Unread Messages");
+            binding.textUnreadChat.setText("You have " + unreadMessageCount + " unread messages.");
 
             // this will repeat this task again at specified time interval
             mHandler.postDelayed(this, 200);

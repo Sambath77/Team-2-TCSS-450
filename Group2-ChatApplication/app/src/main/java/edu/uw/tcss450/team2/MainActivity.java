@@ -194,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
 
             //TODO need to be erased
             System.out.println("Incoming Message Count: "+ count);
-
+//            binding.textUnreadChat.setText("You have " + count + " Unread Messages");
+            tempUserViewModel.setUnreadMessageCount(count);
             if (count > 0) {
                 badge.setNumber(count);
                 badge.setVisible(true);
@@ -207,22 +208,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mNewNotificationModel.addMessageCountObserver(this, count -> {
-            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
-            //badge.setMaxCharacterCount(2);
-
-            //tempUserViewModel.setUnreadMessageCount(count);
-
-            if (count > 0) {
-                badge.setNumber(count);
-                badge.setVisible(true);
-            } else {
-                badge.clearNumber();
-                badge.setVisible(false);
-            }
-
-
-        });
+//        mNewNotificationModel.addMessageCountObserver(this, count -> {
+//            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
+//            //badge.setMaxCharacterCount(2);
+//
+//            tempUserViewModel.setUnreadMessageCount(count);
+//
+//            if (count > 0) {
+//                badge.setNumber(count);
+//                badge.setVisible(true);
+//            } else {
+//                badge.clearNumber();
+//                badge.setVisible(false);
+//            }
+//
+//
+//        });
 
     }
 

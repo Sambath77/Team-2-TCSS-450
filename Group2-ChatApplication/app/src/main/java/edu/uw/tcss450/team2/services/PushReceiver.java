@@ -38,8 +38,11 @@ public class PushReceiver extends BroadcastReceiver {
         //So perform logic/routing based on the "type"
         //feel free to change the key or type of values.
         String typeOfMessage = intent.getStringExtra("type");
+        System.out.println("Type of Message: " + typeOfMessage);
         ChatMessage message = null;
         int chatId = -1;
+        String returnedMessage = null;
+        boolean flag = false;
 
         if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("NewMessage")) {
             try{
@@ -50,6 +53,45 @@ public class PushReceiver extends BroadcastReceiver {
                 throw new IllegalStateException("Error from Web Service. Contact Dev Support");
             }
         }
+        /*TODO implementing add Friend possibly wrong*/
+        //create new chat room
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("CreateNewChatRoom"))){
+            System.out.println("CreateNewChatRoom Initiated");
+            returnedMessage = intent.getStringExtra("message");
+
+            System.out.println(returnedMessage);
+            flag = true;
+        }
+        //remove member
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("RemoveMemberToChatRoom"))){
+            System.out.println("RemoveMemberToChatRoom");
+            returnedMessage = intent.getStringExtra("message");
+
+            System.out.println(returnedMessage);
+            flag = true;
+        }
+        //add member
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("AddMemberToChatRoom"))) {
+            System.out.println("AddMemberToChatRoom");
+            //TODO This is the message I would like to print
+            returnedMessage = intent.getStringExtra("message");
+
+            System.out.println(returnedMessage);
+
+            flag = true;
+        }
+        //Chatroom deleted
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("DeleteChatRoom"))) {
+            System.out.println("DeleteChatRoom");
+            //TODO This is the message I would like to print
+            returnedMessage = intent.getStringExtra("message");
+
+            System.out.println(returnedMessage);
+
+            flag = true;
+        }
+
+
 
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(appProcessInfo);
@@ -87,24 +129,52 @@ public class PushReceiver extends BroadcastReceiver {
             context.sendBroadcast(i);
 
         } else {
-            //app is in the background so create and post a notification
-            Log.d("PUSHY", "Message received in background: " + message.getMessage());
+            NotificationCompat.Builder builder = null;
+            if(flag) {
+                //app is in the background so create and post a notification
+                Log.d("PUSHY", "Message received in background: " + returnedMessage);
 
-            Intent i = new Intent(context, AuthActivity.class);
-            i.putExtras(intent.getExtras());
+                //System.out.println("Test Message -> " + message.getMessage());
 
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                    i, PendingIntent.FLAG_UPDATE_CURRENT);
+                Intent i = new Intent(context, AuthActivity.class);
+                i.putExtras(intent.getExtras());
 
-            //research more on notifications the how to display them
-            //https://developer.android.com/guide/topics/ui/notifiers/notifications
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setAutoCancel(true)
-                    .setSmallIcon(R.drawable.ic_chat_notification)
-                    .setContentTitle("Message from: " + message.getSender())
-                    .setContentText(message.getMessage())
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setContentIntent(pendingIntent);
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+                        i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                //research more on notifications the how to display them
+                //https://developer.android.com/guide/topics/ui/notifiers/notifications
+                builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.drawable.ic_chat_notification)
+                        //TODO Need to change this line
+                        .setContentTitle("Social Network") //Name of our application
+                        .setContentText(returnedMessage)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentIntent(pendingIntent);
+            } else {
+                //app is in the background so create and post a notification
+                Log.d("PUSHY", "Message received in background: " + message.getMessage());
+
+                //System.out.println("Test Message -> " + message.getMessage());
+
+                Intent i = new Intent(context, AuthActivity.class);
+                i.putExtras(intent.getExtras());
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+                        i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                //research more on notifications the how to display them
+                //https://developer.android.com/guide/topics/ui/notifiers/notifications
+                builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.drawable.ic_chat_notification)
+                        .setContentTitle("Message from: " + message.getSender())
+                        .setContentText(message.getMessage())
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentIntent(pendingIntent);
+            }
+
 
             // Automatically configure a ChatMessageNotification Channel for devices running Android O+
             Pushy.setNotificationChannel(builder, context);
@@ -118,4 +188,6 @@ public class PushReceiver extends BroadcastReceiver {
         }
 
     }
+
+
 }
