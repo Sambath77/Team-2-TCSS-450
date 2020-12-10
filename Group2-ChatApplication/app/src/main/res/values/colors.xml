@@ -15,6 +15,8 @@
     <color name="colorPrimary">#FFC107</color>
     <color name="colorPrimaryDark">@color/primaryDarkColor</color>
 
+    <color name="colorWeatherDark">#3D3D8C</color>
+    <color name="colorWeatherLight">#7F7FBC</color>
 
 
 

@@ -6,15 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
@@ -27,8 +33,10 @@ import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
  */
 public class WeekWeatherFragment extends Fragment {
 
+    private WeatherViewModel mWeatherModel;
+
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private DailyWeatherForecastRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     /**
@@ -67,6 +75,12 @@ public class WeekWeatherFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mWeatherModel = new ViewModelProvider(getActivity())
+                .get(WeatherViewModel.class);
+        mWeatherModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::weatherUpdate);
+
         FragmentWeekWeatherBinding binding = FragmentWeekWeatherBinding.bind(getView());
         recyclerView = binding.recyclerView;
 
@@ -77,22 +91,27 @@ public class WeekWeatherFragment extends Fragment {
 
         DailyWeatherForecastRecyclerViewAdapter.DayForecastData[] forecastData = {
                 new DailyWeatherForecastRecyclerViewAdapter.DayForecastData(DailyWeatherForecastRecyclerViewAdapter.DayForecastData.DayOfWeek.THURSDAY,
-                        R.drawable.ic_baseline_cloud_24, "Cloudy", "57°F", "45°F"),
+                        null, "Cloudy", "", "57°F", "45°F", null),
                 new DailyWeatherForecastRecyclerViewAdapter.DayForecastData(DailyWeatherForecastRecyclerViewAdapter.DayForecastData.DayOfWeek.FRIDAY,
-                        R.drawable.ic_baseline_wb_sunny_24, "Sunny", "52°F", "38°F"),
+                        null, "Sunny", "", "52°F", "38°F", null),
                 new DailyWeatherForecastRecyclerViewAdapter.DayForecastData(DailyWeatherForecastRecyclerViewAdapter.DayForecastData.DayOfWeek.SATURDAY,
-                        R.drawable.ic_baseline_wb_sunny_24, "Sunny", "47°F", "37°F"),
+                        null, "Sunny", "", "47°F", "37°F", null),
                 new DailyWeatherForecastRecyclerViewAdapter.DayForecastData(DailyWeatherForecastRecyclerViewAdapter.DayForecastData.DayOfWeek.SUNDAY,
-                        R.drawable.ic_baseline_wb_sunny_24, "Sunny", "48°F", "32°F"),
+                        null, "Sunny", "", "48°F", "32°F", null),
                 new DailyWeatherForecastRecyclerViewAdapter.DayForecastData(DailyWeatherForecastRecyclerViewAdapter.DayForecastData.DayOfWeek.MONDAY,
-                        R.drawable.ic_baseline_cloud_24, "Cloudy", "48°F", "40°F")
+                        null, "Cloudy", "", "48°F", "40°F", null)
         };
 
 
         mAdapter = new DailyWeatherForecastRecyclerViewAdapter(forecastData);
         recyclerView.setAdapter(mAdapter);
-
-
     }
+
+    private void weatherUpdate(final JSONObject response) {
+        if (response != null && response.names() != null && response.names().length() != 0) {
+            mAdapter.updateData(WeatherViewModel.interpretForecast(response, mAdapter));
+        }
+    }
+
 
 }

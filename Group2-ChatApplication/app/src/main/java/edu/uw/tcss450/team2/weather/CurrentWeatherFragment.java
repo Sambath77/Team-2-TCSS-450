@@ -29,10 +29,11 @@ import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
  * @author Sam Spillers
  * @version 1.0
  */
-public class CurrentWeatherFragment extends Fragment {
+public class CurrentWeatherFragment extends Fragment implements DataUpdatable {
 
     private WeatherViewModel mWeatherModel;
     private FragmentCurrentWeatherBinding binding;
+    private DailyWeatherForecastRecyclerViewAdapter.DayForecastData mData;
 
     /**
      * Empty constructor
@@ -67,11 +68,12 @@ public class CurrentWeatherFragment extends Fragment {
     }
 
     private void weatherUpdate(final JSONObject response) {
-        try {
-            binding.currentDescripter.setText(WeatherViewModel.currentDescription(response));
-            binding.currentTemperature.setText(Math.round(WeatherViewModel.currentTemperature(response)) + "°F");
-        } catch (JSONException e) {
-//            e.printStackTrace();
+        if (response != null && response.names() != null && response.names().length() != 0) {
+            DailyWeatherForecastRecyclerViewAdapter.DayForecastData dataResponse = WeatherViewModel.interpretCurrentWeather(response, this);
+            if (dataResponse != null) {
+                mData = dataResponse;
+                updateData();
+            }
         }
     }
 
@@ -79,6 +81,18 @@ public class CurrentWeatherFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mData = null;
+    }
 
+    @Override
+    public void updateData() {
+        if (mData != null) {
+            binding.currentDescripter.setText(mData.getWeatherDiscriptor());
+            binding.currentTemperature.setText(mData.getCurrentWeather());
+            String temperatureText = mData.getHighTemperatureForecast() + "/" + mData.getLowTemperatureForecast();
+            binding.currentHighLow.setText(temperatureText);
+            binding.currentPrecipitation.setText(mData.getPrecipitation());
+            binding.conditionIcon.setImageBitmap(mData.getBitMap());
+        }
     }
 }

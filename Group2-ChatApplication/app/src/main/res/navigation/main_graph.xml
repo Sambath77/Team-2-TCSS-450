@@ -26,9 +26,14 @@
         android:name="edu.uw.tcss450.team2.weather.WeatherFragment"
 
         tools:layout="@layout/fragment_weather" >
+        <argument
+            android:name="newMyLocationObject"
+            app:argType="edu.uw.tcss450.team2.weather.WeatherFragment$MyLocation"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
-            android:id="@+id/action_navigation_weather_to_chooseLocationContainerFragment"
-            app:destination="@id/chooseLocationContainerFragment" />
+            android:id="@+id/action_navigation_weather_to_chooseLocationFragment"
+            app:destination="@id/chooseLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
@@ -63,11 +68,6 @@
         android:name="edu.uw.tcss450.team2.chat.PersonalChatFragment"
 
         tools:layout="@layout/fragment_personal_chat" />
-
-    <fragment
-        android:id="@+id/chooseLocationContainerFragment"
-        android:name="edu.uw.tcss450.team2.weather.ChooseLocationContainerFragment"
-        tools:layout="@layout/fragment_choose_location_container" />
 
     <fragment
 
@@ -133,4 +133,15 @@
     <action
         android:id="@+id/action_global_sendFriendRequestListFragment"
         app:destination="@id/sendFriendRequestListFragment" />
+    <fragment
+        android:id="@+id/chooseLocationFragment"
+        android:name="edu.uw.tcss450.team2.weather.ChooseLocationFragment"
+        android:label="fragment_choose_location"
+        tools:layout="@layout/fragment_choose_location" >
+        <action
+            android:id="@+id/action_chooseLocationFragment_to_navigation_weather"
+            app:destination="@id/navigation_weather"
+            app:popUpTo="@+id/navigation_weather"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

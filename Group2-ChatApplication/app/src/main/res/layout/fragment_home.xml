@@ -36,7 +36,7 @@
             android:text="@string/home_email"
             android:textColor="?attr/textColor"
             android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/condition_icon"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -52,7 +52,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_user_email" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/condition_icon"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginTop="35dp"
@@ -73,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toBottomOf="@+id/condition_icon">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"

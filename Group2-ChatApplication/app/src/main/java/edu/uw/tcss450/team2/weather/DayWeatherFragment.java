@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentDayWeatherBinding;
 import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
 /**
@@ -23,6 +32,12 @@ import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
  * @version 1.0
  */
 public class DayWeatherFragment extends Fragment {
+    FragmentDayWeatherBinding binding;
+
+    private WeatherViewModel mWeatherModel;
+    private RecyclerView recyclerView;
+    private HourlyWeatherForecastRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public DayWeatherFragment() {
         super();
@@ -44,5 +59,34 @@ public class DayWeatherFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mWeatherModel = new ViewModelProvider(getActivity())
+                .get(WeatherViewModel.class);
+        mWeatherModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::weatherUpdate);
+
+        binding = FragmentDayWeatherBinding.bind(getView());
+        recyclerView = binding.hourlyForecastRv;
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        List<HourlyWeatherForecastRecyclerViewAdapter.HourData> hourDataList = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            hourDataList.add(new HourlyWeatherForecastRecyclerViewAdapter.HourData("33°F", "3am", 1, false));
+        }
+
+        mAdapter = new HourlyWeatherForecastRecyclerViewAdapter(hourDataList);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private void weatherUpdate(JSONObject response) {
+        if (response != null && response.names() != null && response.names().length() != 0) {
+            List<HourlyWeatherForecastRecyclerViewAdapter.HourData> out = WeatherViewModel.interpretDayForecast(response);
+            if (out != null) {
+                mAdapter.updateData(out);
+            }
+        }
     }
 }
