@@ -4,6 +4,8 @@ import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +21,10 @@ import edu.uw.tcss450.team2.databinding.FragmentSearchCardBinding;
 import edu.uw.tcss450.team2.friend.FriendContacts;
 import me.pushy.sdk.lib.jackson.annotation.ObjectIdGenerator;
 
-public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<SearchContactsRecyclerViewAdapter.SearchViewHolder> {
+public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<SearchContactsRecyclerViewAdapter.SearchViewHolder> implements Filterable {
 
     private List<SearchContacts> searchContacts;
-    //private List<SearchContacts> copySearchContacts;
+    private List<SearchContacts> copySearchContacts;
     private OnItemClickListener mListener;
     private final Map<SearchContacts, Boolean> mAddRemove;
 
@@ -42,9 +44,45 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
     public SearchContactsRecyclerViewAdapter(List<SearchContacts> item) {
 
         searchContacts = item;
-        //copySearchContacts = new ArrayList<>(searchContacts);
+        copySearchContacts = new ArrayList<>(searchContacts);
         mAddRemove = searchContacts.stream().collect(Collectors.toMap(Function.identity(), search -> false));
     }
+    @Override
+    public Filter getFilter() {
+        return exampleFiler;
+    }
+
+    private Filter exampleFiler = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<SearchContacts> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(copySearchContacts);
+
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (SearchContacts item : copySearchContacts) {
+                    if (item.getmSearchUsername().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            searchContacts.clear();
+            searchContacts.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
 
 
     @NonNull
@@ -58,6 +96,7 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         holder.setSearchContact(searchContacts.get(position));
+        //holder.controllButton(position);
     }
 
     @Override
@@ -70,40 +109,6 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
         searchContacts = filteredList;
         notifyDataSetChanged();
     }
-//    @Override
-//    public Filter getFilter() {
-//        return exampleFiler;
-//    }
-//
-//    private Filter exampleFiler = new Filter() {
-//        @Override
-//        protected FilterResults performFiltering(CharSequence constraint) {
-//            List<SearchContacts> filteredList = new ArrayList<>();
-//
-//            if (constraint == null || constraint.length() == 0) {
-//                filteredList.addAll(copySearchContacts);
-//
-//            } else {
-//                String filterPattern = constraint.toString().toLowerCase().trim();
-//
-//                for (SearchContacts item : copySearchContacts) {
-//                    if (item.getmSearchUsername().toLowerCase().contains(filterPattern)) {
-//                        filteredList.add(item);
-//                    }
-//                }
-//            }
-//            FilterResults results = new FilterResults();
-//            results.values = filteredList;
-//            return results;
-//        }
-//
-//        @Override
-//        protected void publishResults(CharSequence constraint, FilterResults results) {
-//            searchContacts.clear();
-//            searchContacts.addAll((List) results.values);
-//            notifyDataSetChanged();
-//        }
-//    };
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
 
@@ -115,16 +120,80 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
             super(view);
             mView = view;
             binding = FragmentSearchCardBinding.bind(view);
-            binding.addButton.setOnClickListener(this::handleDeleteAdd);
 
-            view.setOnClickListener(v -> {
-                if (mListener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        mListener.onItemClick(position);
+            binding.addButton.setOnClickListener(button -> {
+                if (binding.removeButton.getVisibility() == View.GONE) {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onAddClick(position);
+
+                        }
                     }
+                    binding.removeButton.setVisibility(View.VISIBLE);
+
                 }
             });
+            binding.removeButton.setOnClickListener(cancel -> {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onDeleteClick(position);
+
+                        }
+                    }
+                    binding.removeButton.setVisibility(View.GONE);
+            });
+
+
+
+
+            view.setOnClickListener(v -> {
+//                if (mListener != null) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        mListener.onItemClick(position);
+//                    }
+//                }
+            });
+        }
+
+//        void controllButton() {
+//            if (mAddRemove.get())
+//            binding.addButton.setOnClickListener(button -> {
+//                if (binding.removeButton.getVisibility() == View.GONE) {
+//                    if (mListener != null) {
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION) {
+//                            mListener.onAddClick(position);
+//
+//                        }
+//                    }
+//                    binding.removeButton.setVisibility(View.VISIBLE);
+//
+//                }
+//
+//                binding.removeButton.setOnClickListener(cancel -> {
+//                    if (mListener != null) {
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION) {
+//                            mListener.onDeleteClick(position);
+//
+//                        }
+//                    }
+//                    binding.removeButton.setVisibility(View.GONE);
+//                });
+//
+//
+//            });
+//
+//        }
+        void setSearchContact(final SearchContacts mSearch) {
+            searchContact = mSearch;
+            binding.searchTextUsername.setText(mSearch.getmSearchUsername());
+            binding.searachTextEmail.setText(mSearch.getmSearchEmail());
+
+
         }
 
         private void handleDeleteAdd(final View button) {
@@ -135,11 +204,8 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 
 
          private void addDeleteFriend() {
-            if (mAddRemove.get(searchContact)) {
-                if (binding.textPreview.getVisibility() == View.GONE) {
-                    binding.textPreview.setVisibility(View.VISIBLE);
-                    binding.addButton.setImageIcon(Icon.createWithResource(mView.getContext(),
-                            R.drawable.ic_add_24));
+            if (mAddRemove.get(searchContact))
+                if (binding.removeButton.getVisibility() == View.GONE) {
                     if (mListener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
@@ -147,29 +213,49 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 
                         }
                     }
+                    binding.removeButton.setVisibility(View.VISIBLE);
+
                 } else {
-                    binding.textPreview.setVisibility(View.GONE);
-                    binding.addButton.setImageIcon(Icon.createWithResource(mView.getContext(),
-                            R.drawable.ic_baseline_remove_24));
+                    binding.removeButton.setOnClickListener(view -> {
+                        binding.removeButton.setVisibility(View.GONE);
+                        if (mListener != null) {
+                            int position = getAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION) {
+                                mListener.onDeleteClick(position);
 
-                    if (mListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            mListener.onDeleteClick(position);
-
+                            }
                         }
-                    }
+                    });
+
                 }
-            }
+//            if (binding.removeButton.getVisibility() == View.GONE) {
+//                if (mListener != null) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        mListener.onAddClick(position);
+//
+//                    }
+//                }
+//                binding.removeButton.setVisibility(View.VISIBLE);
+//
+//            } else {
+//                if (mListener != null) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        mListener.onDeleteClick(position);
+//
+//                    }
+//                }
+//            }
         }
 
 
 
-        void setSearchContact(final SearchContacts mSearch) {
-            searchContact = mSearch;
-            binding.searchTextUsername.setText(mSearch.getmSearchUsername());
-            binding.searachTextEmail.setText(mSearch.getmSearchEmail());
-
-        }
+//        void setSearchContact(final SearchContacts mSearch) {
+//            searchContact = mSearch;
+//            binding.searchTextUsername.setText(mSearch.getmSearchUsername());
+//            binding.searachTextEmail.setText(mSearch.getmSearchEmail());
+//
+//        }
     }
 }

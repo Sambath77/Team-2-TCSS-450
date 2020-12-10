@@ -123,19 +123,14 @@
     <action
         android:id="@+id/action_global_navigation_find_friend"
         app:destination="@id/navigation_find_friend" />
-    <fragment
-        android:id="@+id/sendFriendRequestListFragment"
-        android:name="edu.uw.tcss450.team2.request.SendFriendRequestListFragment"
-
-        tools:layout="@layout/fragment_send_friend_request"/>
-    <action
-        android:id="@+id/action_global_sendFriendRequestListFragment"
-        app:destination="@id/sendFriendRequestListFragment" >
-        <action
-            android:id="@+id/action_action_global_sendFriendRequestListFragment_to_navigation_notification"
-            app:destination="@id/navigation_notification" />
-    </action>
     <action
         android:id="@+id/action_global_navigation_notification"
         app:destination="@id/navigation_notification" />
+    <fragment
+        android:id="@+id/sendFriendRequestListFragment"
+        android:name="edu.uw.tcss450.team2.request.SendFriendRequestListFragment"
+        tools:layout="@layout/fragment_send_friend_request_list" />
+    <action
+        android:id="@+id/action_global_sendFriendRequestListFragment"
+        app:destination="@id/sendFriendRequestListFragment" />
 </navigation>

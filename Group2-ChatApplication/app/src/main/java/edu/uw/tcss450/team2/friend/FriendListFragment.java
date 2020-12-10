@@ -73,9 +73,7 @@ public class FriendListFragment extends Fragment {
             mFriendContactsRecyclerViewAdapter = new FriendContactsRecyclerViewAdapter(contactList);
 
             if (!contactList.isEmpty()) {
-//                if (TextUtils.isEmpty(binding.seachContacts.getText())) {
-//                    binding.layoutWait.setVisibility(View.GONE);
-//                }
+//
                 binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
                 binding.layoutWait.setVisibility(View.GONE);
 
@@ -107,13 +105,8 @@ public class FriendListFragment extends Fragment {
                         mFriendContactsRecyclerViewAdapter.filterList(filteredList);
                     }
                 });
-//                binding.cancelBtn.setOnClickListener(button -> {
-//                    binding.seachContacts.setText("");
-////                    binding.listRoot.setVisibility(View.GONE);
-//                });
-                binding.btnSearchBtn.setOnClickListener(button -> {
-//                     Navigation.findNavController(view).navigate(FriendListFragmentDirections
-//                                .actionNavigationContactToNavigationFindFriend());
+
+                binding.btnCancelBtn.setOnClickListener(button -> {
                     binding.seachContacts.setText("");
                 });
 
@@ -146,7 +139,7 @@ public class FriendListFragment extends Fragment {
                 });
 
             } else {
-                binding.listRoot.setVisibility(View.GONE);
+                binding.listRoot.setVisibility(View.INVISIBLE);
             }
         });
     }

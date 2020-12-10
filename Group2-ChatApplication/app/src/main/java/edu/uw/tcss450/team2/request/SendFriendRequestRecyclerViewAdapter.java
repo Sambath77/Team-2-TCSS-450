@@ -20,14 +20,14 @@ public class SendFriendRequestRecyclerViewAdapter extends RecyclerView.Adapter<S
     private List<SendFriendRequest> mSendFriendRequest;
 
 
-    private SendFriendRequestRecyclerViewAdapter.OnItemClickListener mListener;
+    private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
         void onAcceptClick(int position);
         void onCancelClick(int position);
 
     }
-    public void setOnItemClickListener(SendFriendRequestRecyclerViewAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
     public SendFriendRequestRecyclerViewAdapter(List<SendFriendRequest> sendFriendRequests) {
@@ -57,22 +57,30 @@ public class SendFriendRequestRecyclerViewAdapter extends RecyclerView.Adapter<S
 
         private final View mView;
         private FragmentSendFriendRequestBinding binding;
-
+        private SendFriendRequest mSend;
         public SendRequestViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+            binding = FragmentSendFriendRequestBinding.bind(itemView);
         }
 
         void setSendRequest(final SendFriendRequest contact) {
+            mSend = contact;
             binding.acceptTextUsername.setText(contact.getmUsername());
             binding.acceptTextEmail.setText(contact.getmEmail());
             binding.acceptBtn.setOnClickListener(view -> {
+                binding.acceptTextView.setVisibility(View.VISIBLE);
+                binding.cancelBtnRequest.setVisibility(View.GONE);
+                binding.acceptBtn.setVisibility(View.GONE);
                 if (mListener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         mListener.onAcceptClick(position);
                     }
                 }
+//                binding.acceptTextView.setVisibility(View.VISIBLE);
+//                binding.cancelBtnRequest.setVisibility(View.GONE);
+//                binding.acceptBtn.setVisibility(View.GONE);
             });
 
             binding.cancelBtnRequest.setOnClickListener(view -> {

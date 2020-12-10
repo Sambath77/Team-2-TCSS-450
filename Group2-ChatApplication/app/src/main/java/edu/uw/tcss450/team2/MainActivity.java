@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -223,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-        //switchTheme();
+
 
         mNewNotificationModel.addMessageCountObserver(this, count -> {
             BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
@@ -243,9 +244,43 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        //switchTheme();
     }
 
+
+
+//    private void switchTheme() {
+//        mSwitch = findViewById(R.id.switch_button);
+//        sharedPreferences = getSharedPreferences("nightModePrefs", Context.MODE_PRIVATE);
+//        checkedNightModeActivated();
+//        mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if(isChecked) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                saveNightModeState(true);
+//                recreate();
+//            } else {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                saveNightModeState(false);
+//                recreate();
+//            }
+//        });
+//    }
+//
+//    private void saveNightModeState(boolean nightMode) {
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean("lightModePres", nightMode);
+//        editor.apply();
+//    }
+//
+//    public void checkedNightModeActivated() {
+//        if(sharedPreferences.getBoolean("lightModePres", false)) {
+//            mSwitch.setChecked(true);
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        } else {
+//            mSwitch.setChecked(false);
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        }
+//    }
 
 
 
@@ -449,76 +484,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void createFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 }
 
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//        int id = item.getItemId();
-//        switch (id) {
-//            case R.id.profile:
-//                startActivity(new Intent(this, Profile.class));
-//                break;
-//            case R.id.friend:
-//                showDrawerFragment(new FriendFragment());
-//                break;
-//            case R.id.log_out:
-//               // showDrawerFragment(new LogoutFragment());
-//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
-//                builder.setTitle("Log out?");
-//                builder.setMessage("This will log you out!");
-//                builder.setIcon(R.drawable.ic_baseline_error_24);
-//                builder.setBackground(getResources().getDrawable(R.drawable.drawable_dialog, null));
-//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        showDrawerFragment(new LogoutFragment());
-//                    }
-//                });
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                builder.show();
-//                break;
-//        }
-//        mDrawLayout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-//
-/*
- * Helper class to navigate a item in menu to a new  fragment
- * @params: Fragement
- *
- */
-//    private void showDrawerFragment(Fragment fragment) {
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.main_layout, fragment);
-//        fragmentTransaction.commit();
-//    }
-////
-//
-//    @Override
-//    public void onBackPressed() {
-//        if (mDrawLayout.isDrawerOpen(GravityCompat.START)) {
-//            mDrawLayout.closeDrawer(GravityCompat.START);
-//
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }

@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         FragmentHomeBinding binding = FragmentHomeBinding.bind(getView());
         //Note argument sent to the ViewModelProvider constructor. It is the Activity that
         //holds this fragment.
-
+        switchTheme();
 
 
 
@@ -198,6 +198,37 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
     private void switchTheme() {
 
+        sharedPreferences = getActivity().getSharedPreferences("nightModePrefs", Context.MODE_PRIVATE);
+        checkedNightModeActivated();
+        binding.switchButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                saveNightModeState(true);
+                //recreate();
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                saveNightModeState(false);
+               // recreate();
+            }
+        });
+    }
+
+    private void saveNightModeState(boolean nightMode) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("lightModePres", nightMode);
+        editor.apply();
+    }
+
+    public void checkedNightModeActivated() {
+        if(sharedPreferences.getBoolean("lightModePres", false)) {
+            binding.switchButton.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            binding.switchButton.setChecked(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
 
 //        sharedPreferences = getActivity().getSharedPreferences("night", 0);
 //        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
@@ -258,9 +289,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 //                }
 //            }
 //        });
-    }
 
-    public void restartApp() {
 
-    }
+
 }

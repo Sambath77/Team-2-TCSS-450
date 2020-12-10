@@ -25,37 +25,29 @@ import java.util.Objects;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
-public class AddSendRequestViewModel extends AndroidViewModel {
+public class CancelFreindRequestViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mutableLiveData;
-
-    public AddSendRequestViewModel(@NonNull Application application) {
+    public CancelFreindRequestViewModel(@NonNull Application application) {
         super(application);
         mutableLiveData = new MutableLiveData<>();
         mutableLiveData.setValue(new JSONObject());
     }
 
-    public void addSendResponseObserver(@NonNull LifecycleOwner owner,
+    public void addCancelObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mutableLiveData.observe(owner, observer);
     }
 
-    public void getAddSendRequest(String jwt, String email_A, String email_B) {
+    public void getCancelSendRequest(String jwt, String email_A, String email_B) {
 
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "request";
+                "request/" + email_A + "/" + email_B;
 
-        JSONObject body = new JSONObject();
 
-        try {
-            body.put("email_A", email_A);
-            body.put("email_B", email_B);
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
 
-        Request request = new JsonObjectRequest(Request.Method.POST,
-                url, body, mutableLiveData::setValue, this::handleError) {
+        Request request = new JsonObjectRequest(Request.Method.DELETE,
+                url, null, mutableLiveData::setValue, this::handleError) {
             public Map<String, String> getHeaders() {
                 Map<String, String> header = new HashMap<>();
                 header.put("Authorization", jwt);

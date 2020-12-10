@@ -38,6 +38,8 @@ public class SearchContactsListFragment extends Fragment {
     private SearchContactsRecyclerViewAdapter searchContactsRecyclerViewAdapter;
     private AddSendRequestViewModel mAddModel;
     private UserInfoViewModel userInfoViewModel;
+    private CancelFreindRequestViewModel cancelFreindRequestViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +60,7 @@ public class SearchContactsListFragment extends Fragment {
 
         mAddModel = new ViewModelProvider(getActivity()).get(AddSendRequestViewModel.class);
 
+        cancelFreindRequestViewModel = new ViewModelProvider(getActivity()).get(CancelFreindRequestViewModel.class);
     }
 
     @Override
@@ -72,7 +75,8 @@ public class SearchContactsListFragment extends Fragment {
 
             if (!searchContacts.isEmpty()) {
                 if (TextUtils.isEmpty(binding.seachFriend.getText())) {
-                    //binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
+                    binding.recyclerView.setVisibility(View.VISIBLE);
+                    binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
                     binding.recyclerViewWait.setVisibility(View.GONE);
                 }
                     searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
@@ -91,7 +95,7 @@ public class SearchContactsListFragment extends Fragment {
 
                         @Override
                         public void onDeleteClick(int position) {
-
+                            cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), searchContacts.get(position).getmSearchEmail(), userInfoViewModel.getEmail());
                         }
                     });
                     binding.seachFriend.addTextChangedListener(new TextWatcher() {
@@ -107,12 +111,11 @@ public class SearchContactsListFragment extends Fragment {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            if (!TextUtils.isEmpty(binding.seachFriend.getText())) {
-                                binding.recyclerView.setVisibility(View.VISIBLE);
-                                Log.d("ACTIVITY", binding.seachFriend.getText().toString());
-                                binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
-                                binding.recyclerViewWait.setVisibility(View.GONE);
-                            }
+//                            if (!TextUtils.isEmpty(binding.seachFriend.getText())) {
+//                                binding.recyclerView.setVisibility(View.VISIBLE);
+//                                binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
+//                                binding.recyclerViewWait.setVisibility(View.GONE);
+//                            }
                             List<SearchContacts> filteredList = new ArrayList<>();
                             for (SearchContacts item : searchContacts) {
                                 if (item.getmSearchUsername().toLowerCase().contains(s.toString().toLowerCase())) {
@@ -175,12 +178,16 @@ public class SearchContactsListFragment extends Fragment {
 //                });
 
 
+            } else {
+                binding.recyclerView.setVisibility(View.INVISIBLE);
             }
         });
 
 
 
     }
+
+
 
 
 

@@ -102,5 +102,10 @@
     <string name="logout_toolbar">Logout</string>
     <string name="find_friend_toolbar">Find Friend</string>
     <string name="request_friend_toolbar">Friend Request</string>
-
+    
+    <string name="send_accept">Accept</string>
+    <string name="send_cancel">Delete</string>
+    <string name="accept_request">Accepted the request</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
 </resources>
