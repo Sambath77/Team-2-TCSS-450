@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         mNewMessageModel.addMessageCountObserver(this, count -> {
             //TODO this place causes an error
             //BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
+
             BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_chat);
             //BadgeDrawable badge2 = navView.getOrCreateBadge(R.id.image_chatIcon);
             //badge.setMaxCharacterCount(2);
@@ -206,6 +207,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
+        //switchTheme();
+
+        mNewNotificationModel.addMessageCountObserver(this, count -> {
+
+                    BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
+                    //badge.setMaxCharacterCount(2);
+
+                    //tempUserViewModel.setUnreadMessageCount(count);
+
+                    if (count > 0) {
+                        badge.setNumber(count);
+                        badge.setVisible(true);
+                    } else {
+                        badge.clearNumber();
+                        badge.setVisible(false);
+                    }
+                });
+
 
 
 //        mNewNotificationModel.addMessageCountObserver(this, count -> {
