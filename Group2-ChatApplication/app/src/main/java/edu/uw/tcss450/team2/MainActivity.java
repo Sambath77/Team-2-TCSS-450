@@ -85,13 +85,8 @@ public class MainActivity extends AppCompatActivity {
     private NewMessageCountViewModel mNewMessageModel;
     private NewNotificationCountViewModel mNewNotificationModel;
     private AppBarConfiguration mAppBarConfiguration;
-    private Switch mSwitch;
     private FragmentHomeBinding binding;
-    private SwitchCompat switchCompat;
-    private SharedPreferences sharedPreferences = null;
-    //    private DrawerLayout mDrawLayout;
-//    private ActionBarDrawerToggle mDrawerToggle;
-//    private SignInFragment signInFragment;
+
 
     private String email;
     private String jwt;
@@ -135,20 +130,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        //Appbar id
-//        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
-//        setSupportActionBar(materialToolbar);
-
-        //main_layout is the id activity_main
-//        mDrawLayout = findViewById(R.id.main_layout);
-//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawLayout,
-//                toolbar, R.string.open, R.string.close);
-
-//        mDrawLayout.addDrawerListener(mDrawerToggle);
-//        mDrawerToggle.syncState();
-
-        //NavigationView navigationView = findViewById(R.id.drawer_nav);
-        //navigationView.setNavigationItemSelectedListener(this);
 
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
@@ -243,104 +224,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
-        //switchTheme();
-    }
-
-
-
-//    private void switchTheme() {
-//        mSwitch = findViewById(R.id.switch_button);
-//        sharedPreferences = getSharedPreferences("nightModePrefs", Context.MODE_PRIVATE);
-//        checkedNightModeActivated();
-//        mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            if(isChecked) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                saveNightModeState(true);
-//                recreate();
-//            } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                saveNightModeState(false);
-//                recreate();
-//            }
-//        });
-//    }
-//
-//    private void saveNightModeState(boolean nightMode) {
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putBoolean("lightModePres", nightMode);
-//        editor.apply();
-//    }
-//
-//    public void checkedNightModeActivated() {
-//        if(sharedPreferences.getBoolean("lightModePres", false)) {
-//            mSwitch.setChecked(true);
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//        } else {
-//            mSwitch.setChecked(false);
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        }
-//    }
-
-
-
-        //switchCompat = findViewById(R.id.switch_button);
-
-
-//    private void switchTheme() {
-//        switchCompat = findViewById(R.id.switch_button);
-//
-//        sharedPreferences = getSharedPreferences("night", 0);
-//        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
-//        if (booleanValue) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            binding.switchButton.setChecked(true);
-//        }
-//
-//        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    binding.switchButton.setChecked(true);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putBoolean("night node", true);
-//                    editor.commit();
-//                } else {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    binding.switchButton.setChecked(true);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putBoolean("night node", false);
-//                    editor.commit();
-//                }
-//            }
-//        });
-//
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-//            setTheme(R.style.DarkTheme);
-//        } else {
-//            setTheme(R.style.LightTheme);
-//        }
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-//            mSwitch.setChecked(true);
-//        }
-//        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                } else {
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                }
-//            }
-//        });
-
-
-
-    public void restartApp() {
-    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-    startActivity(i);
-    finish();
     }
 
     @SuppressLint("NonConstantResourceId")

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll_root"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
@@ -33,6 +34,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="35dp"
             android:text="@string/home_email"
+            android:textColor="?attr/textColor"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/home_welcome"
+            android:textColor="?attr/textColor"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_user_email" />

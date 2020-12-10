@@ -8,8 +8,8 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@android:color/primary_text_light</item>
-        <item name="backgroundColor">@android:color/darker_gray</item>
-        <item name="textColor">@android:color/black</item>
+        <item name="backgroundColor">@color/secondaryTextColor</item>
+        <item name="textColor">@color/secondaryTextColor</item>
         <item name="hintColor">@color/colorOffWhite</item>
         <item name="secondTextColor">@android:color/darker_gray</item>
         <item name="appColor">@color/purple_700</item>
@@ -22,11 +22,11 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryVariant">#000000</item>
-        <item name="colorOnPrimary">@color/cardview_dark_background</item>
+        <item name="colorOnPrimary">@color/colorOffWhite</item>
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@color/black</item>
-        <item name="backgroundColor">#424242</item>
-        <item name="textColor">@color/black</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="textColor">@color/secondaryDarkColor</item>
         <item name="hintColor">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

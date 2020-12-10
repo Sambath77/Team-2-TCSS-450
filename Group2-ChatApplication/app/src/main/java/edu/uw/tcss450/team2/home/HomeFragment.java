@@ -2,6 +2,7 @@ package edu.uw.tcss450.team2.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import edu.uw.tcss450.team2.MainActivity;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.team2.home.HomeFragment;
@@ -204,11 +206,11 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
             if(isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 saveNightModeState(true);
-                //recreate();
+                getActivity().recreate();
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 saveNightModeState(false);
-               // recreate();
+                getActivity().recreate();
             }
         });
     }
@@ -228,68 +230,5 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
-
-
-//        sharedPreferences = getActivity().getSharedPreferences("night", 0);
-//        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
-//        sharedPreferences = getActivity().getSharedPreferences("night mode", Context.MODE_PRIVATE);
-//        int switchTheme = sharedPreferences.getInt("theme", 0);
-//        if (switchTheme == R.style.LightTheme) {
-//            binding.lightBtn.setChecked(true);
-//        } else {
-//            binding.darkBtn.setChecked(true);
-//        }
-//
-//        binding.lightBtn.setOnClickListener(button -> {
-//
-//        } );
-//        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    binding.switchButton.setChecked(true);
-//                    sharedPreferences = getActivity().getSharedPreferences("night mode", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putInt("theme", R.style.DarkTheme);
-//                    getActivity().finish();
-//                    getActivity().startActivity(getActivity().getIntent());
-//                } else {
-//                    binding.switchButton.setChecked(true);
-//                    sharedPreferences = getActivity().getSharedPreferences("night mode", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putInt("theme", R.style.LightTheme);
-//                    getActivity().finish();
-//                    getActivity().startActivity(getActivity().getIntent());
-//                }
-//
-//            }
-//        });
-
-
-//        if (booleanValue) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            binding.switchButton.setChecked(true);
-//        }
-//
-//        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    binding.switchButton.setChecked(true);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putBoolean("night node", true);
-//                    editor.commit();
-//                } else {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    binding.switchButton.setChecked(true);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putBoolean("night node", false);
-//                    editor.commit();
-//                }
-//            }
-//        });
-
-
-
+    
 }
