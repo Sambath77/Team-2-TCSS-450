@@ -161,6 +161,16 @@ public class PushReceiver extends BroadcastReceiver {
                 i.putExtras(intent.getExtras());
             }
 
+            if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("RejectFriendRequest")) {
+                i.putExtra("RejectFriendRequest", "");
+                i.putExtras(intent.getExtras());
+            }
+
+            if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("AcceptFriendRequest")) {
+                i.putExtra("AcceptFriendRequest", "");
+                i.putExtras(intent.getExtras());
+            }
+
             context.sendBroadcast(i);
 
         } else {
