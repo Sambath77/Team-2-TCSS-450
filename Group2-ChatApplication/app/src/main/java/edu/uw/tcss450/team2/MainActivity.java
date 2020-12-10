@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 //multiple chat rooms.
                 mNewMessageModel.reset();
             }
-            if(destination.getId() == R.id.navigation_chat) {
+            if(destination.getId() == R.id.navigation_notification) {
                 mNewNotificationModel.reset();
             }
 
@@ -195,15 +195,8 @@ public class MainActivity extends AppCompatActivity {
 
         mNewNotificationModel.addMessageCountObserver(this, count -> {
 
-                    //BadgeDrawable badge = navView.getOrCreateBadge(R.id.notification_bar);
-                    //badge.setMaxCharacterCount(2);
+            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
 
-           // MenuItem menuItem = menu.getItem(0);
-            //MenuItem menuItem = findViewById(R.id.notification_bar);
-            //ActionItemBadge.update(menuItem, 2);
-
-                    //tempUserViewModel.setUnreadMessageCount(count);
-        /*
                     if (count > 0) {
                         badge.setNumber(count);
                         badge.setVisible(true);
@@ -213,27 +206,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-         */
+
                 });
 
-
-
-//        mNewNotificationModel.addMessageCountObserver(this, count -> {
-//            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
-//            //badge.setMaxCharacterCount(2);
-//
-//            tempUserViewModel.setUnreadMessageCount(count);
-//
-//            if (count > 0) {
-//                badge.setNumber(count);
-//                badge.setVisible(true);
-//            } else {
-//                badge.clearNumber();
-//                badge.setVisible(false);
-//            }
-//
-//
-//        });
 
     }
 
