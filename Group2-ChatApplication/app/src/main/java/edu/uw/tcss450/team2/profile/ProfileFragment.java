@@ -49,8 +49,11 @@ public class ProfileFragment extends Fragment {
         FragmentProfileBinding binding = FragmentProfileBinding.bind(view);
 
         profileViewModel.addContactListObserver(getViewLifecycleOwner(), profile -> {
-            if (profile != null) {
-                binding.profileFnameEdit.setText(profile.getmFName());
+            if (!profile.isEmpty()) {
+                String fullname = profile.get(0).getmFName() + " " + profile.get(0).getmLName();
+                binding.acceptTextFullname.setText(fullname);
+                binding.acceptTextUsername.setText(profile.get(0).getmUsername());
+                binding.acceptTextEmail.setText(profile.get(0).getEmail());
 
             }
         });

@@ -230,5 +230,5 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
-    
+
 }

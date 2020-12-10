@@ -113,4 +113,6 @@
     <string name="accept_request">Accepted the request</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="switch_theme">Switch Theme</string>
+    <string name="fullname">Full name</string>
 </resources>

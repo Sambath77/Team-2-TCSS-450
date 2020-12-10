@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
+    android:background="?attr/backgroundColor"
     android:layout_margin="5dp">
 
     <RelativeLayout
@@ -26,8 +27,8 @@
             android:id="@+id/text_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:text="Username"
+            android:layout_marginStart="60dp"
+            android:text="@string/username"
             android:textColor="?attr/textColor"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -37,8 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_username"
-            android:layout_marginLeft="60dp"
-            android:text="Email"
+            android:layout_marginStart="60dp"
+            android:text="@string/email"
             android:textColor="?attr/secondTextColor"
             android:textStyle="italic"
             android:layout_marginBottom="10dp"/>
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="300dp"
+            android:layout_marginStart="300dp"
             android:layout_marginTop="1dp"
             android:foregroundGravity="right"
             app:srcCompat="@drawable/ic_delete"

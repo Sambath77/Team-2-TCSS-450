@@ -8,6 +8,7 @@
     android:ellipsize="marquee"
     android:textSize="20sp"
     android:gravity="start"
+    android:background="?attr/backgroundColor"
     android:textColor="#646464"
     android:padding="5dip"/>
     <!--TODO: un-hardcode textColor-->

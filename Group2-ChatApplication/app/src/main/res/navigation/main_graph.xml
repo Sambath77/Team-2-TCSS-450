@@ -134,6 +134,7 @@
         android:id="@+id/action_global_sendFriendRequestListFragment"
         app:destination="@id/sendFriendRequestListFragment" />
     <fragment
+
         android:id="@+id/chooseLocationFragment"
         android:name="edu.uw.tcss450.team2.weather.ChooseLocationFragment"
         android:label="fragment_choose_location"
@@ -144,4 +145,16 @@
             app:popUpTo="@+id/navigation_weather"
             app:popUpToInclusive="true" />
     </fragment>
+
+        android:id="@+id/profileFragment"
+        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+
 </navigation>

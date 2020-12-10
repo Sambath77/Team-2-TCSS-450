@@ -1,116 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_layout_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/profile_layout"
-    >
+    android:layout_height="wrap_content"
+    android:background="?attr/backgroundColor"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/profile_fname"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="53dp"
-        android:layout_marginLeft="30dp"
-        android:text="@string/profile_firstname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/profile_fname_edit"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/profile_fname"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="32dp"
-        android:text="first name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/profile_lname"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/profile_lastname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_fname" />
-
-    <TextView
-        android:id="@+id/profile_lname_edit"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/profile_fname"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:text="last name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_fname_edit" />
-
-    <TextView
-        android:id="@+id/profile_usernanme"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/profile_username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_lname" />
-
-    <TextView
-        android:id="@+id/profile_username_edit"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/profile_fname"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:text="first name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_lname_edit" />
-
-    <TextView
-        android:id="@+id/profile_email"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/profile_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_usernanme" />
-
-    <TextView
-        android:id="@+id/profile_email_edit"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/profile_fname"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:text="email name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_username_edit" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/register_logo"
+            android:scaleType="centerCrop"
+            android:padding="5dp"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/accept_fullname_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="35dp"
+            android:src="@drawable/ic_accept_person_24"
+            android:layout_below="@id/profile_pic"/>
+
+        <TextView
+            android:id="@+id/accept_text_fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/username"
+            android:textColor="?attr/textColor"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_below="@id/profile_pic"/>
+
+        <ImageView
+            android:id="@+id/accept_usernam_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="35dp"
+            android:layout_below="@id/accept_fullname_image"
+            android:src="@drawable/ic_accept_person_24" />
+
+        <TextView
+            android:id="@+id/accept_text_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="35dp"
+            android:layout_below="@id/accept_text_fullname"
+            android:text="@string/username"
+            android:textColor="?attr/textColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/accept_email"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="35dp"
+            android:src="@drawable/ic_accept_email_24"
+            android:layout_below="@id/accept_usernam_image"/>
+
+        <TextView
+            android:id="@+id/accept_text_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accept_text_username"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="45dp"
+            android:textSize="25sp"
+            android:text="@string/email"
+            android:textColor="?attr/textColor"
+            android:textStyle="italic" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
+

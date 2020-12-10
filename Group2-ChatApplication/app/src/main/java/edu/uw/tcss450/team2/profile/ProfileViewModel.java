@@ -31,7 +31,7 @@ import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
 public class ProfileViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Profile> profileMutableLiveData;
+    private MutableLiveData<List<Profile>> profileMutableLiveData;
     private List<Profile> list;
     private Profile mProfile;
     private List<Profile> mList;
@@ -51,7 +51,7 @@ public class ProfileViewModel extends AndroidViewModel {
      */
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
-                                       @NonNull Observer<? super Profile> observer) {
+                                       @NonNull Observer<? super List<Profile>> observer) {
         profileMutableLiveData.observe(owner, observer);
     }
 
@@ -108,17 +108,17 @@ public class ProfileViewModel extends AndroidViewModel {
                         message.getString("email"),
                         message.getInt("memberid"));
 
-                //list.add(profile);
-                mProfile = profile;
+                list.add(profile);
+                //mProfile = profile;
             }
 
-//            if (list.isEmpty()) {
-//                mList = new ArrayList<>();
-//                mList.add(mProfile);
-//                profileMutableLiveData.setValue(mList);
-//            } else {
-//                profileMutableLiveData.setValue(list);
-//            }
+            if (list.isEmpty()) {
+                mList = new ArrayList<>();
+                mList.add(mProfile);
+                profileMutableLiveData.setValue(mList);
+            } else {
+                profileMutableLiveData.setValue(list);
+            }
 
 
         }catch (JSONException e) {
