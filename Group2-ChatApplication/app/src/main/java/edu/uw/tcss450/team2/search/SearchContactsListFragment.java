@@ -78,8 +78,8 @@ public class SearchContactsListFragment extends Fragment {
 
             if (!searchContacts.isEmpty()) {
                 if (TextUtils.isEmpty(binding.seachFriend.getText())) {
-                    binding.recyclerView.setVisibility(View.VISIBLE);
-                    binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
+                    //binding.recyclerView.setVisibility(View.VISIBLE);
+                    //binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
                     binding.recyclerViewWait.setVisibility(View.GONE);
                 }
                     searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
