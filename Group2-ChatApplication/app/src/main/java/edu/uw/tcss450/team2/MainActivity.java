@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int layoutId;
 
+    private Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,21 +146,6 @@ public class MainActivity extends AppCompatActivity {
         //TODO 1. mock up notification in home page - need to replace with actual notification
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-//        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-//        badgeDrawable.setVisible(true);
-//        badgeDrawable.setNumber(7);
-
-
-        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(2);
-
-
-//        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-//        badgeDrawable.setVisible(true);
-//        badgeDrawable.setNumber(7);
-
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home,
@@ -186,12 +173,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
-            //TODO this place causes an error
-            //BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
 
             BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_chat);
-            //BadgeDrawable badge2 = navView.getOrCreateBadge(R.id.image_chatIcon);
-            //badge.setMaxCharacterCount(2);
 
             //TODO need to be erased
             System.out.println("Incoming Message Count: "+ count);
@@ -212,10 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
         mNewNotificationModel.addMessageCountObserver(this, count -> {
 
-                    BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
-                    //badge.setMaxCharacterCount(2);
-
-                    //tempUserViewModel.setUnreadMessageCount(count);
+            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
 
                     if (count > 0) {
                         badge.setNumber(count);
@@ -224,26 +204,11 @@ public class MainActivity extends AppCompatActivity {
                         badge.clearNumber();
                         badge.setVisible(false);
                     }
+
+
+
                 });
 
-
-
-//        mNewNotificationModel.addMessageCountObserver(this, count -> {
-//            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
-//            //badge.setMaxCharacterCount(2);
-//
-//            tempUserViewModel.setUnreadMessageCount(count);
-//
-//            if (count > 0) {
-//                badge.setNumber(count);
-//                badge.setVisible(true);
-//            } else {
-//                badge.clearNumber();
-//                badge.setVisible(false);
-//            }
-//
-//
-//        });
 
     }
 
@@ -311,7 +276,9 @@ public class MainActivity extends AppCompatActivity {
                 || intent.hasExtra("RemoveMemberToChatRoom")
                 || intent.hasExtra("CreateNewChatRoom")
                 || intent.hasExtra("DeleteChatRoom")
-                || intent.hasExtra("SendingFriendRequest")) {
+                || intent.hasExtra("SendingFriendRequest")
+                    || intent.hasExtra("RejectFriendRequest")
+                    || intent.hasExtra("AcceptFriendRequest")) {
 
                 mNewNotificationModel.increment();
 

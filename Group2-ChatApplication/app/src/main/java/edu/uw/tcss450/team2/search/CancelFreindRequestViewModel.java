@@ -42,12 +42,19 @@ public class CancelFreindRequestViewModel extends AndroidViewModel {
     public void getCancelSendRequest(String jwt, String email_A, String email_B) {
 
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "request/" + email_A + "/" + email_B;
+                "request/rejectFriendRequest" ;
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("email_A", email_A);
+            body.put("email_B", email_B);
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
 
 
-
-        Request request = new JsonObjectRequest(Request.Method.DELETE,
-                url, null, mutableLiveData::setValue, this::handleError) {
+        Request request = new JsonObjectRequest(Request.Method.POST,
+                url, body, mutableLiveData::setValue, this::handleError) {
             public Map<String, String> getHeaders() {
                 Map<String, String> header = new HashMap<>();
                 header.put("Authorization", jwt);

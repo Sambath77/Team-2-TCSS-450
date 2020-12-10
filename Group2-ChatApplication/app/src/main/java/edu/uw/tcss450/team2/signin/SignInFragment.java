@@ -19,24 +19,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-
 import com.auth0.android.jwt.JWT;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
 import edu.uw.tcss450.team2.model.PushyTokenViewModel;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
-
-import edu.uw.tcss450.team2.R;
-
 import edu.uw.tcss450.team2.utils.PasswordValidator;
 
-import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
-import edu.uw.tcss450.team2.utils.PasswordValidator;
-
-
-import static edu.uw.tcss450.team2.utils.PasswordValidator.*;
+import static edu.uw.tcss450.team2.utils.PasswordValidator.checkExcludeWhiteSpace;
+import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdLength;
+import static edu.uw.tcss450.team2.utils.PasswordValidator.checkPwdSpecialChar;
 
 
 public class SignInFragment extends Fragment {
@@ -101,8 +97,8 @@ public class SignInFragment extends Fragment {
         binding.emailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
         binding.password.setText(args.getPassword().equals("default") ? "" : args.getPassword());
 
-        binding.emailAddress.setText("test1@test.com");
-        binding.password.setText("test12345");
+//        binding.emailAddress.setText("test1@test.com");
+//        binding.password.setText("test12345");
 
 
 
