@@ -2,6 +2,7 @@ package edu.uw.tcss450.team2.search;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -23,11 +24,13 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.databinding.FragmentSearchContactsListBinding;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
 public class AddSendRequestViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mutableLiveData;
+    private FragmentSearchContactsListBinding binding;
 
     public AddSendRequestViewModel(@NonNull Application application) {
         super(application);
@@ -35,12 +38,17 @@ public class AddSendRequestViewModel extends AndroidViewModel {
         mutableLiveData.setValue(new JSONObject());
     }
 
+    public void setBinding(FragmentSearchContactsListBinding binding) {
+        this.binding = binding;
+    }
+
     public void addSendResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mutableLiveData.observe(owner, observer);
     }
 
-    public void getAddSendRequest(String jwt, String email_A, String email_B) {
+    public void getAddSendRequest(String jwt, String email_A, String email_B, int memberId_B) {
+        binding.recyclerViewWait.setVisibility(View.VISIBLE);
 
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "request";
@@ -50,12 +58,13 @@ public class AddSendRequestViewModel extends AndroidViewModel {
         try {
             body.put("email_A", email_A);
             body.put("email_B", email_B);
+            body.put("memberId_B", memberId_B);
         } catch (JSONException e){
             e.printStackTrace();
         }
 
         Request request = new JsonObjectRequest(Request.Method.POST,
-                url, body, mutableLiveData::setValue, this::handleError) {
+                url, body, this::handelSuccess, this::handleError) {
             public Map<String, String> getHeaders() {
                 Map<String, String> header = new HashMap<>();
                 header.put("Authorization", jwt);
@@ -68,6 +77,10 @@ public class AddSendRequestViewModel extends AndroidViewModel {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext()).addToRequestQueue(request);
+    }
+
+    private void handelSuccess(final JSONObject response)  {
+        binding.recyclerViewWait.setVisibility(View.GONE);
     }
 
     private void handleError(final VolleyError error) {

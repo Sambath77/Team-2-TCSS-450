@@ -310,8 +310,11 @@ public class MainActivity extends AppCompatActivity {
             if(intent.hasExtra("AddMemberToChatRoom")
                 || intent.hasExtra("RemoveMemberToChatRoom")
                 || intent.hasExtra("CreateNewChatRoom")
-                || intent.hasExtra("DeleteChatRoom")) {
+                || intent.hasExtra("DeleteChatRoom")
+                || intent.hasExtra("SendingFriendRequest")) {
+
                 mNewNotificationModel.increment();
+
                 if(nd.getId() == R.id.navigation_chat) {
                     userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
                 }

@@ -60,6 +60,8 @@ public class SearchContactsListFragment extends Fragment {
 
         mAddModel = new ViewModelProvider(getActivity()).get(AddSendRequestViewModel.class);
 
+
+
         cancelFreindRequestViewModel = new ViewModelProvider(getActivity()).get(CancelFreindRequestViewModel.class);
     }
 
@@ -68,10 +70,11 @@ public class SearchContactsListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         FragmentSearchContactsListBinding binding = FragmentSearchContactsListBinding.bind(getView());
+        mAddModel.setBinding(binding);
 
         mModel.addSearchContactsObserver(getViewLifecycleOwner(), searchContacts -> {
 
-            searchContactsRecyclerViewAdapter = new SearchContactsRecyclerViewAdapter(searchContacts);
+            searchContactsRecyclerViewAdapter = new SearchContactsRecyclerViewAdapter(searchContacts, mAddModel, userInfoViewModel);
 
             if (!searchContacts.isEmpty()) {
                 if (TextUtils.isEmpty(binding.seachFriend.getText())) {
@@ -89,7 +92,7 @@ public class SearchContactsListFragment extends Fragment {
 
                         @Override
                         public void onAddClick(int position) {
-                            mAddModel.getAddSendRequest(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), searchContacts.get(position).getmSearchEmail());
+                            //mAddModel.getAddSendRequest(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), searchContacts.get(position).getmSearchEmail());
 
                         }
 
