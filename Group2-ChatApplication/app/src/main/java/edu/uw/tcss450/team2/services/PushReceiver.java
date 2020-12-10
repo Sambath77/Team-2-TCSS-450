@@ -90,7 +90,37 @@ public class PushReceiver extends BroadcastReceiver {
 
             flag = true;
         }
+        //For dealing with Friend Request
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("SendingFriendRequest"))) {
+            System.out.println("SendingFriendRequest");
+            //TODO This is the message I would like to print
+            returnedMessage = intent.getStringExtra("message");
 
+            System.out.println(returnedMessage);
+
+            flag = true;
+        }
+        //Friend request approved
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("FriendRequestApproved"))) {
+            System.out.println("FriendRequestApproved");
+            //TODO This is the message I would like to print
+            returnedMessage = intent.getStringExtra("message");
+
+            System.out.println(returnedMessage);
+
+            flag = true;
+        }
+        //Removing from friend list
+        //Friend request approved
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("RemoveFriendContact"))) {
+            System.out.println("RemoveFriendContact");
+            //TODO This is the message I would like to print
+            returnedMessage = intent.getStringExtra("message");
+
+            System.out.println(returnedMessage);
+
+            flag = true;
+        }
 
 
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
