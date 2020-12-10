@@ -2,13 +2,6 @@ package edu.uw.tcss450.team2.signin;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +9,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.uw.tcss450.team2.MainActivityArgs;
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragmentNewPasswordBinding;
 import edu.uw.tcss450.team2.databinding.FragmentSetPasswordBinding;
 import edu.uw.tcss450.team2.utils.PasswordValidator;
 
@@ -141,8 +138,10 @@ public class SetPasswordFragment extends Fragment {
      * @param view See above
      */
     private void navigateBackToSignIn(View view) {
-        Navigation.findNavController(getView()).navigate(
-                SetPasswordFragmentDirections.actionSetPasswordFragmentToSignInFragment());
+        SetPasswordFragmentDirections.ActionSetPasswordFragmentToSignInFragment action = SetPasswordFragmentDirections.actionSetPasswordFragmentToSignInFragment();
+        action.setEmail(mEmail);
+        action.setPassword(binding.passwordField1.getText().toString());
+        Navigation.findNavController(getView()).navigate(action);
 
         Navigation.findNavController(requireView()).popBackStack(
                 R.id.setPasswordFragment, true);
