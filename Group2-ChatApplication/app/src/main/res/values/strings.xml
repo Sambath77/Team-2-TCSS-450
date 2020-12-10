@@ -115,4 +115,5 @@
     <string name="email">Email</string>
     <string name="switch_theme">Switch Theme</string>
     <string name="fullname">Full name</string>
+    <string name="search_username">Search username...</string>
 </resources>
