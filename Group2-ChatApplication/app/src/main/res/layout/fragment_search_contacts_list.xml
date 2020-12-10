@@ -11,26 +11,25 @@
 
     <EditText
         android:id="@+id/seach_friend"
-        android:layout_width="260dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:background="@drawable/login_shape"
         android:textSize="20sp"
         android:padding="3dp"
-        android:drawableLeft="@drawable/ic_search_24dp"
-        android:hint="Search Username..."
-        android:layout_marginRight="20dp"
+        android:drawableStart="@drawable/ic_search_24dp"
+        android:hint="@string/search_username"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textColorHint="?attr/secondTextColor"
         />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_cancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="290dp"/>
+        android:src="@drawable/ic_search_clear_24"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="320dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

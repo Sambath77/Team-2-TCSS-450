@@ -208,6 +208,7 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
                     addSendRequestViewModel.getAddSendRequest(userInfoViewModel.getJwt(),
                             userInfoViewModel.getEmail(), mSearch.getmSearchEmail(), mSearch.getMemberid());
                 }
+                binding.removeButton.setVisibility(View.VISIBLE);
             });
 
         }
