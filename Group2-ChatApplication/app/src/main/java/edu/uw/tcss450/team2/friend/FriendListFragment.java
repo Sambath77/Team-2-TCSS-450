@@ -35,7 +35,6 @@ public class FriendListFragment extends Fragment {
     private FriendContactsViewModel mModel;
     private MutableLiveData<JSONObject> mResponse;
     private FriendContactsRecyclerViewAdapter mFriendContactsRecyclerViewAdapter;
-    private FriendContacts mContacts;
     private DeleteFriendViewModel mDelete;
     private UserInfoViewModel userInfoViewModel;
 
@@ -70,10 +69,10 @@ public class FriendListFragment extends Fragment {
         FragmentFriendListBinding binding = FragmentFriendListBinding.bind(getView());
 
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-            mFriendContactsRecyclerViewAdapter = new FriendContactsRecyclerViewAdapter(contactList);
+            mFriendContactsRecyclerViewAdapter = new FriendContactsRecyclerViewAdapter(contactList, mDelete, userInfoViewModel);
 
             if (!contactList.isEmpty()) {
-//
+
                 binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
                 binding.layoutWait.setVisibility(View.GONE);
 
@@ -91,11 +90,6 @@ public class FriendListFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-//                        if (!TextUtils.isEmpty(binding.seachContacts.getText())) {
-//                            binding.listRoot.setVisibility(View.VISIBLE);
-//                            binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
-//                            binding.layoutWait.setVisibility(View.GONE);
-//                        }
                         List<FriendContacts> filteredList = new ArrayList<>();
                         for (FriendContacts item : contactList) {
                             if (item.getmUsername().toLowerCase().contains(s.toString().toLowerCase())) {
@@ -113,9 +107,9 @@ public class FriendListFragment extends Fragment {
                 mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        String str = contactList.get(position).getmFName() + " " + contactList.get(position).getmLName();
-                        contactList.get(position).changedUsername(str);
-                        mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
+//                        String str = contactList.get(position).getmFName() + " " + contactList.get(position).getmLName();
+//                        contactList.get(position).changedUsername(str);
+//                        mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
                     }
 
                     @Override
@@ -127,7 +121,6 @@ public class FriendListFragment extends Fragment {
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mDelete.deleteFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), contactList.get(position).getEmail());
                                 contactList.remove(position);
                                 mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
                                 binding.layoutWait.setVisibility(View.GONE);

@@ -21,6 +21,7 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     private List<FriendContacts> mContacts;
     private FriendContacts friendContacts;
     private DeleteFriendViewModel mDeleteModel;
+    private UserInfoViewModel userInfoViewModel;
 
 
 
@@ -35,8 +36,10 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
         mListener = listener;
     }
 
-    public FriendContactsRecyclerViewAdapter(List<FriendContacts> mContacts) {
+    public FriendContactsRecyclerViewAdapter(List<FriendContacts> mContacts, DeleteFriendViewModel mDeleteModel, UserInfoViewModel userInfoViewModel) {
         this.mContacts = mContacts;
+        this.mDeleteModel = mDeleteModel;
+        this.userInfoViewModel = userInfoViewModel;
     }
 
 
@@ -76,11 +79,6 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
             this.mView = view;
             binding = FragmentFriendCardBinding.bind(view);
 
-//            view.setOnClickListener(v -> {
-//                Navigation.findNavController(view).navigate(FriendListFragmentDirections
-//                .actionNavigationContactToFriend(contact));
-//            });
-
             view.setOnClickListener(v ->  {
                 if (mListener != null) {
                     int position = getAdapterPosition();
@@ -90,14 +88,6 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
                 }
             });
 
-//            binding.deleteButton.setOnClickListener(v -> {
-//                if (mListener != null) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        mListener.onDeleteClick(position);
-//                    }
-//                }
-//            });
         }
 
 
@@ -116,6 +106,8 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
                         mListener.onDeleteClick(position);
                     }
                 }
+                mDeleteModel.deleteFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), contact.getEmail());
+
             });
 
             binding.textUsername.setText(contact.getmUsername());

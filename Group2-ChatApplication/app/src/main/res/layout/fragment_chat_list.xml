@@ -26,13 +26,13 @@
         tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.ChatListFragment"
         tools:listitem="@layout/fragment_chat_card" />
 
-    <Button
+    <ImageButton
         android:id="@+id/createChatRoomBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="340dp"
         android:layout_marginTop="16dp"
-        android:text="@string/create_chat_room"
+        android:src="@drawable/ic_add_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -11,34 +11,27 @@
 
     <EditText
         android:id="@+id/seach_contacts"
-        android:layout_width="260dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/login_shape"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:padding="3dp"
         android:drawableStart="@drawable/ic_search_24dp"
-        android:hint="Search..."
+        android:hint="@string/search_username"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="23dp"
         android:textColorHint="?attr/secondTextColor"
         />
 
-<!--    <ImageButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/cancel_btn"-->
-<!--        android:layout_marginStart="230dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:src="@drawable/drawable_cancel"/>-->
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_cancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel_search"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="290dp"/>
+        android:src="@drawable/ic_search_clear_24"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="330dp"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

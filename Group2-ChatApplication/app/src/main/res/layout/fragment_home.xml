@@ -34,7 +34,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="35dp"
             android:text="@string/home_email"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/chatColor"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@+id/condition_icon"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,8 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/home_welcome"
-            android:textColor="?attr/textColor"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            android:textColor="?attr/chatColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_user_email" />
 
@@ -227,38 +226,12 @@
             android:checked="false"
             android:text="@string/switch_theme"
             android:layout_marginStart="10dp"
-            android:textColor="?attr/textColor"
+            android:textColor="?attr/chatColor"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="0dp"
             tools:ignore="UseSwitchCompatOrMaterialXml"/>
 
         </LinearLayout>
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/text_Location"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="31dp"-->
-        <!--            android:text="TextView"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />-->
-        <!--        <TextView-->
-        <!--            android:id="@+id/text_Temperature"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="31dp"-->
-        <!--            android:text="TextView"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/text_Location" />-->
-        <!--        <TextView-->
-        <!--            android:id="@+id/text_CurrentWeather"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="31dp"-->
-        <!--            android:text="TextView"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/text_Temperature" />-->
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

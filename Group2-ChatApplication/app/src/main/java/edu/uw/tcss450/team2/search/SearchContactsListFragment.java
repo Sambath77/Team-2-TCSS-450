@@ -74,112 +74,44 @@ public class SearchContactsListFragment extends Fragment {
 
         mModel.addSearchContactsObserver(getViewLifecycleOwner(), searchContacts -> {
 
-            searchContactsRecyclerViewAdapter = new SearchContactsRecyclerViewAdapter(searchContacts, mAddModel, userInfoViewModel);
+            searchContactsRecyclerViewAdapter = new SearchContactsRecyclerViewAdapter(searchContacts, mAddModel, userInfoViewModel, cancelFreindRequestViewModel);
 
             if (!searchContacts.isEmpty()) {
                 if (TextUtils.isEmpty(binding.seachFriend.getText())) {
-                    //binding.recyclerView.setVisibility(View.VISIBLE);
-                    //binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
                     binding.recyclerViewWait.setVisibility(View.GONE);
                 }
-                    searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(int position) {
-//                            String str = searchContacts.get(position).getmFirstname() + " " + searchContacts.get(position).getmLastname();
-//                            searchContacts.get(position).changedUsername(str);
-//                            searchContactsRecyclerViewAdapter.notifyItemChanged(position);
+                binding.seachFriend.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (!TextUtils.isEmpty(binding.seachFriend.getText())) {
+                            binding.recyclerView.setVisibility(View.VISIBLE);
+                            binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
+                            binding.recyclerViewWait.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onAddClick(int position) {
-                            //mAddModel.getAddSendRequest(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), searchContacts.get(position).getmSearchEmail());
-
-                        }
-
-                        @Override
-                        public void onDeleteClick(int position) {
-                            cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), searchContacts.get(position).getmSearchEmail(), userInfoViewModel.getEmail());
-                        }
-                    });
-                    binding.seachFriend.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-//                            if (!TextUtils.isEmpty(binding.seachFriend.getText())) {
-//                                binding.recyclerView.setVisibility(View.VISIBLE);
-//                                binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
-//                                binding.recyclerViewWait.setVisibility(View.GONE);
-                            //}
-                            List<SearchContacts> filteredList = new ArrayList<>();
-                            for (SearchContacts item : searchContacts) {
-                                if (item.getmSearchUsername().toLowerCase().contains(s.toString().toLowerCase())) {
-                                    filteredList.add(item);
-                                }
+                        List<SearchContacts> filteredList = new ArrayList<>();
+                        for (SearchContacts item : searchContacts) {
+                            if (item.getmSearchUsername().toLowerCase().contains(s.toString().toLowerCase())) {
+                                filteredList.add(item);
                             }
-                            searchContactsRecyclerViewAdapter.filterList(filteredList);
                         }
-                    });
-
-
+                        searchContactsRecyclerViewAdapter.filterList(filteredList);
+                    }
+                });
 
                 binding.buttonCancelBtn.setOnClickListener(button -> {
                     binding.seachFriend.setText("");
                     binding.recyclerView.setVisibility(View.GONE);
                 });
-
-//                searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(int position) {
-//                        String str = searchContacts.get(position).getmFirstname() + " " + searchContacts.get(position).getmLastname();
-//                        searchContacts.get(position).changedUsername(str);
-//                        searchContactsRecyclerViewAdapter.notifyItemChanged(position);
-//                    }
-//
-//                    @Override
-//                    public void onAddClick(int position) {
-//                        mAddModel.getAddFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), searchContacts.get(position).getMemberid());
-//
-//                    }
-//                });
-
-
-
-//                binding.seachFriend.addTextChangedListener(new TextWatcher() {
-//                    @Override
-//                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                    }
-//
-//                    @Override
-//                    public void afterTextChanged(Editable s) {
-//                        List<SearchContacts> filteredList = new ArrayList<>();
-//                        for (SearchContacts item : searchContacts) {
-//                            if (item.getmSearchUsername().toLowerCase().contains(s.toString().toLowerCase())) {
-//                                filteredList.add(item);
-//                            }
-//                        }
-//                        searchContactsRecyclerViewAdapter.filterList(filteredList);
-//                    }
-//                });
-//
-//                binding.buttonCancelBtn.setOnClickListener(button -> {
-//                    binding.seachFriend.setText("");
-//                });
-
 
             } else {
                 binding.recyclerView.setVisibility(View.INVISIBLE);

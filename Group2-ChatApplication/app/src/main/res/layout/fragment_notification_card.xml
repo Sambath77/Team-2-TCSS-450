@@ -24,7 +24,7 @@
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/black"
+            android:textColor="?attr/textColor"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
