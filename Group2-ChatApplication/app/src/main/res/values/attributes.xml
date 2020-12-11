@@ -6,5 +6,6 @@
     <attr name="clipArt" format="color"/>
     <attr name="secondTextColor" format="color"/>
     <attr name="appColor" format="color"/>
+    <attr name="chatColor" format="color"/>
 
 </resources>

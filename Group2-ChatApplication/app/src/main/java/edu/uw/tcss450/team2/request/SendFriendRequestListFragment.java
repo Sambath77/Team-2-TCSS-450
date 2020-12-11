@@ -69,29 +69,12 @@ public class SendFriendRequestListFragment extends Fragment {
         FragmentSendFriendRequestListBinding binding = FragmentSendFriendRequestListBinding.bind(getView());
 
         mModel.sendRequestObserver(getViewLifecycleOwner(), requestFriend -> {
-            sendFriendRequestRecyclerViewAdapter = new SendFriendRequestRecyclerViewAdapter(requestFriend);
+            sendFriendRequestRecyclerViewAdapter = new SendFriendRequestRecyclerViewAdapter(requestFriend, addFriendViewModel, cancelFreindRequestViewModel, userInfoViewModel);
             if (!requestFriend.isEmpty()) {
                 binding.acceptRecyclerView.setAdapter(sendFriendRequestRecyclerViewAdapter);
                 binding.acceptRecyclerViewWait.setVisibility(View.GONE);
 
                 sendFriendRequestRecyclerViewAdapter.setOnItemClickListener(new SendFriendRequestRecyclerViewAdapter.OnItemClickListener() {
-                    @Override
-                    public void onAcceptClick(int position) {
-                        addFriendViewModel.getAddFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), requestFriend.get(position).getmMemberId());
-
-
-                        try {
-                            Thread.sleep(10);
-                            //cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), requestFriend.get(position).getmEmail(), userInfoViewModel.getEmail());
-                            requestFriend.remove(position);
-                            sendFriendRequestRecyclerViewAdapter.notifyItemRemoved(position);
-                        } catch (InterruptedException e) {
-
-                        }
-//                        cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), requestFriend.get(position).getmEmail(), userInfoViewModel.getEmail());
-//                        requestFriend.remove(position);
-//                        sendFriendRequestRecyclerViewAdapter.notifyItemRemoved(position);
-                    }
 
                     @Override
                     public void onCancelClick(int position) {
@@ -102,7 +85,6 @@ public class SendFriendRequestListFragment extends Fragment {
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), requestFriend.get(position).getmEmail(), userInfoViewModel.getEmail());
                                 requestFriend.remove(position);
                                 sendFriendRequestRecyclerViewAdapter.notifyItemRemoved(position);
                                 binding.acceptRecyclerView.setVisibility(View.GONE);

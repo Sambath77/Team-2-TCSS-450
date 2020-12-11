@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
-            android:text="Username"
+            android:text="@string/username"
             android:textColor="?attr/textColor"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -36,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/search_text_username"
-            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp"
             android:layout_marginBottom="10dp"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="?attr/secondTextColor"
             android:textStyle="italic" />
 
@@ -49,29 +49,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="300dp"
-            android:layout_marginTop="9dp"
-            android:src="@drawable/ic_add_24"
-            />
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_add_24"/>
 
         <ImageButton
             android:id="@+id/remove_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="300dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/ic_baseline_remove_24"
             android:visibility="gone"/>
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_preview"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="180dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:textAppearance="?attr/textAppearanceListItem"-->
-<!--           android:visibility="gone"/>-->
-
-
 
     </RelativeLayout>
 

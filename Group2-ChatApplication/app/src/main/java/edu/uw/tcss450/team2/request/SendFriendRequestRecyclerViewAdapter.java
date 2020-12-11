@@ -13,25 +13,34 @@ import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentSendFriendRequestBinding;
 import edu.uw.tcss450.team2.friend.FriendContacts;
 import edu.uw.tcss450.team2.friend.FriendContactsRecyclerViewAdapter;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
+import edu.uw.tcss450.team2.search.AddSendRequestViewModel;
+import edu.uw.tcss450.team2.search.CancelFreindRequestViewModel;
 
 
 public class SendFriendRequestRecyclerViewAdapter extends RecyclerView.Adapter<SendFriendRequestRecyclerViewAdapter.SendRequestViewHolder> {
 
     private List<SendFriendRequest> mSendFriendRequest;
+    private UserInfoViewModel userInfoViewModel;
+    private AddFriendViewModel addFriendViewModel;
+    private CancelFreindRequestViewModel cancelFreindRequestViewModel;
 
 
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onAcceptClick(int position);
         void onCancelClick(int position);
 
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
-    public SendFriendRequestRecyclerViewAdapter(List<SendFriendRequest> sendFriendRequests) {
+    public SendFriendRequestRecyclerViewAdapter(List<SendFriendRequest> sendFriendRequests, AddFriendViewModel addFriendViewModel,
+                                                CancelFreindRequestViewModel cancelFreindRequestViewModel, UserInfoViewModel userInfoViewModel) {
         mSendFriendRequest = sendFriendRequests;
+        this.addFriendViewModel = addFriendViewModel;
+        this.cancelFreindRequestViewModel = cancelFreindRequestViewModel;
+        this.userInfoViewModel = userInfoViewModel;
     }
 
     @NonNull
@@ -72,15 +81,9 @@ public class SendFriendRequestRecyclerViewAdapter extends RecyclerView.Adapter<S
                 binding.acceptTextView.setVisibility(View.VISIBLE);
                 binding.cancelBtnRequest.setVisibility(View.GONE);
                 binding.acceptBtn.setVisibility(View.GONE);
-                if (mListener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        mListener.onAcceptClick(position);
-                    }
+                if (contact.getmMemberId() > 0) {
+                    addFriendViewModel.getAddFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), contact.getmMemberId());
                 }
-//                binding.acceptTextView.setVisibility(View.VISIBLE);
-//                binding.cancelBtnRequest.setVisibility(View.GONE);
-//                binding.acceptBtn.setVisibility(View.GONE);
             });
 
             binding.cancelBtnRequest.setOnClickListener(view -> {
@@ -90,6 +93,10 @@ public class SendFriendRequestRecyclerViewAdapter extends RecyclerView.Adapter<S
                         mListener.onCancelClick(position);
                     }
                 }
+                if (contact.getmMemberId() > 0) {
+                    cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), contact.getmEmail(), userInfoViewModel.getEmail());
+                }
+
             });
         }
     }

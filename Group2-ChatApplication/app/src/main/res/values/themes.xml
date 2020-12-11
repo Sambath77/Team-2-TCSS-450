@@ -8,9 +8,10 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@android:color/primary_text_light</item>
-        <item name="backgroundColor">@color/secondaryTextColor</item>
+        <item name="backgroundColor">@color/secondaryTextColorFade</item>
         <item name="textColor">@color/secondaryTextColor</item>
         <item name="hintColor">@color/colorOffWhite</item>
+        <item name="chatColor">@color/secondaryTextColorFade</item>
         <item name="secondTextColor">@android:color/darker_gray</item>
         <item name="appColor">@color/purple_700</item>
         <!-- Status bar color. -->
@@ -26,8 +27,9 @@
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@color/black</item>
         <item name="backgroundColor">@color/white</item>
-        <item name="textColor">@color/secondaryDarkColor</item>
+        <item name="textColor">@color/primaryTextColor</item>
         <item name="hintColor">@color/black</item>
+        <item name="chatColor">@color/secondaryTextColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
