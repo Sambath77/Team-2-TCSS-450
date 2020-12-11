@@ -13,7 +13,9 @@ import androidx.core.app.NotificationCompat;
 import org.json.JSONException;
 
 import edu.uw.tcss450.team2.AuthActivity;
+import edu.uw.tcss450.team2.MainActivity;
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.chat.ChatFragment;
 import edu.uw.tcss450.team2.chat.ChatMessage;
 import me.pushy.sdk.Pushy;
 
@@ -43,6 +45,8 @@ public class PushReceiver extends BroadcastReceiver {
         int chatId = -1;
         String returnedMessage = null;
         boolean flag = false;
+
+        System.out.println("Context -> " + context);
 
         if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("NewMessage")) {
             try{
@@ -100,9 +104,9 @@ public class PushReceiver extends BroadcastReceiver {
 
             flag = true;
         }
-        //Friend request approved
-        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("FriendRequestApproved"))) {
-            System.out.println("FriendRequestApproved");
+        //Friend Request rejected
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("RejectFriendRequest"))) {
+            System.out.println("RejectFriendRequest");
             //TODO This is the message I would like to print
             returnedMessage = intent.getStringExtra("message");
 
@@ -110,10 +114,10 @@ public class PushReceiver extends BroadcastReceiver {
 
             flag = true;
         }
-        //Removing from friend list
+
         //Friend request approved
-        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("RemoveFriendContact"))) {
-            System.out.println("RemoveFriendContact");
+        else if((typeOfMessage != null && typeOfMessage.equalsIgnoreCase("AcceptFriendRequest"))) {
+            System.out.println("AcceptFriendRequest");
             //TODO This is the message I would like to print
             returnedMessage = intent.getStringExtra("message");
 
@@ -121,6 +125,7 @@ public class PushReceiver extends BroadcastReceiver {
 
             flag = true;
         }
+
 
 
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
