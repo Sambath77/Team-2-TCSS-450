@@ -74,8 +74,7 @@ public class FriendListFragment extends Fragment {
                 if (TextUtils.isEmpty(binding.seachContacts.getText())) {
                     binding.layoutWait.setVisibility(View.GONE);
                 }
-//                binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
-//                binding.layoutWait.setVisibility(View.GONE);
+
 
                 binding.seachContacts.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -133,18 +132,11 @@ public class FriendListFragment extends Fragment {
 
                             }
                         });
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        builder.setNegativeButton("Cancel", (dialog, which) -> Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show());
                         builder.show();
                     }
                 });
 
-            } else {
-               // binding.listRoot.setAdapter();
             }
         });
     }
