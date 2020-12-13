@@ -114,11 +114,11 @@ public class SearchContactsListFragment extends Fragment {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-//                            if (!TextUtils.isEmpty(binding.seachFriend.getText())) {
-//                                binding.recyclerView.setVisibility(View.VISIBLE);
-//                                binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
-//                                binding.recyclerViewWait.setVisibility(View.GONE);
-//                            }
+                            if (!TextUtils.isEmpty(binding.seachFriend.getText())) {
+                                binding.recyclerView.setVisibility(View.VISIBLE);
+                                binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
+                                binding.recyclerViewWait.setVisibility(View.GONE);
+                            }
                             List<SearchContacts> filteredList = new ArrayList<>();
                             for (SearchContacts item : searchContacts) {
                                 if (item.getmSearchUsername().toLowerCase().contains(s.toString().toLowerCase())) {

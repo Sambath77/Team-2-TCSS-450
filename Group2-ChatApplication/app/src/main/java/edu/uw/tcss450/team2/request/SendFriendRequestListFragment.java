@@ -81,7 +81,7 @@ public class SendFriendRequestListFragment extends Fragment {
 
                         try {
                             Thread.sleep(10);
-                            cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), requestFriend.get(position).getmEmail(), userInfoViewModel.getEmail());
+                            //cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), requestFriend.get(position).getmEmail(), userInfoViewModel.getEmail());
                             requestFriend.remove(position);
                             sendFriendRequestRecyclerViewAdapter.notifyItemRemoved(position);
                         } catch (InterruptedException e) {
