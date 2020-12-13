@@ -27,7 +27,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.chat.createChatRoom.UserModel;
 import edu.uw.tcss450.team2.databinding.FragmentChatListBinding;
+import edu.uw.tcss450.team2.io.RequestQueueSingleton;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 /**
  *
@@ -38,6 +42,7 @@ public class ChatListViewModel extends AndroidViewModel {
     private String jwt;
     private ChatRoomModel currentChatRoomModel;
     private FragmentChatListBinding binding;
+    private UserInfoViewModel userInfoViewModel;
 
     public ChatListViewModel(@NonNull Application application) {
         super(application);
@@ -45,6 +50,10 @@ public class ChatListViewModel extends AndroidViewModel {
         mRooms = new MutableLiveData<>();
         mRooms.setValue(new ArrayList<>());
 
+    }
+
+    public void setUserInfoViewModel(UserInfoViewModel userInfoViewModel) {
+        this.userInfoViewModel = userInfoViewModel;
     }
 
     public void addUserListObserver(@NonNull LifecycleOwner owner,
@@ -126,6 +135,106 @@ public class ChatListViewModel extends AndroidViewModel {
 
     public void setBinding(FragmentChatListBinding binding) {
         this.binding = binding;
+    }
+
+
+    private List<Integer> memberIds;
+    private int chatId;
+    public void deleteChatRoom(String jwt, int chatId) {
+        this.chatId = chatId;
+        getMembers(userInfoViewModel.getJwt(), chatId);
+    }
+
+    private void getMembers(String jwt, int chatId) {
+        binding.layoutWait.setVisibility(View.VISIBLE);
+        String url =
+                "https://team-2-tcss-450-webservices.herokuapp.com/chatrooms/getMembersByChatId/" + chatId;
+
+        Request request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null, //no body for this get edu.uw.tcss450.team2.request
+                this::handelSuccessForGetMembers,
+                this::handleError) {
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+
+    private void handelSuccessForGetMembers(final JSONObject response)  {
+        memberIds = new ArrayList<>();
+        try {
+
+            JSONArray messages = response.getJSONArray("rows");
+            for(int i = 0; i < messages.length(); i++) {
+                JSONObject message = messages.getJSONObject(i);
+                memberIds.add(message.getInt("memberid"));
+            }
+            binding.layoutWait.setVisibility(View.GONE);
+            sendDeleteChatRoomRequest();
+        }catch (JSONException e) {
+            Log.e("JSON PARSE ERROR", "Found in handle Success FriendContactsViewModel");
+            Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
+        }
+    }
+
+    private void sendDeleteChatRoomRequest() {
+        JSONObject jsonBody = new JSONObject();
+        try {
+            JSONArray memberIdJson = new JSONArray();
+            for (Integer memberId: memberIds) {
+                memberIdJson.put(memberId);
+            }
+            jsonBody.put("chatId",chatId);
+            jsonBody.put("members", memberIdJson);
+
+            binding.layoutWait.setVisibility(View.VISIBLE);
+            sendDeleteChatRoomRequest(userInfoViewModel.getJwt(), jsonBody);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendDeleteChatRoomRequest(String jwt, JSONObject jsonBody) {
+        String url = this.getApplication().getResources().getString(R.string.base_url) +
+                "chatrooms/deleteChatRoom";
+
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                jsonBody, //json body
+                this::handelSuccessForDeleteChatRoom,
+                this::handleError) {
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the edu.uw.tcss450.team2.request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    private void handelSuccessForDeleteChatRoom(final JSONObject response)  {
+        connectGet(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
     }
 
 }
