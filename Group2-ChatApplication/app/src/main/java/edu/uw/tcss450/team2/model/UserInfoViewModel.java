@@ -5,7 +5,12 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import edu.uw.tcss450.team2.chat.ChatListViewModel;
+import edu.uw.tcss450.team2.chat.ChatMessage;
 
 public class UserInfoViewModel extends ViewModel {
 
@@ -15,13 +20,31 @@ public class UserInfoViewModel extends ViewModel {
     private final String jwt;
     private final int memberId;
     private int unreadMessageCount;
-    private List<Integer> chatRoomsIdForNewMessage;
+    private Map<Integer, ChatMessage> chatRoomsIdForNewMessage;
+    private ChatListViewModel chatListViewModel;
+    private int currentChatRoom;
 
     public UserInfoViewModel(String mEmail, String jwt, int memberId) {
         this.mEmail = mEmail;
         this.jwt = jwt;
         this.memberId = memberId;
-        chatRoomsIdForNewMessage = new ArrayList<>();
+        chatRoomsIdForNewMessage = new HashMap<>();
+    }
+
+    public void setCurrentChatRoom(int currentChatRoom) {
+        this.currentChatRoom = currentChatRoom;
+    }
+
+    public int getCurrentChatRoom() {
+        return currentChatRoom;
+    }
+
+    public ChatListViewModel getChatListViewModel() {
+        return chatListViewModel;
+    }
+
+    public void setChatListViewModel(ChatListViewModel chatListViewModel) {
+        this.chatListViewModel = chatListViewModel;
     }
 
     public String getEmail() {
@@ -45,11 +68,11 @@ public class UserInfoViewModel extends ViewModel {
     }
 
 
-    public List<Integer> getChatRoomsIdForNewMessage() {
+    public Map<Integer, ChatMessage> getChatRoomsIdForNewMessage() {
         return chatRoomsIdForNewMessage;
     }
 
-    public void setChatRoomsIdForNewMessage(List<Integer> chatRoomsIdForNewMessage) {
+    public void setChatRoomsIdForNewMessage(Map<Integer, ChatMessage> chatRoomsIdForNewMessage) {
         this.chatRoomsIdForNewMessage = chatRoomsIdForNewMessage;
     }
 
