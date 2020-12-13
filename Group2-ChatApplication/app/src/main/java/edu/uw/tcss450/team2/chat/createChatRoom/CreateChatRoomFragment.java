@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,8 +33,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.chat.ChatListFragmentDirections;
 import edu.uw.tcss450.team2.databinding.FragmentCreateChatRoomBinding;
 import edu.uw.tcss450.team2.databinding.FragmentCreateChatRoomCardBinding;
+import edu.uw.tcss450.team2.home.HomeFragmentDirections;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
@@ -44,6 +47,7 @@ public class CreateChatRoomFragment extends Fragment {
     private MutableLiveData<JSONObject> mResponse;
     private Map<UserModel, Boolean> mEditUser;
     UserInfoViewModel userInfoViewModel;
+    FragmentCreateChatRoomBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class CreateChatRoomFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentCreateChatRoomBinding binding = FragmentCreateChatRoomBinding.bind(getView());
+        binding = FragmentCreateChatRoomBinding.bind(getView());
 
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (contactList != null) {
@@ -93,6 +97,8 @@ public class CreateChatRoomFragment extends Fragment {
                 }
                 jsonBody.put("roomName", binding.chatRoomNameTxt.getText());
                 jsonBody.put("members", memberIdJson);
+
+                binding.layoutWait.setVisibility(View.VISIBLE);
                 sendCreateChatRoomRequest(userInfoViewModel.getJwt(), jsonBody);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -134,7 +140,9 @@ public class CreateChatRoomFragment extends Fragment {
     }
 
     private void handelSuccess(final JSONObject response)  {
-
+        binding.layoutWait.setVisibility(View.GONE);
+        Navigation.findNavController(this.getView()).navigate(CreateChatRoomFragmentDirections
+                .actionCreateChatRoomFragmentToNavigationChat());
     }
 
     /*
