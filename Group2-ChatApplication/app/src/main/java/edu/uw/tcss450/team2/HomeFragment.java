@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //        binding.textTitle.setText("Hey, pls dont forget to ... - sambath777");
         binding.buttonFullPost.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                    HomeFragmentDirections.actionNavigationHomeToNavigationChat()));
+                    HomeFragmentDirections.actionNavigationHomeToChatFragment()));
         binding.buttonHomeWeather.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                     HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));

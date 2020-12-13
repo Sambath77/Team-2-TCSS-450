@@ -1,12 +1,12 @@
 package edu.uw.tcss450.team2;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import edu.uw.tcss450.team2.model.PushyTokenViewModel;
 import me.pushy.sdk.Pushy;
+
+import android.os.Bundle;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -21,9 +21,12 @@ public class AuthActivity extends AppCompatActivity {
 
     }
 
+
     private void initiatePushyTokenRequest() {
         new ViewModelProvider(this).get(PushyTokenViewModel.class).retrieveToken();
     }
 
 
 }
+
+
