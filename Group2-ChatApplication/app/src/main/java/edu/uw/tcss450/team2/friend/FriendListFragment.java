@@ -71,9 +71,11 @@ public class FriendListFragment extends Fragment {
             mFriendContactsRecyclerViewAdapter = new FriendContactsRecyclerViewAdapter(contactList);
 
             if (!contactList.isEmpty()) {
-                if (TextUtils.isEmpty(binding.seachContacts.getText())) {
-                    binding.layoutWait.setVisibility(View.GONE);
-                }
+//                if (TextUtils.isEmpty(binding.seachContacts.getText())) {
+//                    binding.layoutWait.setVisibility(View.GONE);
+//                }
+                binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
+                binding.layoutWait.setVisibility(View.GONE);
 
 
                 binding.seachContacts.addTextChangedListener(new TextWatcher() {
@@ -89,11 +91,11 @@ public class FriendListFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        if (!TextUtils.isEmpty(binding.seachContacts.getText())) {
-                            binding.listRoot.setVisibility(View.VISIBLE);
-                            binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
-                            binding.layoutWait.setVisibility(View.GONE);
-                        }
+//                        if (!TextUtils.isEmpty(binding.seachContacts.getText())) {
+//                            binding.listRoot.setVisibility(View.VISIBLE);
+//                            binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
+//                            binding.layoutWait.setVisibility(View.GONE);
+//                        }
                         List<FriendContacts> filteredList = new ArrayList<>();
                         for (FriendContacts item : contactList) {
                             if (item.getmUsername().toLowerCase().contains(s.toString().toLowerCase())) {
@@ -106,7 +108,7 @@ public class FriendListFragment extends Fragment {
 
                 binding.btnCancelBtn.setOnClickListener(button -> {
                     binding.seachContacts.setText("");
-                    binding.listRoot.setVisibility(View.GONE);
+                   // binding.listRoot.setVisibility(View.GONE);
                 });
 
                 mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {

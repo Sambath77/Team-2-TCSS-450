@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context="edu.uw.tcss450.friend.friendListFragment"
         tools:listitem="@layout/fragment_friend_card"
-        android:visibility="gone"/>
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_wait"
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -28,7 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-
+import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.team2.home.HomeFragment;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
@@ -148,6 +150,25 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
                     }
                 });
 
+
+    }
+
+    private void switchTheme() {
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.switchButton.setChecked(true);
+        }
+        binding.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                }
+            }
+        });
+    }
+
+    public void restartApp() {
 
     }
 }
