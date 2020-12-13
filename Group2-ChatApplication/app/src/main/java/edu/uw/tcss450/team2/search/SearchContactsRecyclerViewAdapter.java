@@ -29,6 +29,7 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onAddClick(int position);
+        void onDeleteClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -150,6 +151,14 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
                     binding.textPreview.setVisibility(View.GONE);
                     binding.addButton.setImageIcon(Icon.createWithResource(mView.getContext(),
                             R.drawable.ic_baseline_remove_24));
+
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onDeleteClick(position);
+
+                        }
+                    }
                 }
             }
         }

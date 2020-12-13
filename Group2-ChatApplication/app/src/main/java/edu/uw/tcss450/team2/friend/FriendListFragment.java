@@ -107,12 +107,14 @@ public class FriendListFragment extends Fragment {
                         mFriendContactsRecyclerViewAdapter.filterList(filteredList);
                     }
                 });
-
-                binding.btnSearchBtn.setOnClickListener(button -> {
+//                binding.cancelBtn.setOnClickListener(button -> {
 //                    binding.seachContacts.setText("");
-//                   // binding.listRoot.setVisibility(View.GONE);
-                     Navigation.findNavController(view).navigate(FriendListFragmentDirections
-                                .actionNavigationContactToNavigationFindFriend());
+////                    binding.listRoot.setVisibility(View.GONE);
+//                });
+                binding.btnSearchBtn.setOnClickListener(button -> {
+//                     Navigation.findNavController(view).navigate(FriendListFragmentDirections
+//                                .actionNavigationContactToNavigationFindFriend());
+                    binding.seachContacts.setText("");
                 });
 
                 mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {
@@ -121,16 +123,6 @@ public class FriendListFragment extends Fragment {
                         String str = contactList.get(position).getmFName() + " " + contactList.get(position).getmLName();
                         contactList.get(position).changedUsername(str);
                         mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
-//                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
-//                        builder.setTitle("Information");
-//                        builder.setMessage(str);
-//                        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        });
-//                        mFriendContactsRecyclerViewAdapter.notifyItemChanged(position);
                     }
 
                     @Override
@@ -145,7 +137,7 @@ public class FriendListFragment extends Fragment {
                                 mDelete.deleteFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), contactList.get(position).getEmail());
                                 contactList.remove(position);
                                 mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
-
+                                binding.layoutWait.setVisibility(View.GONE);
                             }
                         });
                         builder.setNegativeButton("Cancel", (dialog, which) -> Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show());
@@ -154,7 +146,7 @@ public class FriendListFragment extends Fragment {
                 });
 
             } else {
-                binding.listRoot.setVisibility(View.INVISIBLE);
+                binding.listRoot.setVisibility(View.GONE);
             }
         });
     }

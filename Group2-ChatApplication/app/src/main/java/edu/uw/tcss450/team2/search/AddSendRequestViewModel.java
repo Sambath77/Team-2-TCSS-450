@@ -5,9 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -25,31 +23,26 @@ import java.util.Objects;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
-public class AddFriendViewModel extends AndroidViewModel {
+public class AddSendRequestViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mutableLiveData;
 
-    public AddFriendViewModel(@NonNull Application application) {
+    public AddSendRequestViewModel(@NonNull Application application) {
         super(application);
         mutableLiveData = new MutableLiveData<>();
         mutableLiveData.setValue(new JSONObject());
     }
 
-    public void addResponseObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super JSONObject> observer) {
-        mutableLiveData.observe(owner, observer);
-    }
-
-    public void getAddFriend(String jwt, String email, int memberid) {
+    public void getAddSendRequest(String jwt, String email_A, String email_B) {
 
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact";
+                "request";
 
         JSONObject body = new JSONObject();
 
         try {
-            body.put("email", email);
-            body.put("memberid", memberid);
+            body.put("email_A", email_A);
+            body.put("email_B", email_B);
         } catch (JSONException e){
             e.printStackTrace();
         }

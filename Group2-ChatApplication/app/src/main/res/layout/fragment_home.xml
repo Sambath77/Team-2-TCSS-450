@@ -217,17 +217,43 @@
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints" >
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="490dp"
-            android:checked="false"
-            android:text="Light Mode"
-            android:layout_marginLeft="10dp"
-            android:textColor="?attr/textColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="0dp" />>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/theme_title"
+                android:text="Change Theme"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="490dp"/>
+
+            <RadioGroup
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="500dp">
+
+                <RadioButton
+                    android:id="@+id/light_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Light Theme" />
+
+                <RadioButton
+                    android:id="@+id/dark_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dark Theme" />
+
+            </RadioGroup>
+            <!--        <androidx.appcompat.widget.SwitchCompat-->
+<!--            android:id="@+id/switch_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="490dp"-->
+<!--            android:checked="false"-->
+<!--            android:text="Light Mode"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:textColor="?attr/textColor"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            tools:layout_editor_absoluteX="0dp" />-->
 
         </LinearLayout>
 

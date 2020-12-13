@@ -1,7 +1,6 @@
-package edu.uw.tcss450.team2.friend;
+package edu.uw.tcss450.team2.profile;
 
 import android.app.Application;
-import android.app.admin.FactoryResetProtectionPolicy;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,24 +26,23 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
+import edu.uw.tcss450.team2.friend.FriendContacts;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
-import edu.uw.tcss450.team2.search.SearchContacts;
 
+public class ProfileViewModel extends AndroidViewModel {
 
-public class FriendContactsViewModel extends AndroidViewModel {
-
-    private MutableLiveData<List<FriendContacts>> mContacts;
-    private List<FriendContacts> list;
-    private FriendContacts searchContacts;
-    private List<FriendContacts> mList;
+    private MutableLiveData<List<Profile>> profileMutableLiveData;
+    private List<Profile> list;
+    private Profile mProfile;
+    private List<Profile> mList;
 
 
 
-    public FriendContactsViewModel(@NonNull Application application) {
+    public ProfileViewModel(@NonNull Application application) {
         super(application);
-        mContacts = new MutableLiveData<>();
+        profileMutableLiveData = new MutableLiveData<>();
         list = new ArrayList<>();
-        searchContacts = new FriendContacts("", "", "", "", 0 );
+        mProfile = new Profile("", "", "", "", 0 );
         mList = new ArrayList<>();
     }
 
@@ -53,8 +51,8 @@ public class FriendContactsViewModel extends AndroidViewModel {
      */
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
-                                       @NonNull Observer<? super List<FriendContacts>> observer) {
-        mContacts.observe(owner, observer);
+                                       @NonNull Observer<? super List<Profile>> observer) {
+        profileMutableLiveData.observe(owner, observer);
     }
 
     /*
@@ -62,9 +60,9 @@ public class FriendContactsViewModel extends AndroidViewModel {
      *
      */
 
-    public void getContactFriend(String jwt, String email) {
+    public void getProfile(String jwt, String email) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact/" + email;
+                "profile/" + email;
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -72,11 +70,11 @@ public class FriendContactsViewModel extends AndroidViewModel {
                 null, //no body for this get edu.uw.tcss450.team2.request
                 this::handelSuccess,
                 this::handleError) {
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<>();
-                    // add headers <key,value>
-                    headers.put("Authorization", jwt);
-                    return headers;
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
             }
         };
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -103,23 +101,23 @@ public class FriendContactsViewModel extends AndroidViewModel {
             for(int i = 0; i < contacts.length(); i++) {
                 JSONObject message = contacts.getJSONObject(i);
 
-                FriendContacts friendContacts = new FriendContacts(
+                Profile profile = new Profile(
                         message.getString("firstname"),
                         message.getString("lastname"),
                         message.getString("username"),
                         message.getString("email"),
                         message.getInt("memberid"));
 
-                    list.add(friendContacts);
+                list.add(profile);
 
             }
 
             if (list.isEmpty()) {
                 mList = new ArrayList<>();
-                mList.add(searchContacts);
-                mContacts.setValue(mList);
+                mList.add(mProfile);
+                profileMutableLiveData.setValue(mList);
             } else {
-                mContacts.setValue(list);
+                profileMutableLiveData.setValue(list);
             }
 
 
@@ -130,9 +128,9 @@ public class FriendContactsViewModel extends AndroidViewModel {
     }
 
     /*
-    * helper method to handle a error from the edu.uw.tcss450.team2.request
-    * @param: error
-    */
+     * helper method to handle a error from the edu.uw.tcss450.team2.request
+     * @param: error
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             Log.e("NETWORK ERROR", error.getMessage());
@@ -145,6 +143,5 @@ public class FriendContactsViewModel extends AndroidViewModel {
                             data);
         }
     }
-
 
 }

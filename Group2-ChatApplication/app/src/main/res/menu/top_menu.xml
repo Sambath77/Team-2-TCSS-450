@@ -19,9 +19,13 @@
 
     <item
         android:id="@+id/find_friend"
-        android:title="Find Frined"
+        android:title="@string/find_friend_toolbar"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/friend_request"
+        android:title="@string/request_friend_toolbar"
+        app:showAsAction="never"/>
     <item
         android:title="@string/log_out"
         android:id="@+id/log_out"
