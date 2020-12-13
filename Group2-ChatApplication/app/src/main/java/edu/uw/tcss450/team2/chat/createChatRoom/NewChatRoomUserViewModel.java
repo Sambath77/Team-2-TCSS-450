@@ -28,7 +28,7 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentCreateChatRoomBinding;
-import edu.uw.tcss450.team2.friend.FriendContacts;
+
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
 
@@ -58,7 +58,7 @@ public class NewChatRoomUserViewModel extends AndroidViewModel {
     }
 
     /*
-     * method to setup a contact friend from the web server
+     * method to setup a contact edu.uw.tcss450.team2.friend from the web server
      *
      */
 

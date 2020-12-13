@@ -1,15 +1,10 @@
 package edu.uw.tcss450.team2.friend;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.card.MaterialCardView;
-
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +18,16 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     private final List<FriendContacts> mContacts;
     private FriendContacts friendContacts;
 
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        //void onItemClick(int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public FriendContactsRecyclerViewAdapter(List<FriendContacts> mContacts) {
         this.mContacts = mContacts;
@@ -42,6 +47,7 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         holder.setContact(mContacts.get(position));
+        holder.getMemberID(mContacts.get(position));
     }
 
     @Override
@@ -53,29 +59,61 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     class ContactViewHolder extends RecyclerView.ViewHolder {
 
         private final View mView;
-        private @NonNull FragmentFriendCardBinding binding;
+        private @NonNull
+        FragmentFriendCardBinding binding;
 
         public ContactViewHolder(@NonNull View view) {
             super(view);
             this.mView = view;
             binding = FragmentFriendCardBinding.bind(view);
+
+//            view.setOnClickListener(v -> {
+//                Navigation.findNavController(view).navigate(FriendListFragmentDirections
+//                .actionNavigationContactToFriend(contact));
+//            });
+
+            binding.deleteButton.setOnClickListener(v -> {
+                if (mListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        mListener.onDeleteClick(position);
+                    }
+                }
+            });
         }
 
+//        private DeleteModel;
 
         /*
          * method to set up the contact and display the username
          * @param: contact is the contact list
          */
         void setContact(final FriendContacts contact) {
+//            contact.getMemberId();
+//            DeleteModel.delete(getMemberID())
+//            deletebuton.setOnLick
+//
+//
+//            {
+//                this.model.delete(contact.getMemberId(), )
+//            }
+            //friendContacts = contact;
 
-            friendContacts = contact;
-
-            binding.buttonFullView.setOnClickListener(view -> {
-                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
-                                .actionNavigationContactToFriend(contact));
-                    }
-            );
+//            binding.buttonFullView.setOnClickListener(view -> {
+//                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
+//                                .actionNavigationContactToFriend(contact));
+//                    }
+//            );
+            mView.setOnClickListener(v -> {
+                Navigation.findNavController(mView).navigate(FriendListFragmentDirections
+                        .actionFriendListFragmentToFriendPostFragment(contact));
+            });
             binding.textUsername.setText(contact.getmUsername());
+            binding.textEmail.setText(contact.getEmail());
+        }
+
+        int getMemberID(final FriendContacts contacts) {
+            return contacts.getMemberId();
         }
     }
 }

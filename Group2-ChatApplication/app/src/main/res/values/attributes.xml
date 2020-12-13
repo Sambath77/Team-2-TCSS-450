@@ -4,5 +4,7 @@
     <attr name="textColor" format="color"/>
     <attr name="hintColor" format="color"/>
     <attr name="clipArt" format="color"/>
+    <attr name="secondTextColor" format="color"/>
+    <attr name="appColor" format="color"/>
 
 </resources>

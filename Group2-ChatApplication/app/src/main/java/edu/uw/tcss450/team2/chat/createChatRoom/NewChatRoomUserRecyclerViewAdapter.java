@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentCreateChatRoomCardBinding;
 import edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding;
-import edu.uw.tcss450.team2.friend.FriendContacts;
+
 import edu.uw.tcss450.team2.friend.FriendListFragmentDirections;
 
 public class NewChatRoomUserRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRoomUserRecyclerViewAdapter.ContactViewHolder> {

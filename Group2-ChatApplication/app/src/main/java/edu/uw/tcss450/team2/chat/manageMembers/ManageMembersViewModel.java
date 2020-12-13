@@ -77,7 +77,7 @@ public class ManageMembersViewModel extends AndroidViewModel {
     }
 
     /*
-     * method to setup a contact friend from the web server
+     * method to setup a contact edu.uw.tcss450.team2.friend from the web server
      *
      */
 

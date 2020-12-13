@@ -2,8 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_root"
+    android:id="@+id/search_layout_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
@@ -16,43 +15,43 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/text_imageView"
+            android:id="@+id/search_text_imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="2dp"
-            android:src="@drawable/ic_baseline_contact_mail_24" />
+            android:src="@drawable/ic_baseline_contact_mail_24"/>
 
         <TextView
-            android:id="@+id/text_username"
+            android:id="@+id/search_text_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
             android:text="Username"
             android:textColor="?attr/textColor"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/text_email"
+            android:id="@+id/searach_text_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_username"
+            android:layout_below="@id/search_text_username"
             android:layout_marginLeft="60dp"
             android:text="Email"
             android:textColor="?attr/secondTextColor"
             android:textStyle="italic"
             android:layout_marginBottom="10dp"/>
 
-        <ImageView
-            android:id="@+id/delete_button"
-            android:layout_width="206dp"
-            android:layout_height="42dp"
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="5dp"
             android:foregroundGravity="right"
-            android:src="@drawable/ic_delete"
-            android:textStyle="bold" />
+            android:text="Add Friend"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 

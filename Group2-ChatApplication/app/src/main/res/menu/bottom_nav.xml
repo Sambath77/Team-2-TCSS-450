@@ -17,6 +17,11 @@
         android:title="@string/friend_list"/>
 
     <item
+        android:id="@+id/navigation_find_friend"
+        android:title="Find Friend"
+        android:icon="@drawable/ic_search_24dp"/>
+
+    <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_chat_24dp"
         android:title="@string/chat_title"/>

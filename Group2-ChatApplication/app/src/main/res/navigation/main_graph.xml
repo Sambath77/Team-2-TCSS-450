@@ -145,14 +145,6 @@
             app:popUpTo="@+id/navigation_weather"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/manageMembersFragment"
-        android:name="edu.uw.tcss450.team2.chat.manageMembers.ManageMembersFragment"
-        android:label="ManageMembersFragment" >
-        <argument
-            android:name="chatId"
-            app:argType="integer" />
-    </fragment>
 
     android:id="@+id/profileFragment"
     android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
