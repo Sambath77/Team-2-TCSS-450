@@ -149,6 +149,8 @@ public class FriendListFragment extends Fragment {
                     }
                 });
 
+            } else {
+                binding.listRoot.setVisibility(View.INVISIBLE);
             }
         });
     }
