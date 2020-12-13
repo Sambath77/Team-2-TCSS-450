@@ -1,6 +1,8 @@
 package edu.uw.tcss450.team2.home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -13,6 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import edu.uw.tcss450.team2.MainActivity;
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.team2.home.HomeFragment;
@@ -60,13 +66,38 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
     private FusedLocationProviderClient fusedLocationClient;
     private double currLatitude;
     private double currLongitude;
+
     private SharedPreferences sharedPreferences;
     private SwitchCompat switchCompat;
+
+    private int unreadMessageCount;
+
+    UserInfoViewModel model;
+
+    Handler mHandler = new Handler();
+
+    Runnable mRunnableTask = new Runnable()
+    {
+        @Override
+        public void run() {
+            unreadMessageCount = model.getUnreadMessageCount();
+
+            //TODO handling notification - need to replace these with actual messages not mock up data
+            binding.textUnreadChat.setText("You have " + unreadMessageCount + " unread messages.");
+
+            // this will repeat this task again at specified time interval
+            mHandler.postDelayed(this, 200);
+        }
+    };
+
+
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        model = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
         mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
         //switchTheme();
@@ -100,16 +131,22 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         FragmentHomeBinding binding = FragmentHomeBinding.bind(getView());
         //Note argument sent to the ViewModelProvider constructor. It is the Activity that
         //holds this fragment.
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
+        switchTheme();
 
 
 
         binding.textUserEmail.setText(model.getEmail());
 
 
-        //TODO handling notification - need to replace these with actual messages not mock up data
-        binding.textUnreadChat.setText("You have 7 Unread Messages");
+
+//--------------------------------------------------
+
+
+        // Call this to start the task first time
+        mHandler.postDelayed(mRunnableTask, 2000);
+
+
+//--------------------------------------------------
 
         binding.layoutHomeUnreadChat.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
@@ -118,6 +155,9 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
         binding.layoutHomeWeather.setOnClickListener(layout ->
                 Navigation.findNavController(getView()).navigate(
                         HomeFragmentDirections.actionNavigationHomeToNavigationWeather()));
+
+
+
 
         //setter for lat and long
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -160,35 +200,35 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
     private void switchTheme() {
 
-
-        sharedPreferences = getActivity().getSharedPreferences("night", 0);
-        boolean booleanValue = sharedPreferences.getBoolean("night mode", true);
-        if (booleanValue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            binding.switchButton.setChecked(true);
-        }
-
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    binding.switchButton.setChecked(true);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("night node", true);
-                    editor.commit();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    binding.switchButton.setChecked(true);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("night node", false);
-                    editor.commit();
-                }
+        sharedPreferences = getActivity().getSharedPreferences("nightModePrefs", Context.MODE_PRIVATE);
+        checkedNightModeActivated();
+        binding.switchButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                saveNightModeState(true);
+                getActivity().recreate();
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                saveNightModeState(false);
+                getActivity().recreate();
             }
         });
     }
 
-    public void restartApp() {
-
+    private void saveNightModeState(boolean nightMode) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("lightModePres", nightMode);
+        editor.apply();
     }
+
+    public void checkedNightModeActivated() {
+        if(sharedPreferences.getBoolean("lightModePres", false)) {
+            binding.switchButton.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            binding.switchButton.setChecked(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
 }
