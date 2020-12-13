@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 //multiple chat rooms.
                 mNewMessageModel.reset();
             }
-            if(destination.getId() == R.id.navigation_notification) {
+            if(destination.getId() == R.id.navigation_chat) {
                 mNewNotificationModel.reset();
             }
 
@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
         mNewNotificationModel.addMessageCountObserver(this, count -> {
 
+<<<<<<< HEAD
             BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
 
             if (count > 0) {
@@ -209,6 +210,47 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+=======
+                    //BadgeDrawable badge = navView.getOrCreateBadge(R.id.notification_bar);
+                    //badge.setMaxCharacterCount(2);
+
+           // MenuItem menuItem = menu.getItem(0);
+            //MenuItem menuItem = findViewById(R.id.notification_bar);
+            //ActionItemBadge.update(menuItem, 2);
+
+                    //tempUserViewModel.setUnreadMessageCount(count);
+        /*
+                    if (count > 0) {
+                        badge.setNumber(count);
+                        badge.setVisible(true);
+                    } else {
+                        badge.clearNumber();
+                        badge.setVisible(false);
+                    }
+
+
+         */
+                });
+
+
+
+//        mNewNotificationModel.addMessageCountObserver(this, count -> {
+//            BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notification);
+//            //badge.setMaxCharacterCount(2);
+//
+//            tempUserViewModel.setUnreadMessageCount(count);
+//
+//            if (count > 0) {
+//                badge.setNumber(count);
+//                badge.setVisible(true);
+//            } else {
+//                badge.clearNumber();
+//                badge.setVisible(false);
+//            }
+//
+//
+//        });
+>>>>>>> e0ab1ce (Implementing PUSH token for delete/accept friend request)
 
     }
 
@@ -273,10 +315,17 @@ public class MainActivity extends AppCompatActivity {
             int chatId = intent.getIntExtra("chatid", -1);
 
             if(intent.hasExtra("AddMemberToChatRoom")
+<<<<<<< HEAD
                     || intent.hasExtra("RemoveMemberToChatRoom")
                     || intent.hasExtra("CreateNewChatRoom")
                     || intent.hasExtra("DeleteChatRoom")
                     || intent.hasExtra("SendingFriendRequest")
+=======
+                || intent.hasExtra("RemoveMemberToChatRoom")
+                || intent.hasExtra("CreateNewChatRoom")
+                || intent.hasExtra("DeleteChatRoom")
+                || intent.hasExtra("SendingFriendRequest")
+>>>>>>> e0ab1ce (Implementing PUSH token for delete/accept friend request)
                     || intent.hasExtra("RejectFriendRequest")
                     || intent.hasExtra("AcceptFriendRequest")) {
 
