@@ -2,41 +2,56 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_graph"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="edu.uw.tcss450.team2.HomeFragment"
-        android:label="@string/home_label"
+        android:name="edu.uw.tcss450.team2.home.HomeFragment"
+
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_chat"
-            app:destination="@id/navigation_chat" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_weather"
             app:destination="@id/navigation_weather" />
+        <action
+            android:id="@+id/action_navigation_home_to_chat_fragment"
+            app:destination="@id/navigation_chat" />
+        <action
+            android:id="@+id/action_navigation_home_to_nav_notification"
+            app:destination="@id/navigation_notification" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_weather"
         android:name="edu.uw.tcss450.team2.weather.WeatherFragment"
-        android:label="@string/weather_label"
-        tools:layout="@layout/fragment_weather">
+
+        tools:layout="@layout/fragment_weather" >
+        <argument
+            android:name="newMyLocationObject"
+            app:argType="edu.uw.tcss450.team2.weather.WeatherFragment$MyLocation"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
-            android:id="@+id/action_navigation_weather_to_chooseLocationContainerFragment"
-            app:destination="@id/chooseLocationContainerFragment" />
+            android:id="@+id/action_navigation_weather_to_chooseLocationFragment"
+            app:destination="@id/chooseLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
-        android:label="@string/chat_label"
         android:name="edu.uw.tcss450.team2.chat.ChatListFragment"
-        >
+
+        tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_navigation_chat_to_personalChatFragment"
             app:destination="@id/personalChatFragment" />
         <action
             android:id="@+id/action_navigation_chat_to_chatRoomMemberFragment"
             app:destination="@id/chatRoomMemberFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_createChatRoomFragment"
+            app:destination="@id/createChatRoomFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_manageMembersFragment"
+            app:destination="@id/manageMembersFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalChatFragment"
@@ -46,12 +61,16 @@
             android:name="chatId"
             app:argType="integer" />
     </fragment>
+            android:id="@+id/action_chat_fragment_to_personal_chat_fragment"
+            app:destination="@id/personal_chat_fragment" />
     <fragment
-        android:id="@+id/chooseLocationContainerFragment"
-        android:name="edu.uw.tcss450.team2.weather.ChooseLocationContainerFragment"
-        android:label="fragment_choose_location_container"
-        tools:layout="@layout/fragment_choose_location_container" />
+        android:id="@+id/personal_chat_fragment"
+        android:name="edu.uw.tcss450.team2.chat.PersonalChatFragment"
+
+        tools:layout="@layout/fragment_personal_chat" />
+
     <fragment
+
         android:id="@+id/chatRoomMemberFragment"
         android:name="edu.uw.tcss450.team2.chat.ChatRoomMemberFragment"
         android:label="fragment_chat_room_member"
@@ -59,5 +78,83 @@
         <argument android:name="chatId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/createChatRoomFragment"
+        android:name="edu.uw.tcss450.team2.chat.createChatRoom.CreateChatRoomFragment"
+        android:label="CreateChatRoomFragment" >
+        <action
+            android:id="@+id/action_createChatRoomFragment_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageMembersFragment"
+        android:name="edu.uw.tcss450.team2.chat.manageMembers.ManageMembersFragment"
+        android:label="ManageMembersFragment" >
+        <argument
+            android:name="chatId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_contact"
+        android:name="edu.uw.tcss450.team2.friend.FriendListFragment"
+        tools:layout="@layout/fragment_friend_list">
+        <action
+            android:id="@+id/action_friendListFragment_to_friendPostFragment"
+            app:destination="@id/fragment_friend_post" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_friend_post"
+        android:name="edu.uw.tcss450.team2.friend.FriendPostFragment"
+
+        tools:layout="@layout/fragment_friend_post" >
+        <argument
+            android:name="contactList"
+            app:argType="edu.uw.tcss450.team2.friend.FriendContacts" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_find_friend"
+        android:name="edu.uw.tcss450.team2.search.SearchContactsListFragment"
+        tools:layout="@layout/fragment_search_contacts_list"/>
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="edu.uw.tcss450.team2.notification.NotificationFragment"
+        />
+    <action
+        android:id="@+id/action_global_navigation_find_friend"
+        app:destination="@id/navigation_find_friend" />
+    <action
+        android:id="@+id/action_global_navigation_notification"
+        app:destination="@id/navigation_notification" />
+    <fragment
+        android:id="@+id/sendFriendRequestListFragment"
+        android:name="edu.uw.tcss450.team2.request.SendFriendRequestListFragment"
+        tools:layout="@layout/fragment_send_friend_request_list" />
+    <action
+        android:id="@+id/action_global_sendFriendRequestListFragment"
+        app:destination="@id/sendFriendRequestListFragment" />
+    <fragment
+
+        android:id="@+id/chooseLocationFragment"
+        android:name="edu.uw.tcss450.team2.weather.ChooseLocationFragment"
+        android:label="fragment_choose_location"
+        tools:layout="@layout/fragment_choose_location" >
+        <action
+            android:id="@+id/action_chooseLocationFragment_to_navigation_weather"
+            app:destination="@id/navigation_weather"
+            app:popUpTo="@+id/navigation_weather"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+        android:id="@+id/profileFragment"
+        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 
 </navigation>

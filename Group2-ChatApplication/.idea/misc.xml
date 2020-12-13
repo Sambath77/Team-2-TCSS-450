@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="12" project-jdk-type="JavaSDK">
-=======
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
->>>>>>> 72e8818 (add contact search)
-=======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="true" project-jdk-name="12" project-jdk-type="JavaSDK">
->>>>>>> a84b229a859b0e7b30b351790a97485fe01ba543
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
