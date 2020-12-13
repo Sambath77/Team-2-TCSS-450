@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentCurrentWeatherBinding;
+import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
 import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
 /**
@@ -25,6 +30,9 @@ import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
  * @version 1.0
  */
 public class CurrentWeatherFragment extends Fragment {
+
+    private WeatherViewModel mWeatherModel;
+    private FragmentCurrentWeatherBinding binding;
 
     /**
      * Empty constructor
@@ -45,8 +53,26 @@ public class CurrentWeatherFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentCurrentWeatherBinding.inflate(inflater);
+
+        mWeatherModel = new ViewModelProvider(getActivity())
+                .get(WeatherViewModel.class);
+        mWeatherModel.addResponseObserver(
+                getViewLifecycleOwner(),
+                this::weatherUpdate);
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_weather, container, false);
+        return binding.getRoot();
+    }
+
+    private void weatherUpdate(final JSONObject response) {
+        try {
+            binding.currentDescripter.setText(WeatherViewModel.currentDescription(response));
+            binding.currentTemperature.setText(Math.round(WeatherViewModel.currentTemperature(response)) + "°F");
+        } catch (JSONException e) {
+//            e.printStackTrace();
+        }
     }
 
     @Override

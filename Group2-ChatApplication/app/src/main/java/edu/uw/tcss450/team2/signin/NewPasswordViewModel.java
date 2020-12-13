@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -22,37 +23,39 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
-public class SignInViewModel extends AndroidViewModel {
+/**
+ * Handles sending a request to reset the password
+ */
+public class NewPasswordViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
-    /*
-     * constructor method
+    /**
+     * Creates a new newpasswordviewmodel
+     * @param application See parent
      */
-    public SignInViewModel(@NonNull Application application) {
+    public NewPasswordViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
-    /*
-     * A method to call when the server was updated
-     *
-     * @param: LifecycleOwner
-     * @param: Observer
+    /**
+     * Adds given objects as an observer to the jsonobject
+     * @param owner The lifecycle owner
+     * @param observer The observer
      */
-
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
-    /*
-     *  helper method to handle a error
-     *
-     * @param: error
+    /**
+     * handles errors during the request
+     * @param error The error encountered during the request
      */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
@@ -78,34 +81,27 @@ public class SignInViewModel extends AndroidViewModel {
         }
     }
 
-
-    /*
-     * method to send the information to the end point
-     *
-     * @param: String email: user email
-     * @param: String password: user password
+    /**
+     * Connects to the web server to request that the given user's password be reset.
+     * @param email The user whose password is to be reset.
      */
+    public void connect(final String email) {
+        String url = "https://team-2-tcss-450-webservices.herokuapp.com/resetpassword";
 
-    public void connect(final String email, final String password) {
-        String url = "https://team-2-tcss-450-webservices.herokuapp.com/auth";
+        JSONObject body = new JSONObject();
+        try {
+            body.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Request request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null, //no body for this get request
+                body,
                 mResponse::setValue,
-                this::handleError) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                String credentials = email + ":" + password;
-                String auth = "Basic "
-                        + Base64.encodeToString(credentials.getBytes(),
-                        Base64.NO_WRAP);
-                headers.put("Authorization", auth);
-                return headers;
-            }
-        };
+                this::handleError);
+
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -114,12 +110,4 @@ public class SignInViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
-    /**
-     * Clears the JSON response object
-     */
-    public void clearResponse() {
-        mResponse.setValue(new JSONObject());
-    }
-
 }

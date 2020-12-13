@@ -31,13 +31,14 @@ public class FriendPostFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        FriendPostFragmentArgs args = FriendPostFragmentArgs.fromBundle(getArguments());
-//        FragmentFriendPostBinding binding = FragmentFriendPostBinding.bind(getView());
-//        //String displayDetail = args.getFriendPost().getUserName() + "\n" + args.getFriendPost().getFriendFirstName()
-//                               // + "\n" + args.getFriendPost().getFriendLastName() + "\n" + args.getFriendPost().getFriendEmail();
-//        binding.textUsername.setText(args.getFriendPost().getUserName());
-//
-//        binding.textPreview.setText(args.getFriendPost().getFriendEmail());
+        FriendPostFragmentArgs args = FriendPostFragmentArgs.fromBundle(getArguments());
+        FragmentFriendPostBinding binding = FragmentFriendPostBinding.bind(getView());
+
+        binding.textUsername.setText(args.getContactList().getmUsername());
+
+        binding.textFirst.setText(args.getContactList().getmFName());
+
+        binding.textLast.setText(args.getContactList().getmLName());
 
     }
 }

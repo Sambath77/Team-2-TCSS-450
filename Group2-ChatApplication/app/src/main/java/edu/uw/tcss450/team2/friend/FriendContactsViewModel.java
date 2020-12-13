@@ -18,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,20 +40,32 @@ public class FriendContactsViewModel extends AndroidViewModel {
         super(application);
         mContacts = new MutableLiveData<>();
 
+
         List<FriendContacts> lst = new ArrayList<>();
-        lst.add(new FriendContacts(1, 1, ""));
+        lst.add(new FriendContacts("N/A", "N/A", "N/A"));
 
         mContacts.setValue(lst);
+
     }
+
+    /*
+     * method to send observer to alert the notification
+     */
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
                                        @NonNull Observer<? super List<FriendContacts>> observer) {
         mContacts.observe(owner, observer);
     }
 
+    /*
+     * method to setup a contact friend from the web server
+     *
+     */
+
     public void getContactFriend(String jwt, String email) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contact/" + email;
+
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -78,18 +89,22 @@ public class FriendContactsViewModel extends AndroidViewModel {
     }
 
 
+    /*
+     * helper method to handle the successful for client requests
+     * @param: response is the JSONObject that response to the end point
+     */
 
     private void handelSuccess(final JSONObject response)  {
         List<FriendContacts> list = new ArrayList<>();
         try {
-            //list = getMessageListByChatId(response.getInt("chatId"));
+
             JSONArray messages = response.getJSONArray("rows");
             for(int i = 0; i < messages.length(); i++) {
                 JSONObject message = messages.getJSONObject(i);
 
                 FriendContacts friendContacts = new FriendContacts(
-                        message.getInt("primarykey"),
-                        message.getInt("memberid_b"),
+                        message.getString("firstname"),
+                        message.getString("lastname"),
                         message.getString("username")
                 );
 
@@ -103,6 +118,10 @@ public class FriendContactsViewModel extends AndroidViewModel {
         }
     }
 
+    /*
+    * helper method to handle a error from the request
+    * @param: error
+    */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             Log.e("NETWORK ERROR", error.getMessage());

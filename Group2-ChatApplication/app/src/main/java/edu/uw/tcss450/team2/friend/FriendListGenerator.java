@@ -3,7 +3,6 @@ package edu.uw.tcss450.team2.friend;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.uw.tcss450.team2.chat.ChatListUserModel;
 
 public class FriendListGenerator {
 
