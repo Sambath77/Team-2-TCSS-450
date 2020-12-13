@@ -211,14 +211,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 =======
-                    //BadgeDrawable badge = navView.getOrCreateBadge(R.id.notification_bar);
-                    //badge.setMaxCharacterCount(2);
+        //BadgeDrawable badge = navView.getOrCreateBadge(R.id.notification_bar);
+        //badge.setMaxCharacterCount(2);
 
-           // MenuItem menuItem = menu.getItem(0);
-            //MenuItem menuItem = findViewById(R.id.notification_bar);
-            //ActionItemBadge.update(menuItem, 2);
+        // MenuItem menuItem = menu.getItem(0);
+        //MenuItem menuItem = findViewById(R.id.notification_bar);
+        //ActionItemBadge.update(menuItem, 2);
 
-                    //tempUserViewModel.setUnreadMessageCount(count);
+        //tempUserViewModel.setUnreadMessageCount(count);
         /*
                     if (count > 0) {
                         badge.setNumber(count);
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
 
          */
-                });
+    });
 
 
 
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 >>>>>>> e0ab1ce (Implementing PUSH token for delete/accept friend request)
 
-    }
+}
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -294,89 +294,89 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * A BroadcastReceiver that listens for messages sent from PushReceiver
-     */
-    private class MainPushMessageReceiver extends BroadcastReceiver {
-        private ChatViewModel mModel =
-                new ViewModelProvider(MainActivity.this)
-                        .get(ChatViewModel.class);
+/**
+ * A BroadcastReceiver that listens for messages sent from PushReceiver
+ */
+private class MainPushMessageReceiver extends BroadcastReceiver {
+    private ChatViewModel mModel =
+            new ViewModelProvider(MainActivity.this)
+                    .get(ChatViewModel.class);
 
-        private UserInfoViewModel userInfoViewModel =
-                new ViewModelProvider(MainActivity.this).get(UserInfoViewModel.class);
+    private UserInfoViewModel userInfoViewModel =
+            new ViewModelProvider(MainActivity.this).get(UserInfoViewModel.class);
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            NavController nc =
-                    Navigation.findNavController(
-                            MainActivity.this, R.id.nav_host_fragment);
-            NavDestination nd = nc.getCurrentDestination();
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        NavController nc =
+                Navigation.findNavController(
+                        MainActivity.this, R.id.nav_host_fragment);
+        NavDestination nd = nc.getCurrentDestination();
 
-            int chatId = intent.getIntExtra("chatid", -1);
+        int chatId = intent.getIntExtra("chatid", -1);
 
-            if(intent.hasExtra("AddMemberToChatRoom")
-<<<<<<< HEAD
-                    || intent.hasExtra("RemoveMemberToChatRoom")
-                    || intent.hasExtra("CreateNewChatRoom")
-                    || intent.hasExtra("DeleteChatRoom")
-                    || intent.hasExtra("SendingFriendRequest")
-=======
+        if(intent.hasExtra("AddMemberToChatRoom")
+                <<<<<<< HEAD
                 || intent.hasExtra("RemoveMemberToChatRoom")
                 || intent.hasExtra("CreateNewChatRoom")
                 || intent.hasExtra("DeleteChatRoom")
                 || intent.hasExtra("SendingFriendRequest")
->>>>>>> e0ab1ce (Implementing PUSH token for delete/accept friend request)
+                =======
+                || intent.hasExtra("RemoveMemberToChatRoom")
+                || intent.hasExtra("CreateNewChatRoom")
+                || intent.hasExtra("DeleteChatRoom")
+                || intent.hasExtra("SendingFriendRequest")
+                >>>>>>> e0ab1ce (Implementing PUSH token for delete/accept friend request)
                     || intent.hasExtra("RejectFriendRequest")
-                    || intent.hasExtra("AcceptFriendRequest")) {
+                || intent.hasExtra("AcceptFriendRequest")) {
 
-                mNewNotificationModel.increment();
+            mNewNotificationModel.increment();
 
-                if(nd.getId() == R.id.navigation_chat) {
-                    userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
-                }
-
-                if(intent.hasExtra("RemoveMemberToChatRoom") || intent.hasExtra("DeleteChatRoom")) {
-                    if(nd.getId() == R.id.personalChatFragment && userInfoViewModel.getCurrentChatRoom() == chatId) {
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).
-                                navigate(HomeFragmentDirections.actionNavigationHomeToChatFragment());
-                    }
-                }
-
-            }
-            else if (intent.hasExtra("chatMessage")) {
-                ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
-                //If the user is not on the chat screen, update the
-                // NewMessageCountView Model
-
-                //int chatId = intent.getIntExtra("chatid", -1);
-
-                //if(!userInfoViewModel.getChatRoomsIdForNewMessage().containsKey(new Integer(chatId))) {
-
-                //}
-
-                cm.setDateReceived(new Date());
-                userInfoViewModel.getChatRoomsIdForNewMessage().put(chatId, cm);
-
-                if(nd.getId() == R.id.navigation_chat) {
-                    userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
-                }
-                else if (nd.getId() == R.id.personalChatFragment && userInfoViewModel.getCurrentChatRoom() == chatId) {
-                    userInfoViewModel.getChatRoomsIdForNewMessage().remove(new Integer(chatId));
-                }
-                else {
-                    mNewMessageModel.increment();
-                }
-
-                //Inform the view model holding chatroom messages of the new
-                //message.
-                mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+            if(nd.getId() == R.id.navigation_chat) {
+                userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
             }
 
-
-
+            if(intent.hasExtra("RemoveMemberToChatRoom") || intent.hasExtra("DeleteChatRoom")) {
+                if(nd.getId() == R.id.personalChatFragment && userInfoViewModel.getCurrentChatRoom() == chatId) {
+                    Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).
+                            navigate(HomeFragmentDirections.actionNavigationHomeToChatFragment());
+                }
+            }
 
         }
+            else if (intent.hasExtra("chatMessage")) {
+            ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
+            //If the user is not on the chat screen, update the
+            // NewMessageCountView Model
+
+            //int chatId = intent.getIntExtra("chatid", -1);
+
+            //if(!userInfoViewModel.getChatRoomsIdForNewMessage().containsKey(new Integer(chatId))) {
+
+            //}
+
+            cm.setDateReceived(new Date());
+            userInfoViewModel.getChatRoomsIdForNewMessage().put(chatId, cm);
+
+            if(nd.getId() == R.id.navigation_chat) {
+                userInfoViewModel.getChatListViewModel().connectGet(jwt, email);
+            }
+            else if (nd.getId() == R.id.personalChatFragment && userInfoViewModel.getCurrentChatRoom() == chatId) {
+                userInfoViewModel.getChatRoomsIdForNewMessage().remove(new Integer(chatId));
+            }
+            else {
+                mNewMessageModel.increment();
+            }
+
+            //Inform the view model holding chatroom messages of the new
+            //message.
+            mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+        }
+
+
+
+
     }
+}
 
     @Override
     public void onResume() {

@@ -79,6 +79,7 @@ public class SendFriendRequestListFragment extends Fragment {
                     public void onAcceptClick(int position) {
                         addFriendViewModel.getAddFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), requestFriend.get(position).getmMemberId());
 
+
                         try {
                             Thread.sleep(10);
                             //cancelFreindRequestViewModel.getCancelSendRequest(userInfoViewModel.getJwt(), requestFriend.get(position).getmEmail(), userInfoViewModel.getEmail());
