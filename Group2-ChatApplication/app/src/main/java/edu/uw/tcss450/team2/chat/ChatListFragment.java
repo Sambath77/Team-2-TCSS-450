@@ -41,6 +41,7 @@ public class ChatListFragment extends Fragment {
 
     private ChatListViewModel mModel;
     private MutableLiveData<JSONObject> mResponse;
+    private UserInfoViewModel userInfoViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +53,7 @@ public class ChatListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        UserInfoViewModel userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
@@ -77,7 +78,7 @@ public class ChatListFragment extends Fragment {
         mModel.addUserListObserver(getViewLifecycleOwner(), userList -> {
             if (!userList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatListRecyclerViewAdapter(userList)
+                        new ChatListRecyclerViewAdapter(userList, userInfoViewModel.getChatRoomsIdForNewMessage())
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }

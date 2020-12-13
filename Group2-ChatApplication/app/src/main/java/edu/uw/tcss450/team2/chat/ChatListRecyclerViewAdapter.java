@@ -1,5 +1,6 @@
 package edu.uw.tcss450.team2.chat;
 
+import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +25,31 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
     private final Map<ChatRoomModel, Boolean> mExpandedFlags;
 
-    //Store all of the blogs to present
-    private final List<ChatRoomModel> chatRooms;
+    //Store all of the chat rooms to present
+    private List<ChatRoomModel> chatRooms;
 
-    public ChatListRecyclerViewAdapter(List<ChatRoomModel> items) {
+    private List<Integer> chatRoomsIdForNewMessage;
+
+    public ChatListRecyclerViewAdapter(List<ChatRoomModel> items, List<Integer> chatRoomsId) {
 
         this.chatRooms = items;
+
         mExpandedFlags = chatRooms.stream()
                 .collect(Collectors.toMap(Function.identity(), user -> false));
+
+        this.chatRoomsIdForNewMessage = chatRoomsId;
+        sortChatRoomsBasedOnTime();
+    }
+
+    private void sortChatRoomsBasedOnTime() {
+        for(int i = 0; i < chatRooms.size(); i ++) {
+            if(chatRoomsIdForNewMessage.contains(new Integer(chatRooms.get(i).getChatId()))) {
+                ChatRoomModel temp = chatRooms.get(i);
+                chatRooms.remove(i);
+                chatRooms.add(0, temp);
+            }
+        }
+
 
     }
 
@@ -81,16 +99,22 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
                 Navigation.findNavController(mView).navigate(
                         ChatListFragmentDirections
                                 .actionNavigationChatToPersonalChatFragment(chatRoomModel.getChatId()));
-
+                chatRoomsIdForNewMessage.remove(new Integer(mChatRoom.getChatId()));
             });
 
             binding.textPubdate.setText("Room Id: " + chatRoomModel.getChatId() + "");
+            if(chatRoomsIdForNewMessage.contains(mChatRoom.getChatId())) {
+                binding.textPubdate.setBackgroundColor(Color.BLACK);
+            }
+
             binding.textTitle.setText(chatRoomModel.getRoomName());
 
             binding.buittonMore.setImageIcon(
                     Icon.createWithResource(
                             mView.getContext(),
                             R.drawable.ic_member));
+
+
 
             binding.buittonMore.setOnClickListener(view ->
             {
@@ -99,7 +123,6 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
                         ChatListFragmentDirections
                                 .actionNavigationChatToChatRoomMemberFragment(chatRoomModel.getChatId()));
                  */
-
                 Navigation.findNavController(mView).navigate(
                         ChatListFragmentDirections
                                 .actionNavigationChatToManageMembersFragment(chatRoomModel.getChatId()));

@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserInfoViewModel extends ViewModel {
 
 
@@ -12,11 +15,13 @@ public class UserInfoViewModel extends ViewModel {
     private final String jwt;
     private final int memberId;
     private int unreadMessageCount;
+    private List<Integer> chatRoomsIdForNewMessage;
 
     public UserInfoViewModel(String mEmail, String jwt, int memberId) {
         this.mEmail = mEmail;
         this.jwt = jwt;
         this.memberId = memberId;
+        chatRoomsIdForNewMessage = new ArrayList<>();
     }
 
     public String getEmail() {
@@ -39,6 +44,14 @@ public class UserInfoViewModel extends ViewModel {
         return this.unreadMessageCount;
     }
 
+
+    public List<Integer> getChatRoomsIdForNewMessage() {
+        return chatRoomsIdForNewMessage;
+    }
+
+    public void setChatRoomsIdForNewMessage(List<Integer> chatRoomsIdForNewMessage) {
+        this.chatRoomsIdForNewMessage = chatRoomsIdForNewMessage;
+    }
 
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {
         private final String email;
