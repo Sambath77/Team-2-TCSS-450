@@ -39,12 +39,11 @@
             android:background="@drawable/login_shape"
             android:drawableLeft="@drawable/left_drawable"
             android:hint="@string/email_address"
-            android:textColor="@color/black"
+            android:textColor="?attr/textColor"
             android:layout_below="@id/app_logo"
             android:inputType="textEmailAddress"
             android:textSize="20dp"
             android:textStyle="bold"
-
             android:padding="3dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -60,7 +59,6 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:inputType="textPassword"
-
             android:textStyle="bold"
             android:layout_centerInParent="true"
             android:layout_below="@id/email_address"

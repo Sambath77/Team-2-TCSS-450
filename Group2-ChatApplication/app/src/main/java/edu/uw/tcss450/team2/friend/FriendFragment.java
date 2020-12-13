@@ -3,18 +3,16 @@ package edu.uw.tcss450.team2.friend;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragmentFriendBinding;
+import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,36 +21,35 @@ import edu.uw.tcss450.team2.databinding.FragmentFriendBinding;
  */
 public class FriendFragment extends Fragment {
 
-    private FragmentFriendBinding binding;
-    private FriendViewModel friendUserView;
+    private FriendContactsViewModel mModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        friendUserView = new ViewModelProvider(this).get(FriendViewModel.class);
-//        View root = inflater.inflate(R.layout.fragment_friend, container, false);
-//        final TextView textView = root.findViewById(R.id.friend_view);
-//        friendUserView.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        }) ;
-        //return root;
-        binding = FragmentFriendBinding.inflate(inflater, container, false);
-//
-//        // Inflate the layout for this fragment
-        return binding.getRoot();
+
+        return inflater.inflate(R.layout.fragment_friend, container, false);
     }
 
     @Override
     public void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserInfoViewModel userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        mModel = new ViewModelProvider(getActivity()).get(FriendContactsViewModel.class);
+        mModel.getContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FragmentFriendListBinding binding = FragmentFriendListBinding.bind(getView());
+        mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+            if (!contactList.isEmpty()) {
+                binding.listRoot.setAdapter(
+                        new FriendContactsRecyclerViewAdapter(contactList));
+               binding.layoutWait.setVisibility(View.GONE);
+            }
+        });
     }
 
 

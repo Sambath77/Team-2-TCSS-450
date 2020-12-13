@@ -138,12 +138,31 @@
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapsView"
         android:name="com.google.android.gms.maps.SupportMap"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="400dp" />
+        android:layout_marginTop="320dp" />
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="10dp">-->
+
+<!--        <Switch-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Switch Theme"-->
+<!--            android:textColor="?attr/textColor"-->
+<!--            android:id="@+id/switch_button"-->
+<!--            android:layout_marginTop="400dp"/>-->
+
+<!--    </LinearLayout>-->
 
 </androidx.cardview.widget.CardView>
