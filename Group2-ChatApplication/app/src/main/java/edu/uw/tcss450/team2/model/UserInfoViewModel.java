@@ -14,12 +14,20 @@ public class UserInfoViewModel extends ViewModel {
 
     private String mEmail;
     private String jwt;
+    private int memberId;
 
 
     public UserInfoViewModel() {
 
     }
 
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
 
 //    public UserInfoViewModel(String mEmail, String jwt, String firstName, String lastName) {
 //        this.mEmail = mEmail;
@@ -27,10 +35,11 @@ public class UserInfoViewModel extends ViewModel {
 //        this.firstName = firstName;
 //        this.lastName = lastName;
 //    }
-public UserInfoViewModel(String mEmail, String jwt) {
-    this.mEmail = mEmail;
-    this.jwt = jwt;
-}
+    public UserInfoViewModel(String mEmail, String jwt, int memberId) {
+        this.mEmail = mEmail;
+        this.jwt = jwt;
+        this.memberId = memberId;
+    }
 
     public String getEmail() {
         return mEmail;
@@ -51,6 +60,7 @@ public UserInfoViewModel(String mEmail, String jwt) {
     public static class UserInfoViewModelFactory implements ViewModelProvider.Factory {
         private final String email;
         private final String jwt;
+        private final int memberId;
 //        private final String firstName;
 //        private final String lastName;
 
@@ -64,16 +74,17 @@ public UserInfoViewModel(String mEmail, String jwt) {
 
 
 
-        public UserInfoViewModelFactory(String email, String jwt) {
+        public UserInfoViewModelFactory(String email, String jwt, int memberId) {
             this.email = email;
             this.jwt = jwt;
+            this.memberId = memberId;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass == edu.uw.tcss450.team2.model.UserInfoViewModel.class) {
-                return (T) new edu.uw.tcss450.team2.model.UserInfoViewModel(email, jwt);
+                return (T) new edu.uw.tcss450.team2.model.UserInfoViewModel(email, jwt, memberId);
             }
             throw new IllegalArgumentException(
                     "Argument must be: " + edu.uw.tcss450.team2.model.UserInfoViewModel.class);

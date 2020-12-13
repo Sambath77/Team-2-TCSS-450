@@ -2,7 +2,6 @@ package edu.uw.tcss450.team2;
 
 
 import android.annotation.SuppressLint;
-<<<<<<< HEAD
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -10,12 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.SearchView;
-=======
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.CompoundButton;
->>>>>>> ad9ede7 (Sprint 2)
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -28,12 +21,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
-<<<<<<< HEAD
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-=======
->>>>>>> ad9ede7 (Sprint 2)
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -62,15 +52,11 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-<<<<<<< HEAD
 import edu.uw.tcss450.team2.chat.ChatListFragmentDirections;
-=======
->>>>>>> ad9ede7 (Sprint 2)
 import edu.uw.tcss450.team2.chat.ChatMessage;
 import edu.uw.tcss450.team2.chat.ChatViewModel;
 
 import edu.uw.tcss450.team2.databinding.ActivityMainBinding;
-<<<<<<< HEAD
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
 import edu.uw.tcss450.team2.home.HomeFragmentDirections;
 import edu.uw.tcss450.team2.model.NewMessageCountViewModel;
@@ -78,10 +64,6 @@ import edu.uw.tcss450.team2.model.NewNotificationCountViewModel;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 import edu.uw.tcss450.team2.notification.NotificationFragment;
 import edu.uw.tcss450.team2.search.SearchContactsListFragment;
-=======
-import edu.uw.tcss450.team2.model.NewMessageCountViewModel;
-import edu.uw.tcss450.team2.model.UserInfoViewModel;
->>>>>>> ad9ede7 (Sprint 2)
 import edu.uw.tcss450.team2.services.PushReceiver;
 import edu.uw.tcss450.team2.signin.SignInFragment;
 
@@ -89,19 +71,7 @@ import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-<<<<<<< HEAD
 import com.google.android.material.navigation.NavigationView;
-=======
-
-import edu.uw.tcss450.team2.model.UserInfoViewModel;
-import edu.uw.tcss450.team2.signin.SignInFragment;
-
-
-
-
-
-
->>>>>>> ad9ede7 (Sprint 2)
 
 import java.util.Date;
 
@@ -113,13 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
-<<<<<<< HEAD
     private NewNotificationCountViewModel mNewNotificationModel;
-=======
-
-    private ActivityMainBinding binding;
-
->>>>>>> ad9ede7 (Sprint 2)
     private AppBarConfiguration mAppBarConfiguration;
     private FragmentHomeBinding binding;
 
@@ -138,11 +102,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
-=======
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
-
->>>>>>> ad9ede7 (Sprint 2)
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("WorldChat");
         actionBar.setIcon(R.drawable.ic_world_language_24);
@@ -173,40 +132,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-<<<<<<< HEAD
-=======
-        aSwitch = (Switch)findViewById(R.id.switch_button);
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            aSwitch.setChecked(true);
-        }
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                   // restartApp();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    //restartApp();
-                }
-            }
-        });
-
-        //Appbar id
-//        MaterialToolbar materialToolbar = findViewById(R.id.topBar);
-//        setSupportActionBar(materialToolbar);
-
-        //main_layout is the id activity_main
-//        mDrawLayout = findViewById(R.id.main_layout);
-//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawLayout,
-//                toolbar, R.string.open, R.string.close);
-
-//        mDrawLayout.addDrawerListener(mDrawerToggle);
-//        mDrawerToggle.syncState();
-
-        //NavigationView navigationView = findViewById(R.id.drawer_nav);
-        //navigationView.setNavigationItemSelectedListener(this);
->>>>>>> ad9ede7 (Sprint 2)
 
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
@@ -217,20 +142,6 @@ public class MainActivity extends AppCompatActivity {
         UserInfoViewModel tempUserViewModel = new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, memberId)).
                 get(UserInfoViewModel.class);
 
-<<<<<<< HEAD
-=======
-//        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt, fName, lName)).
-//                get(UserInfoViewModel.class);
-//        Log.d("ACTIVITY", email);
-//        new ViewModelProvider(this, new UserInfoViewModel.UserInfoViewModelFactory(email, jwt)).
-//                get(UserInfoViewModel.class);
-
-        //TODO 1. mock up notification in home page
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        BadgeDrawable badgeDrawable = navView.getOrCreateBadge(R.id.navigation_chat);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(7);
->>>>>>> ad9ede7 (Sprint 2)
 
         //TODO 1. mock up notification in home page - need to replace with actual notification
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -243,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-<<<<<<< HEAD
 
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
@@ -302,49 +212,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-=======
-
-
-        mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
-
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.navigation_chat) {
-                //When the user navigates to the chats page, reset the new message count.
-                //This will need some extra logic for your project as it should have
-                //multiple chat rooms.
-                mNewMessageModel.reset();
-            }
-        });
-
-                    mNewMessageModel.addMessageCountObserver(this, count -> {
-            /*
-            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
-            badge.setMaxCharacterCount(2);
-            if (count > 0) {
-                //new messages! update and show the notification badge.
-                badge.setNumber(count);
-                badge.setVisible(true);
-            } else {
-                //user did some action to clear the new messages, remove the badge
-                badge.clearNumber();
-                badge.setVisible(false);
-            }
-             */
-                    });
-
-    }
-
-
-
-
-
-
-//    public void restartApp() {
-//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-//        startActivity(i);
-//        finish();
-//    }
->>>>>>> ad9ede7 (Sprint 2)
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -385,10 +252,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ad9ede7 (Sprint 2)
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
@@ -396,20 +259,16 @@ public class MainActivity extends AppCompatActivity {
         private ChatViewModel mModel =
                 new ViewModelProvider(MainActivity.this)
                         .get(ChatViewModel.class);
-<<<<<<< HEAD
 
         private UserInfoViewModel userInfoViewModel =
                 new ViewModelProvider(MainActivity.this).get(UserInfoViewModel.class);
 
-=======
->>>>>>> ad9ede7 (Sprint 2)
         @Override
         public void onReceive(Context context, Intent intent) {
             NavController nc =
                     Navigation.findNavController(
                             MainActivity.this, R.id.nav_host_fragment);
             NavDestination nd = nc.getCurrentDestination();
-<<<<<<< HEAD
 
             int chatId = intent.getIntExtra("chatid", -1);
 
@@ -459,26 +318,14 @@ public class MainActivity extends AppCompatActivity {
                     mNewMessageModel.increment();
                 }
 
-=======
-            if (intent.hasExtra("chatMessage")) {
-                ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
-                //If the user is not on the chat screen, update the
-                // NewMessageCountView Model
-                if (nd.getId() != R.id.navigation_chat) {
-                    mNewMessageModel.increment();
-                }
->>>>>>> ad9ede7 (Sprint 2)
                 //Inform the view model holding chatroom messages of the new
                 //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> ad9ede7 (Sprint 2)
         }
     }
 
@@ -499,7 +346,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
     private void signOut() {
         SharedPreferences prefs = getSharedPreferences(
                 getString(R.string.keys_shared_prefs),
@@ -510,72 +356,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
         //finishAndRemoveTask();
     }
-=======
->>>>>>> ad9ede7 (Sprint 2)
 
 
 }
 
 
-<<<<<<< HEAD
-=======
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//        int id = item.getItemId();
-//        switch (id) {
-//            case R.id.profile:
-//                startActivity(new Intent(this, Profile.class));
-//                break;
-//            case R.id.friend:
-//                showDrawerFragment(new FriendFragment());
-//                break;
-//            case R.id.log_out:
-//               // showDrawerFragment(new LogoutFragment());
-//                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
-//                builder.setTitle("Log out?");
-//                builder.setMessage("This will log you out!");
-//                builder.setIcon(R.drawable.ic_baseline_error_24);
-//                builder.setBackground(getResources().getDrawable(R.drawable.drawable_dialog, null));
-//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        showDrawerFragment(new LogoutFragment());
-//                    }
-//                });
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                builder.show();
-//                break;
-//        }
-//        mDrawLayout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-//
-/*
- * Helper class to navigate a item in menu to a new  fragment
- * @params: Fragement
- *
- */
-//    private void showDrawerFragment(Fragment fragment) {
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.main_layout, fragment);
-//        fragmentTransaction.commit();
-//    }
-//
-//
-//    @Override
-//    public void onBackPressed() {
-//        if (mDrawLayout.isDrawerOpen(GravityCompat.START)) {
-//            mDrawLayout.closeDrawer(GravityCompat.START);
-//
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
-
->>>>>>> ad9ede7 (Sprint 2)
