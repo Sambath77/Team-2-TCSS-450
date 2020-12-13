@@ -51,7 +51,7 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         holder.setContact(mContacts.get(position));
-        //holder.getMemberID(mContacts.get(position));
+
     }
 
     @Override

@@ -16,8 +16,8 @@
 
     <ImageView
         android:id="@+id/accept_usernam_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="2dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
@@ -28,9 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="160dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
-        android:text="Full name"
+        android:text="@string/username"
         android:layout_centerInParent="true"
         android:textColor="?attr/textColor"
         android:textSize="25sp"
@@ -38,8 +38,8 @@
 
     <ImageView
         android:id="@+id/accept_email"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:padding="2dp"
         android:src="@drawable/ic_accept_email_24"
         android:layout_below="@id/accept_usernam_image"/>
@@ -50,10 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/accept_text_username"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="20dp"
         android:textSize="25sp"
-        android:text="Email"
+        android:text="@string/email"
 
         android:textColor="?attr/textColor"
         android:textStyle="italic" />
@@ -65,18 +65,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/accept_btn"
         android:layout_below="@id/accept_email"
-        android:text="Accept"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="50dp"/>
+        android:text="@string/send_accept"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cancel_btn_request"
         android:layout_below="@id/accept_email"
-        android:text="Accept"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="250dp"/>
+        android:text="@string/send_cancel"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="220dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/accept_textView"
+        android:layout_below="@id/accept_text_email"
+        android:text="@string/accept_request"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:layout_marginStart="80dp"
+        android:padding="3dp"
+        android:visibility="gone"/>
 
 
     </RelativeLayout>

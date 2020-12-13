@@ -58,9 +58,9 @@ public class SendFriendRequestViewModel extends AndroidViewModel {
      *
      */
 
-    public void getSendRequest(String jwt, String email) {
+    public void getSendRequest(String jwt, String email_B) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "request/" + email;
+                "request/" + email_B;
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -104,7 +104,7 @@ public class SendFriendRequestViewModel extends AndroidViewModel {
                         message.getInt("memberid"));
 
                 list.add(sendFriendRequest);
-                binding.acceptRecyclerViewWait.setVisibility(View.GONE);
+                //binding.acceptRecyclerViewWait.setVisibility(View.GONE);
 
             }
 

@@ -44,7 +44,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
         super(application);
         mContacts = new MutableLiveData<>();
         list = new ArrayList<>();
-        searchContacts = new FriendContacts("", "", "", "", 0 );
+        //searchContacts = new FriendContacts("", "", "", "", 0 );
         mList = new ArrayList<>();
     }
 
