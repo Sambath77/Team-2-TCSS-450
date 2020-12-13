@@ -89,8 +89,9 @@ public class SearchContactsViewModel extends AndroidViewModel {
                 String uLastname = search.getString("lastname");
                 String uName = search.getString("username");
                 String uEmail = search.getString("email");
+                int uMemberid = search.getInt("memberid");
                 searchList.add(new SearchContacts(uFirstname, uLastname,
-                        uName, uEmail));
+                        uName, uEmail, uMemberid));
 
 //                mSearchContactsRecyclerViewAdapter = new SearchContactsRecyclerViewAdapter(searchList);
 //                mSearchContactsRecyclerViewAdapter.setOnItemClickListener(SearchContactsViewModel.this);

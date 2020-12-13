@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="300dp"/>
+        android:layout_marginLeft="290dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -50,7 +50,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_below="@id/seach_friend"
         tools:context="edu.uw.tcss450.friend.SearchContactsListFragment"
-        tools:listitem="@layout/fragment_search_card" />
+        tools:listitem="@layout/fragment_search_card"
+        android:visibility="gone"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/recycler_view_wait"

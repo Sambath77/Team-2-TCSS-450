@@ -5,27 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a9cf9af-d935-4d6e-8102-cb5452281b63" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/login_shape.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/register_bg_animation.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/register_bg_first_layer.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/register_bg_second_layer.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/register_bg_thrid_layer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Team-2-TCSS-450.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Team-2-TCSS-450.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/ic_add_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/ic_baseline_remove_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/drawable/ic_minuse_24.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/fragments/FriendFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/fragments/FriendFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/fragments/GalleryFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/fragments/LogoutFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/fragments/LogoutFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/fragments/MoreFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/register/RegisterFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/register/RegisterFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_gallery.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_logout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_logout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_more.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_sign_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_sign_in.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/menu/drawer_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/menu/drawer_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/navigation/main_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/navigation/main_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/friend/FriendContactsRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/friend/FriendContactsRecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/friend/FriendListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/friend/FriendListFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/AddFriendViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/AddFriendViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/DeleteFriendViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/friend/DeleteFriendViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContactsListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContactsListFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContactsRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContactsRecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContactsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/java/edu/uw/tcss450/team2/search/SearchContactsViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/activity_auth.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/activity_auth.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_friend_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_friend_card.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_friend_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_friend_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_search_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_search_card.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_search_contacts_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/layout/fragment_search_contacts_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group2-ChatApplication/app/src/main/res/values/themes.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Group2-ChatApplication" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -60,10 +61,11 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="906" y="346" key="FileChooserDialogImpl" timestamp="1604560686250">
-      <screen x="0" y="0" width="2560" height="1409" />
+    <state x="544" y="202" key="FileChooserDialogImpl" timestamp="1607105849795">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="531" y="236" key="FileChooserDialogImpl/0.0.1500.960/646.-1050.1680.1010@0.0.1500.960" timestamp="1604456854495" />
+    <state x="544" y="202" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607105849795" />
     <state x="906" y="346" key="FileChooserDialogImpl/3840.0.1707.940/0.0.2560.1409@0.0.2560.1409" timestamp="1604560686250" />
   </component>
 </project>

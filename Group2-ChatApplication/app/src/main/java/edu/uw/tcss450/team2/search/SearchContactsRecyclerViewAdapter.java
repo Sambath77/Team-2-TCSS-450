@@ -1,5 +1,6 @@
 package edu.uw.tcss450.team2.search;
 
+import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentSearchCardBinding;
+import edu.uw.tcss450.team2.friend.FriendContacts;
+import me.pushy.sdk.lib.jackson.annotation.ObjectIdGenerator;
 
 public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<SearchContactsRecyclerViewAdapter.SearchViewHolder> {
 
     private List<SearchContacts> searchContacts;
-    private List<SearchContacts> copySearchContacts;
+    //private List<SearchContacts> copySearchContacts;
     private OnItemClickListener mListener;
+    private final Map<SearchContacts, Boolean> mAddRemove;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
-        //void onAddClick(int position);
+        void onAddClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -31,10 +38,11 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 
 
 
-    public SearchContactsRecyclerViewAdapter(List<SearchContacts> searchContacts) {
+    public SearchContactsRecyclerViewAdapter(List<SearchContacts> item) {
 
-        this.searchContacts = searchContacts;
-        copySearchContacts = new ArrayList<>(searchContacts);
+        searchContacts = item;
+        //copySearchContacts = new ArrayList<>(searchContacts);
+        mAddRemove = searchContacts.stream().collect(Collectors.toMap(Function.identity(), search -> false));
     }
 
 
@@ -42,7 +50,7 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_search_card, parent, false);
-        SearchViewHolder svh = new SearchViewHolder(view, mListener);
+        SearchViewHolder svh = new SearchViewHolder(view);
         return svh;
     }
 
@@ -96,36 +104,60 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 //        }
 //    };
 
-    public static class SearchViewHolder extends RecyclerView.ViewHolder {
+    public class SearchViewHolder extends RecyclerView.ViewHolder {
 
         private final View mView;
         private FragmentSearchCardBinding binding;
+        private SearchContacts searchContact;
 
-        public SearchViewHolder(@NonNull View view, final OnItemClickListener listener) {
+        public SearchViewHolder(View view) {
             super(view);
-            this.mView = view;
+            mView = view;
             binding = FragmentSearchCardBinding.bind(view);
+            binding.addButton.setOnClickListener(this::handleDeleteAdd);
 
             view.setOnClickListener(v -> {
-                if (listener != null) {
+                if (mListener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(position);
+                        mListener.onItemClick(position);
                     }
                 }
             });
-
-            binding.addButton.setOnClickListener(v -> {
-//                if (listener != null) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        listener.onAddClick(position);
-//                    }
-//                }
-            });
         }
 
+        private void handleDeleteAdd(final View button) {
+            mAddRemove.put(searchContact, !mAddRemove.get(searchContact));
+            addDeleteFriend();
+
+        }
+
+
+         private void addDeleteFriend() {
+            if (mAddRemove.get(searchContact)) {
+                if (binding.textPreview.getVisibility() == View.GONE) {
+                    binding.textPreview.setVisibility(View.VISIBLE);
+                    binding.addButton.setImageIcon(Icon.createWithResource(mView.getContext(),
+                            R.drawable.ic_add_24));
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onAddClick(position);
+
+                        }
+                    }
+                } else {
+                    binding.textPreview.setVisibility(View.GONE);
+                    binding.addButton.setImageIcon(Icon.createWithResource(mView.getContext(),
+                            R.drawable.ic_baseline_remove_24));
+                }
+            }
+        }
+
+
+
         void setSearchContact(final SearchContacts mSearch) {
+            searchContact = mSearch;
             binding.searchTextUsername.setText(mSearch.getmSearchUsername());
             binding.searachTextEmail.setText(mSearch.getmSearchEmail());
 

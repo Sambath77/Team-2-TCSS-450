@@ -1,6 +1,7 @@
 package edu.uw.tcss450.team2.friend;
 
 import android.app.Application;
+import android.app.admin.FactoryResetProtectionPolicy;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,12 +28,15 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
+import edu.uw.tcss450.team2.search.SearchContacts;
 
 
 public class FriendContactsViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<FriendContacts>> mContacts;
     private List<FriendContacts> list;
+    private FriendContacts searchContacts;
+    private List<FriendContacts> mList;
 
 
 
@@ -40,6 +44,8 @@ public class FriendContactsViewModel extends AndroidViewModel {
         super(application);
         mContacts = new MutableLiveData<>();
         list = new ArrayList<>();
+        searchContacts = new FriendContacts("", "", "", "", 0 );
+        mList = new ArrayList<>();
     }
 
     /*
@@ -92,6 +98,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
         try {
 
             JSONArray contacts = response.getJSONArray("rows");
+
             for(int i = 0; i < contacts.length(); i++) {
                 JSONObject message = contacts.getJSONObject(i);
 
@@ -101,10 +108,19 @@ public class FriendContactsViewModel extends AndroidViewModel {
                         message.getString("username"),
                         message.getString("email"),
                         message.getInt("memberid"));
-                list.add(friendContacts);
+
+                    list.add(friendContacts);
+
             }
 
-            mContacts.setValue(list);
+            if (list.isEmpty()) {
+                mList.add(searchContacts);
+                mContacts.setValue(mList);
+            } else {
+                mContacts.setValue(list);
+            }
+
+
         }catch (JSONException e) {
             Log.e("JSON PARSE ERROR", "Found in handle Success FriendContactsViewModel");
             Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());

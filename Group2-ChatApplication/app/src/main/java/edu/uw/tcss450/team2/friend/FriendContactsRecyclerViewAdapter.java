@@ -5,18 +5,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding;
+import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
 public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<FriendContactsRecyclerViewAdapter.ContactViewHolder> {
 
-    private final List<FriendContacts> mContacts;
+    private List<FriendContacts> mContacts;
     private FriendContacts friendContacts;
+    private DeleteFriendViewModel mDeleteModel;
+
+
 
     private OnItemClickListener mListener;
 
@@ -31,8 +37,6 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
 
     public FriendContactsRecyclerViewAdapter(List<FriendContacts> mContacts) {
         this.mContacts = mContacts;
-
-
     }
 
 
@@ -47,12 +51,17 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         holder.setContact(mContacts.get(position));
-        holder.getMemberID(mContacts.get(position));
+        //holder.getMemberID(mContacts.get(position));
     }
 
     @Override
     public int getItemCount() {
         return mContacts.size();
+    }
+
+    public void filterList(List<FriendContacts> filteredList) {
+        mContacts = filteredList;
+        notifyDataSetChanged();
     }
 
 
@@ -61,6 +70,7 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
         private final View mView;
         private @NonNull
         FragmentFriendCardBinding binding;
+        private UserInfoViewModel model;
 
         public ContactViewHolder(@NonNull View view) {
             super(view);
@@ -81,6 +91,25 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
                 }
             });
 
+//            binding.deleteButton.setOnClickListener(v -> {
+//                if (mListener != null) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        mListener.onDeleteClick(position);
+//                    }
+//                }
+//            });
+        }
+
+
+
+        /*
+         * method to set up the contact and display the username
+         * @param: contact is the contact list
+         */
+        void setContact(final FriendContacts contact) {
+
+
             binding.deleteButton.setOnClickListener(v -> {
                 if (mListener != null) {
                     int position = getAdapterPosition();
@@ -89,48 +118,11 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
                     }
                 }
             });
-        }
 
-//        private DeleteModel;
-
-        /*
-         * method to set up the contact and display the username
-         * @param: contact is the contact list
-         */
-        void setContact(final FriendContacts contact) {
-//            contact.getMemberId();
-//            DeleteModel.delete(getMemberID())
-//            deletebuton.setOnLick
-//
-//
-//            {
-//                this.model.delete(contact.getMemberId(), )
-//            }
-            //friendContacts = contact;
-
-//            binding.buttonFullView.setOnClickListener(view -> {
-//                        Navigation.findNavController(mView).navigate(FriendListFragmentDirections
-//                                .actionNavigationContactToFriend(contact));
-//                    }
-//            );
-//            mView.setOnClickListener(v -> {
-//                Navigation.findNavController(mView).navigate(FriendListFragmentDirections
-//                        .actionFriendListFragmentToFriendPostFragment(contact));
-//            });
-//            mView.setOnClickListener(v -> {
-//                if (mListener != null) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        mListener.onItemClick(position);
-//                    }
-//                }
-//            });
             binding.textUsername.setText(contact.getmUsername());
             binding.textEmail.setText(contact.getEmail());
         }
 
-        int getMemberID(final FriendContacts contacts) {
-            return contacts.getMemberId();
-        }
+
     }
 }

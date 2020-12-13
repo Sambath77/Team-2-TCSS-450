@@ -4,12 +4,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uw.tcss450.team2.R;
-import edu.uw.tcss450.team2.databinding.FragmentFriendCardBinding;
 import edu.uw.tcss450.team2.databinding.FragmentFriendListBinding;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 
@@ -31,6 +34,8 @@ public class FriendListFragment extends Fragment {
     private MutableLiveData<JSONObject> mResponse;
     private FriendContactsRecyclerViewAdapter mFriendContactsRecyclerViewAdapter;
     private FriendContacts mContacts;
+    private DeleteFriendViewModel mDelete;
+    private UserInfoViewModel userInfoViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +47,7 @@ public class FriendListFragment extends Fragment {
     @Override
     public void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserInfoViewModel userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        userInfoViewModel = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
@@ -50,6 +55,9 @@ public class FriendListFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(FriendContactsViewModel.class);
 
         mModel.getContactFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail());
+
+        mDelete = new ViewModelProvider(getActivity()).get(DeleteFriendViewModel.class);
+
 
 
     }
@@ -63,8 +71,43 @@ public class FriendListFragment extends Fragment {
             mFriendContactsRecyclerViewAdapter = new FriendContactsRecyclerViewAdapter(contactList);
 
             if (!contactList.isEmpty()) {
-                binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
-                binding.layoutWait.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(binding.seachContacts.getText())) {
+                    binding.layoutWait.setVisibility(View.GONE);
+                }
+//                binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
+//                binding.layoutWait.setVisibility(View.GONE);
+
+                binding.seachContacts.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (!TextUtils.isEmpty(binding.seachContacts.getText())) {
+                            binding.listRoot.setVisibility(View.VISIBLE);
+                            binding.listRoot.setAdapter(mFriendContactsRecyclerViewAdapter);
+                            binding.layoutWait.setVisibility(View.GONE);
+                        }
+                        List<FriendContacts> filteredList = new ArrayList<>();
+                        for (FriendContacts item : contactList) {
+                            if (item.getmUsername().toLowerCase().contains(s.toString().toLowerCase())) {
+                                filteredList.add(item);
+                            }
+                        }
+                        mFriendContactsRecyclerViewAdapter.filterList(filteredList);
+                    }
+                });
+
+                binding.btnCancelBtn.setOnClickListener(button -> {
+                    binding.seachContacts.setText("");
+                });
 
                 mFriendContactsRecyclerViewAdapter.setOnItemClickListener(new FriendContactsRecyclerViewAdapter.OnItemClickListener() {
                     @Override
@@ -83,8 +126,10 @@ public class FriendListFragment extends Fragment {
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                mDelete.deleteFriend(userInfoViewModel.getJwt(), userInfoViewModel.getEmail(), contactList.get(position).getEmail());
                                 contactList.remove(position);
                                 mFriendContactsRecyclerViewAdapter.notifyItemRemoved(position);
+
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -97,6 +142,8 @@ public class FriendListFragment extends Fragment {
                     }
                 });
 
+            } else {
+               // binding.listRoot.setAdapter();
             }
         });
     }
