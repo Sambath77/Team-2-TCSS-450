@@ -40,12 +40,15 @@ public class PushReceiver extends BroadcastReceiver {
         String typeOfMessage = intent.getStringExtra("type");
         ChatMessage message = null;
         int chatId = -1;
-        try{
-            message = ChatMessage.createFromJsonString(intent.getStringExtra("message"));
-            chatId = intent.getIntExtra("chatid", -1);
-        } catch (JSONException e) {
-            //Web service sent us something unexpected...I can't deal with this.
-            throw new IllegalStateException("Error from Web Service. Contact Dev Support");
+
+        if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("NewMessage")) {
+            try{
+                message = ChatMessage.createFromJsonString(intent.getStringExtra("message"));
+                chatId = intent.getIntExtra("chatid", -1);
+            } catch (JSONException e) {
+                //Web service sent us something unexpected...I can't deal with this.
+                throw new IllegalStateException("Error from Web Service. Contact Dev Support");
+            }
         }
 
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
@@ -60,6 +63,21 @@ public class PushReceiver extends BroadcastReceiver {
             i.putExtra("chatMessage", message);
             i.putExtra("chatid", chatId);
             i.putExtras(intent.getExtras());
+
+            if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("AddMemberToChatRoom")) {
+                i.putExtra("AddMemberToChatRoom", "");
+                i.putExtras(intent.getExtras());
+            }
+
+            if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("RemoveMemberToChatRoom")) {
+                i.putExtra("RemoveMemberToChatRoom", "");
+                i.putExtras(intent.getExtras());
+            }
+
+            if(typeOfMessage != null && typeOfMessage.equalsIgnoreCase("CreateNewChatRoom")) {
+                i.putExtra("CreateNewChatRoom", "");
+                i.putExtras(intent.getExtras());
+            }
 
             context.sendBroadcast(i);
 
