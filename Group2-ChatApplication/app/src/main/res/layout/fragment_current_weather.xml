@@ -9,8 +9,6 @@
     app:cardCornerRadius="5dp"
     tools:context=".weather.CurrentWeatherFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="97dp"
@@ -18,7 +16,7 @@
         app:layout_constraintTop_toTopOf="@+id/text_welcome">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/condition_icon"
             android:layout_width="78dp"
             android:layout_height="0dp"
             android:src="@drawable/ic_baseline_cloud_24"
@@ -33,8 +31,8 @@
             android:layout_marginStart="32dp"
             android:text="@string/cloudy_TEMP_title"
             android:textSize="30sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toEndOf="@+id/condition_icon"
+            app:layout_constraintTop_toTopOf="@+id/condition_icon" />
 
         <TextView
             android:id="@+id/current_temperature"

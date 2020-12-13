@@ -1,10 +1,9 @@
 package edu.uw.tcss450.team2.weather;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,8 +18,8 @@ import edu.uw.tcss450.team2.databinding.FragmentDayInWeekCardBinding;
  * @author Sam Spillers
  * @version 1.0
  */
-public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapter<DailyWeatherForecastRecyclerViewAdapter.MyViewHolder> {
-    private final DayForecastData[] mDataSet;
+public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapter<DailyWeatherForecastRecyclerViewAdapter.MyViewHolder> implements DataUpdatable {
+    private DayForecastData[] mDataSet;
 
     /**
      * A view holder for a single forecast card element.
@@ -56,7 +55,7 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
          */
         public void setData(DayForecastData data) {
             binding.dayOfWeekText.setText(data.getDayOfWeek().getAbbreviation());
-            binding.weatherPreviewImageView.setImageResource(data.getResID());
+            binding.weatherPreviewImageView.setImageBitmap(data.getBitMap());
             binding.temperatureHighText.setText(data.getHighTemperatureForecast());
             binding.temperatureLowText.setText(data.getLowTemperatureForecast());
             binding.conditionText.setText(data.getWeatherDiscriptor());
@@ -103,6 +102,18 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
         return mDataSet.length;
     }
 
+    @Override
+    public void updateData() {
+        notifyDataSetChanged();
+    }
+
+    public void updateData(DayForecastData[] newData) {
+        if (newData != null) {
+            mDataSet = newData;
+            updateData();
+        }
+    }
+
     /**
      * A class to contain the various data a single forecast card would want to display
      *
@@ -111,31 +122,47 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
      */
     public static class DayForecastData {
         // DO NOT make final. May change when new data comes in. Code to do so is not currently implemented.
-        private DayOfWeek mDayOfWeek;
-        private int mResID;
-        private String mWeatherDiscriptor;
-        private String mHighTemperatureForecast;
-        private String mLowTemperatureForecast;
+        private final DayOfWeek mDayOfWeek;
+
+        private Bitmap mBitMap;
+        private final String mWeatherDescriptor;
+        private final String mCurrentWeather;
+        private final String mHighTemperatureForecast;
+        private final String mLowTemperatureForecast;
+        private final String mPrecipitation;
 
         /**
          * Creates a new DayForecastData object with the given parameters.
          *
          * @param myDayOfWeek The day of the week whose weather is being displayed.
-         * @param myResID The ID of the icon to display for this weather forecast.
-         * @param myWeatherDiscriptor The discriptor of the weater of this weather forecast card.
+         * @param myBitMap The bitmap of the image to display.
+         * @param myWeatherDescriptor The discriptor of the weater of this weather forecast card.
+         * @param myCurrentWeather This current temperature of the forecast card.
          * @param myHighTemperatureForecast This high temperature of the forecast card.
          * @param myLowTemperatureForecast The low temperature of the forecast card.
+         * @param myPrecipitation The precipitation of the forecast card.
          *
          * @author Sam Spillers
          * @version 1.0
          */
-        public DayForecastData(DayOfWeek myDayOfWeek, int myResID, String myWeatherDiscriptor,
-                               String myHighTemperatureForecast, String myLowTemperatureForecast) {
+        public DayForecastData(DayOfWeek myDayOfWeek, Bitmap myBitMap, String myWeatherDescriptor,
+                               String myCurrentWeather, String myHighTemperatureForecast,
+                               String myLowTemperatureForecast, String myPrecipitation) {
             mDayOfWeek = myDayOfWeek;
-            mResID = myResID;
-            mWeatherDiscriptor = myWeatherDiscriptor;
+            mBitMap = myBitMap;
+            mWeatherDescriptor = myWeatherDescriptor;
+            mCurrentWeather = myCurrentWeather;
             mHighTemperatureForecast = myHighTemperatureForecast;
             mLowTemperatureForecast = myLowTemperatureForecast;
+            mPrecipitation = myPrecipitation;
+        }
+
+        /**
+         * Set the bitmap of this object.
+         * @param mBitMap Bitmap to set
+         */
+        public void setBitMap(Bitmap mBitMap) {
+            this.mBitMap = mBitMap;
         }
 
         /**
@@ -158,8 +185,8 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
          * @author Sam Spillers
          * @version 1.0
          */
-        public int getResID() {
-            return mResID;
+        public Bitmap getBitMap() {
+            return mBitMap;
         }
 
         /**
@@ -171,7 +198,19 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
          * @version 1.0
          */
         public String getWeatherDiscriptor() {
-            return mWeatherDiscriptor;
+            return mWeatherDescriptor;
+        }
+
+        /**
+         * Gets the current temperature of this forecast data.
+         *
+         * @return The current temperature.
+         *
+         * @author Sam Spillers
+         * @version 1.0
+         */
+        public String getCurrentWeather() {
+            return mCurrentWeather;
         }
 
         /**
@@ -199,6 +238,18 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
         }
 
         /**
+         * Gets the precipitation of this forecast data.
+         *
+         * @return The precipitation.
+         *
+         * @author Sam Spillers
+         * @version 1.0
+         */
+        public String getPrecipitation() {
+            return mPrecipitation;
+        }
+
+        /**
          * A helper enum to represent the day of the week.
          *
          * @author Sam Spillers
@@ -207,17 +258,19 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
         public enum DayOfWeek {
 
             // TODO: Move to string resource file
-            MONDAY ("MON"),
-            TUESDAY ("TUE"),
-            WEDNESDAY ("WED"),
-            THURSDAY ("THU"),
-            FRIDAY ("FRI"),
-            SATURDAY ("SAT"),
-            SUNDAY ("SUN");
+            MONDAY ("MON", "Monday"),
+            TUESDAY ("TUE", "Tuesday"),
+            WEDNESDAY ("WED", "Wednesday"),
+            THURSDAY ("THU", "Thursday"),
+            FRIDAY ("FRI", "Friday"),
+            SATURDAY ("SAT", "Saturday"),
+            SUNDAY ("SUN", "Sunday");
 
             private final String mAbbreviation;
-            DayOfWeek(String myAbbreviation) {
+            private final String mFullName;
+            DayOfWeek(String myAbbreviation, String myFullName) {
                 mAbbreviation = myAbbreviation;
+                mFullName = myFullName;
             }
 
             /**
@@ -230,6 +283,20 @@ public class DailyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapte
              */
             public String getAbbreviation() {
                 return mAbbreviation;
+            }
+
+            /**
+             * Gets the DayOfWeek Enum by it's string full name
+             * @param dayOfWeek The string full name of the enum to get.
+             * @return The DayOfWeek with the full name given. Returns null if not found.
+             */
+            public static DayOfWeek getByString(String dayOfWeek) {
+                for (DayOfWeek day : DayOfWeek.values()) {
+                    if (day.mFullName.equals(dayOfWeek)) {
+                        return day;
+                    }
+                }
+                return null;
             }
         }
     }
