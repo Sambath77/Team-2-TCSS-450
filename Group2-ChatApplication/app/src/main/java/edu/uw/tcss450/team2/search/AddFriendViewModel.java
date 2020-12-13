@@ -42,7 +42,7 @@ public class AddFriendViewModel extends AndroidViewModel {
 
     public void getAddFriend(String jwt, String email_A, int memberid) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "edu/uw/tcss450/team2/search/";
+                "search/";
         JSONObject body = new JSONObject();
         try {
             body.put("email_A", email_A);

@@ -39,11 +39,7 @@ public class FriendContactsViewModel extends AndroidViewModel {
     public FriendContactsViewModel(@NonNull Application application) {
         super(application);
         mContacts = new MutableLiveData<>();
-
-
         list = new ArrayList<>();
-
-
     }
 
     /*
@@ -91,7 +87,6 @@ public class FriendContactsViewModel extends AndroidViewModel {
      * helper method to handle the successful for client requests
      * @param: response is the JSONObject that response to the end point
      */
-
     private void handelSuccess(final JSONObject response)  {
 
         try {
@@ -106,7 +101,6 @@ public class FriendContactsViewModel extends AndroidViewModel {
                         message.getString("username"),
                         message.getString("email"),
                         message.getInt("memberid"));
-
                 list.add(friendContacts);
             }
 

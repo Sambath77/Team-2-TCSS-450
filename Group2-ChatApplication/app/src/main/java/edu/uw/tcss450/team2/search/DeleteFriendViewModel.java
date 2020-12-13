@@ -37,7 +37,7 @@ public class DeleteFriendViewModel extends AndroidViewModel {
 
     public void deleteFriend(String jwt, String email_A, String email_B) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "edu/uw/tcss450/team2/search/" + email_A + "/" + email_B;
+                "search/" + email_A + "/" + email_B;
 
         Request request = new JsonObjectRequest(Request.Method.DELETE, url, null, mutableLiveData::setValue,
                 this::handleError) {

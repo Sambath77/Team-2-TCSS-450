@@ -81,6 +81,9 @@ public class FriendContacts implements Serializable {
     }
 
 
+    public void changeUsername(String text) {
+        mUsername = text;
+    }
     public void changedUsername(String text) {
         mUsername = text;
     }

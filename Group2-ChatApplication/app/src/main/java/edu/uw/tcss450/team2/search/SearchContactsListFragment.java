@@ -42,8 +42,7 @@ public class SearchContactsListFragment extends Fragment {
     private MutableLiveData<JSONObject> listMutableLiveData;
     private List<SearchContacts> mFriendContacts;
     private SearchContactsRecyclerViewAdapter searchContactsRecyclerViewAdapter;
-    //    private AddFriendViewModel addFriendViewModel;
-//    private FriendContacts friendContacts;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,20 +76,10 @@ public class SearchContactsListFragment extends Fragment {
                 binding.recyclerView.setAdapter(searchContactsRecyclerViewAdapter);
                 binding.recyclerViewWait.setVisibility(View.GONE);
 
-                searchContactsRecyclerViewAdapter.setOnItemClickListener(new SearchContactsRecyclerViewAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        String str = searchContacts.get(position).getmFirstname() + " " + searchContacts.get(position).getmLastname();
-                        searchContacts.get(position).changedUsername(str);
-                        searchContactsRecyclerViewAdapter.notifyItemChanged(position);
-                    }
-
-                    @Override
-                    public void onAddClick(int position) {
-
-                    }
-
-
+                searchContactsRecyclerViewAdapter.setOnItemClickListener(position -> {
+                    String str = searchContacts.get(position).getmFirstname() + " " + searchContacts.get(position).getmLastname();
+                    searchContacts.get(position).changedUsername(str);
+                    searchContactsRecyclerViewAdapter.notifyItemChanged(position);
                 });
 
                 binding.seachFriend.addTextChangedListener(new TextWatcher() {
@@ -121,17 +110,10 @@ public class SearchContactsListFragment extends Fragment {
                 });
 
 
-
-//                binding1.addButton.setOnClickListener(button -> {
-//                    binding1.addButton.setText("sent request");
-//                });
             }
         });
 
-//        addFriendViewModel.addResponseObserver(getViewLifecycleOwner(), response ->
-//                binding1.addButton.setOnClickListener( button -> {
-//                    binding1.addButton.setText("Sent request");
-//                }));
+
 
     }
 

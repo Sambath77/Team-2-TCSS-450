@@ -21,7 +21,7 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        //void onItemClick(int position);
+        void onItemClick(int position);
         void onDeleteClick(int position);
     }
 
@@ -72,6 +72,15 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
 //                .actionNavigationContactToFriend(contact));
 //            });
 
+            view.setOnClickListener(v ->  {
+                if (mListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        mListener.onItemClick(position);
+                    }
+                }
+            });
+
             binding.deleteButton.setOnClickListener(v -> {
                 if (mListener != null) {
                     int position = getAdapterPosition();
@@ -104,10 +113,18 @@ public class FriendContactsRecyclerViewAdapter extends RecyclerView.Adapter<Frie
 //                                .actionNavigationContactToFriend(contact));
 //                    }
 //            );
-            mView.setOnClickListener(v -> {
-                Navigation.findNavController(mView).navigate(FriendListFragmentDirections
-                        .actionFriendListFragmentToFriendPostFragment(contact));
-            });
+//            mView.setOnClickListener(v -> {
+//                Navigation.findNavController(mView).navigate(FriendListFragmentDirections
+//                        .actionFriendListFragmentToFriendPostFragment(contact));
+//            });
+//            mView.setOnClickListener(v -> {
+//                if (mListener != null) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) {
+//                        mListener.onItemClick(position);
+//                    }
+//                }
+//            });
             binding.textUsername.setText(contact.getmUsername());
             binding.textEmail.setText(contact.getEmail());
         }

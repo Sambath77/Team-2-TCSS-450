@@ -21,7 +21,7 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 
     public interface OnItemClickListener {
         void onItemClick(int position);
-        void onAddClick(int position);
+        //void onAddClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -105,6 +105,7 @@ public class SearchContactsRecyclerViewAdapter extends RecyclerView.Adapter<Sear
             super(view);
             this.mView = view;
             binding = FragmentSearchCardBinding.bind(view);
+
             view.setOnClickListener(v -> {
                 if (listener != null) {
                     int position = getAdapterPosition();
