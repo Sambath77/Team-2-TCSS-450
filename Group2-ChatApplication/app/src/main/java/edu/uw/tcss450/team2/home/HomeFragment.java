@@ -2,10 +2,13 @@ package edu.uw.tcss450.team2.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,32 +18,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-
-import edu.uw.tcss450.team2.MainActivity;
-import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentHomeBinding;
-import edu.uw.tcss450.team2.home.HomeFragment;
 import edu.uw.tcss450.team2.model.UserInfoViewModel;
 /**
  * A simple {@link Fragment} subclass.
@@ -211,6 +196,7 @@ public class HomeFragment extends Fragment /*implements OnMapReadyCallback*/ {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 saveNightModeState(false);
                 getActivity().recreate();
+
             }
         });
     }

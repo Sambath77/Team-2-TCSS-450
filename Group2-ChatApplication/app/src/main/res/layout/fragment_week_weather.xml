@@ -5,7 +5,8 @@
     android:id="@+id/map_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".weather.WeekWeatherFragment">
+    tools:context=".weather.WeekWeatherFragment"
+    android:background="?attr/backgroundColor">
 
     <TextView
         android:id="@+id/textView4"

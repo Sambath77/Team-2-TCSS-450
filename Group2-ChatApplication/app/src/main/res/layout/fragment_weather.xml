@@ -10,7 +10,8 @@
         android:id="@+id/MainFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="edu.uw.tcss450.team2.weather.WeatherFragment">
+        tools:context="edu.uw.tcss450.team2.weather.WeatherFragment"
+        android:background="?attr/backgroundColor">
 
         <ScrollView
             android:layout_width="match_parent"
