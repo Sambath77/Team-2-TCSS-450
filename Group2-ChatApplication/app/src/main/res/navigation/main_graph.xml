@@ -55,14 +55,12 @@
     </fragment>
     <fragment
         android:id="@+id/personalChatFragment"
-        android:name="edu.uw.tcss450.team2.chat.ChatFragment"
-        android:label="PersonalChatFragment" >
+        android:name="edu.uw.tcss450.team2.chat.ChatFragment">
         <argument
             android:name="chatId"
             app:argType="integer" />
     </fragment>
-            android:id="@+id/action_chat_fragment_to_personal_chat_fragment"
-            app:destination="@id/personal_chat_fragment" />
+
     <fragment
         android:id="@+id/personal_chat_fragment"
         android:name="edu.uw.tcss450.team2.chat.PersonalChatFragment"
@@ -73,7 +71,6 @@
 
         android:id="@+id/chatRoomMemberFragment"
         android:name="edu.uw.tcss450.team2.chat.ChatRoomMemberFragment"
-        android:label="fragment_chat_room_member"
         tools:layout="@layout/fragment_chat_room_member" >
         <argument android:name="chatId"
             app:argType="integer" />
@@ -81,16 +78,14 @@
 
     <fragment
         android:id="@+id/createChatRoomFragment"
-        android:name="edu.uw.tcss450.team2.chat.createChatRoom.CreateChatRoomFragment"
-        android:label="CreateChatRoomFragment" >
+        android:name="edu.uw.tcss450.team2.chat.createChatRoom.CreateChatRoomFragment">
         <action
             android:id="@+id/action_createChatRoomFragment_to_navigation_chat"
             app:destination="@id/navigation_chat" />
     </fragment>
     <fragment
         android:id="@+id/manageMembersFragment"
-        android:name="edu.uw.tcss450.team2.chat.manageMembers.ManageMembersFragment"
-        android:label="ManageMembersFragment" >
+        android:name="edu.uw.tcss450.team2.chat.manageMembers.ManageMembersFragment">
         <argument
             android:name="chatId"
             app:argType="integer" />
@@ -137,7 +132,7 @@
 
         android:id="@+id/chooseLocationFragment"
         android:name="edu.uw.tcss450.team2.weather.ChooseLocationFragment"
-        android:label="fragment_choose_location"
+
         tools:layout="@layout/fragment_choose_location" >
         <action
             android:id="@+id/action_chooseLocationFragment_to_navigation_weather"
@@ -146,15 +141,12 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-        android:id="@+id/profileFragment"
-        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:name="edu.uw.tcss450.team2.profile.ProfileFragment"/>
 
 </navigation>

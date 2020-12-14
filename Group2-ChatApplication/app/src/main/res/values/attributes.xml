@@ -7,5 +7,6 @@
     <attr name="secondTextColor" format="color"/>
     <attr name="appColor" format="color"/>
     <attr name="chatColor" format="color"/>
+    <attr name="titleColor" format="color"/>
 
 </resources>
