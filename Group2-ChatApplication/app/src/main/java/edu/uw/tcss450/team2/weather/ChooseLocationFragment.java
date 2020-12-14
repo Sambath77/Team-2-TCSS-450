@@ -35,6 +35,12 @@ import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentChooseLocationBinding;
 import edu.uw.tcss450.team2.model.LocationViewModel;
 
+/**
+ * A fragment to help choose locations.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class ChooseLocationFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private static final float MARKER_ZOOM_LEVEL = 14f;
 
@@ -45,6 +51,12 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
     private FragmentChooseLocationBinding binding;
     private Geocoder geocoder;
 
+    /**
+     * Required empty constructor.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public ChooseLocationFragment() {}
 
     @Nullable
@@ -79,6 +91,12 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         binding.pinImageView.setOnClickListener(this::focusPin);
     }
 
+    /**
+     * Listener that focuses the map on the current pin when triggered.
+     * @param view The view that triggered this listener.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void focusPin(View view) {
         if (currentMarker != null) {
             mMap.animateCamera(
@@ -87,6 +105,12 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         }
     }
 
+    /**
+     * Listener that selects the current location when triggered.
+     * @param view The view that triggered the listener.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void selectLocation(View view) {
         if (currentLocation != null) {
             ChooseLocationFragmentDirections.ActionChooseLocationFragmentToNavigationWeather action = ChooseLocationFragmentDirections.actionChooseLocationFragmentToNavigationWeather();
@@ -95,6 +119,12 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         }
     }
 
+    /**
+     * Listener that closes the current location card when triggered.
+     * @param view The view that triggered this listener.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void closeCard(View view) {
         if (currentMarker != null) {
             currentMarker.remove();
@@ -103,11 +133,15 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         currentLocation = null;
     }
 
+    /**
+     * Listener that gets the currently entered zip code, finds its location, and sets the current location to it. Displays error if can't find zip code.
+     * @param view The view that triggered this listener.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void findZipCode(View view) {
         String zipCodeText = binding.editZipCodeTextField.getText().toString();
         try {
-            Log.e("Map", "zipCodeText: " + zipCodeText);
-            Log.e("Map", "Integer.parseInt(zipCodeText): " + Integer.parseInt(zipCodeText));
             int zipCode = Integer.parseInt(zipCodeText);
             List<Address> addresses = geocoder.getFromLocationName(String.valueOf(zipCode), 1);
             if (addresses != null && !addresses.isEmpty()) {
@@ -126,11 +160,17 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         }
     }
 
+    /**
+     * Handles an updated GPS location.
+     * @param location The new GPS location.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void handleNewLocation(Location location) {
-        if (mMap != null && location != null) {
+        // Currently this does nothing because we do not care about the user's location in this fragment.
+//        if (mMap != null && location != null) {
 //            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15.0f));
-
-        }
+//        }
     }
 
     @SuppressLint("MissingPermission")
@@ -151,6 +191,13 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         mMap.setOnMapClickListener(this);
     }
 
+    /**
+     * Handles a new map click. Finds the coordinates of the click, puts a pin there, and opens a confirmation box for the location.
+     *
+     * @param latLng The latlng of the map click.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     @Override
     public void onMapClick(LatLng latLng) {
         Log.d("LAT/LONG", latLng.toString());
@@ -161,12 +208,25 @@ public class ChooseLocationFragment extends Fragment implements OnMapReadyCallba
         openBottomCard(new WeatherFragment.LongLat(geocoder, temp));
     }
 
+    /**
+     * Opens the bottom confirmation card with the given MyLocation object.
+     *
+     * @param location The location being confirmed.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void openBottomCard(WeatherFragment.MyLocation location) {
         binding.locationInfoTextView.setText(location.displayName());
         binding.bottomCardLayout.setVisibility(View.VISIBLE);
         currentLocation = location;
     }
 
+    /**
+     * Creates a new pin at the given location, clearing the old one if necessary.
+     * @param location The new location.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void createNewMarkerAtLatLng(LatLng location) {
         // Remove old marker if present
         if (currentMarker != null) {

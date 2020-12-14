@@ -194,6 +194,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Saves the list of locations to shared preferences.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void saveMyLocations() {
         // save the task list to preference
         SharedPreferences prefs = getActivity().getSharedPreferences(getResources().getString(R.string.weather_location_pref) + userInfoViewModel.getMemberId(), Context.MODE_PRIVATE);
@@ -206,6 +212,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         editor.apply();
     }
 
+    /**
+     * Loads my locations from my shared preferences.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void loadMyLocations() {
         if (myLocations != null) {
             myLocations.clear();
@@ -236,27 +248,53 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         updateWeather();
     }
 
+    /**
+     * Selects the given location object in our locations list. Updates weather with this new item. Does nothing if location is not found.
+     *
+     * @param myLocation
+     */
     private void selectMyLocationObject(MyLocation myLocation) {
         for (int index = 0; index < myLocations.size(); index++) {
             if (myLocations.get(index) == myLocation) {
                 currentPosition = index;
                 updateWeather();
-                Log.e("hi", "Position set!: " + currentPosition);
                 break;
             }
         }
     }
 
+    /**
+     * Adds a location to the end of our locations list.
+     *
+     * @param myLocation The location to add.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void addMyLocationObject(MyLocation myLocation) {
         addMyLocationObject(myLocation, myLocations.size());
     }
 
+    /**
+     * Adds a location to the specified location in our locations list.
+     *
+     * @param myLocation Location to add.
+     * @param index Index at which to insert location. Implicitly throws exception if out of bounds index.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void addMyLocationObject(MyLocation myLocation, int index) {
         myLocations.add(index, myLocation);
         updateSpinner();
         saveMyLocations();
     }
 
+    /**
+     * Handles an updated location on the user's GPS. If GPS weather is currently being displayed and the new location is substantially different, the weather is updated.
+     *
+     * @param location The new GPS location received.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void handleNewLocation(Location location) {
         if (location != null) {
             if (myGPS.getLastLocation() != null) {
@@ -277,6 +315,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Updates our spinner view to accurately reflect our current locations list.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void updateSpinner() {
         if (displayData == null) {
             displayData = new ArrayList<>();
@@ -292,10 +336,23 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Checks whether the GPS's weather is currently being displayed.
+     *
+     * @return True if currently displaying weather based on the GPS's location. False otherwise.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private boolean GPSSelected() {
         return myLocations.get(currentPosition) == myGPS;
     }
 
+    /**
+     * Refreshes the wqeather currently being displayed by sending a web request to our web server.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void updateWeather() {
         if (!GPSSelected() || (GPSSelected() && myGPS.getLastActualLocation() != null)) {
             MyLocation location = myLocations.get(currentPosition);
@@ -303,6 +360,11 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Handles a response from our web server with weather information contained.
+     *
+     * @param response The response from the webserver.
+     */
     private void weatherUpdate(final JSONObject response) {
         binding.swipeRefresh.setRefreshing(false);
         updateSpinner();
@@ -325,7 +387,6 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
-    // TODO: ?
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
 
@@ -352,6 +413,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Requests the user's location. If permission is currently denied, then permission is asked for.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void requestLocation() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -376,6 +443,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Sets up our Location Request object to request location data periodically.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void createLocationRequest() {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
@@ -383,7 +456,7 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    @Override
+    // The following two pause and unpause our location requesting when the activity gains and loses focus.    @Override
     public void onResume() {
         super.onResume();
         startLocationUpdates();
@@ -394,6 +467,12 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         stopLocationUpdates();
     }
 
+    /**
+     * Begins requesting locations using our Location Request object.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
@@ -404,6 +483,13 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
                     null /* Looper */);
         }
     }
+
+    /**
+     * Stops requesting locations using our Location Request object.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
@@ -411,6 +497,15 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
+    /**
+     * A helper function to round doubles to a given number of decimal places.
+     *
+     * @param value The double to round.
+     * @param places The number of decimal places to round to.
+     * @return The newly rounded double.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -419,16 +514,61 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         return bd.doubleValue();
     }
 
+    /**
+     * Represents a location that our weather can display.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public interface MyLocation extends Serializable {
+
+        /**
+         * Gets the location of the object in a String format interpretable by our web server.
+         *
+         * @return The parsable string representation of our location object.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         String getLocationString();
+
+        /**
+         * Gets the displayable string representation of the location being displayed.
+         *
+         * @return The displayable string representation of the location being displayed.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         String displayName();
+
+        /**
+         * Sets the geocoder this object is using. Used to set when the inital geocoder given in the constructor is null (Such as when say during reading from serialization).
+         *
+         * @param coder The geocoder for this object to use.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         void setGeocoder(Geocoder coder);
     }
 
+    /**
+     * Represents a weather location specified using coordinates.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static class LongLat implements MyLocation {
         private double lat;
         private double lng;
-        private transient Geocoder geocoder;
+        private transient Geocoder geocoder;  // Must be transient as geocoder is not serializiable so the geocoder cannot be saved.
+
+        /**
+         * Initializes a LongLat object using the given location's location.
+         *
+         * @param geocoder The geocoder for this object to use.
+         * @param location The location to base this object's long and lat off of.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public LongLat(Geocoder geocoder, Location location) {
             lat = location.getLatitude();
             lng = location.getLongitude();
@@ -471,9 +611,24 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Represents a weather location specified by zip code.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static class ZipCode implements MyLocation {
         private int mZipCode;
         private transient Geocoder geocoder;
+
+        /**
+         * Initializes a zip code object using the given zipcode.
+         *
+         * @param geocoder The geocoder to use.
+         * @param zipCode The zipcode this object is based on.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public ZipCode(Geocoder geocoder, int zipCode) {
             mZipCode = zipCode;
             this.geocoder = geocoder;
@@ -512,10 +667,24 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 
+    /**
+     * Represents the weather location found using the user's GPS.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static class GPS implements MyLocation {
         private Location lastLocation = null;
         private Location lastActualLocation = null;
         private transient Geocoder geocoder;
+
+        /**
+         * Initializes a GPS location object.
+         *
+         * @param geocoder Thge geocoder object to use
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public GPS(Geocoder geocoder) {
             this.geocoder = geocoder;
         }
@@ -552,16 +721,44 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
                 return "Device location";
             }
         }
+
+        /**
+         * Sets this GPS locations last displayed location.
+         *
+         * @param newLocation The new location received.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         private void setLastLocation(Location newLocation) {
             lastLocation = newLocation;
             setLastActualLocation(newLocation);
         }
+
+        /**
+         * Gets the last used location.
+         *
+         * @return The last used location
+         * @author Sam Spillers
+         * @version 1.0
+         */
         private Location getLastLocation() {
             return lastLocation;
         }
+
+        /**
+         * Sets the last know location of the GPS.
+         * @param newLocation The new known location.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         private void setLastActualLocation(Location newLocation) {
             lastActualLocation = newLocation;
         }
+
+        /**
+         * Gets the last known location of the GPS. May not be the same as the last displayed location (found using getLastLocation()).
+         * @return
+         */
         private Location getLastActualLocation() {
             return lastActualLocation;
         }
@@ -572,3 +769,5 @@ public class WeatherFragment extends Fragment implements AdapterView.OnItemSelec
         }
     }
 }
+
+// Wow this file got long.

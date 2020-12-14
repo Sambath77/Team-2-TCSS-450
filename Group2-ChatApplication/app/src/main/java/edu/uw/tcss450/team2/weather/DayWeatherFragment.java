@@ -1,20 +1,16 @@
 package edu.uw.tcss450.team2.weather;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import org.json.JSONObject;
 
@@ -23,7 +19,6 @@ import java.util.List;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentDayWeatherBinding;
-import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
 /**
  * A fragment to show the forecast for the next 24 hours.
@@ -81,6 +76,13 @@ public class DayWeatherFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Handles a response from the webserver with updated weather information.
+     *
+     * @param response The response from the web server.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void weatherUpdate(JSONObject response) {
         if (response != null && response.names() != null && response.names().length() != 0) {
             List<HourlyWeatherForecastRecyclerViewAdapter.HourData> out = WeatherViewModel.interpretDayForecast(response);

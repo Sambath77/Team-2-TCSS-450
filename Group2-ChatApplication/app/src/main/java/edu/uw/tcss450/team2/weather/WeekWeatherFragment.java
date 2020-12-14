@@ -1,25 +1,17 @@
 package edu.uw.tcss450.team2.weather;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.uw.tcss450.team2.R;
@@ -89,6 +81,7 @@ public class WeekWeatherFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        // Fills with dummy data while loading. Theoretically this is really bad. Not sure of the workaround though. Leaving it in.
         DailyWeatherForecastRecyclerViewAdapter.DayForecastData[] forecastData = {
                 new DailyWeatherForecastRecyclerViewAdapter.DayForecastData(DailyWeatherForecastRecyclerViewAdapter.DayForecastData.DayOfWeek.THURSDAY,
                         null, "Cloudy", "", "57°F", "45°F", null),

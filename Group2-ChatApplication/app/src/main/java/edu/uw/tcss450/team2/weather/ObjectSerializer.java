@@ -7,7 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-
+/**
+ * Just an object serializer I grabbed off of stack overflow to help saving the weather locations.
+ *
+ * @author NOT Sam Spillers
+ * @version 1.0
+ */
 public class ObjectSerializer {
 
     public static String serialize(Serializable obj) throws IOException {

@@ -1,13 +1,10 @@
 package edu.uw.tcss450.team2.weather;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +14,13 @@ import java.util.List;
 
 import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentDayHourForecastBarBinding;
-import edu.uw.tcss450.team2.databinding.FragmentDayInWeekCardBinding;
 
+/**
+ * Handles the daily weather forecast with a recycler adapter for the hourly temperatures.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class HourlyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapter<HourlyWeatherForecastRecyclerViewAdapter.MyViewHolder> {
 
     private final List<HourData> mData;
@@ -52,7 +54,11 @@ public class HourlyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapt
         notifyDataSetChanged();
     }
 
-
+    /**
+     * View holder for our hours.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public static final double MINIMUM_BAR_HEIGHT_PROPORTION = 0.6;
         public static final int BIG_FONT_SIZE = 14;
@@ -62,6 +68,13 @@ public class HourlyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapt
         FragmentDayHourForecastBarBinding mBinding;
         private final int startingHeight;
 
+        /**
+         * Constructs the viewholder.
+         *
+         * @param v The view.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public MyViewHolder(View v) {
             super(v);
             mView = v;
@@ -70,6 +83,13 @@ public class HourlyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapt
             startingHeight = params.height;
         }
 
+        /**
+         * Sets the data for the view holder.
+         *
+         * @param data The data to set.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public void setData(HourlyWeatherForecastRecyclerViewAdapter.HourData data) {
             mBinding.hourTemperatureText.setText(data.getTemperature());
             mBinding.hourTimeText.setText(data.getTime());
@@ -96,12 +116,27 @@ public class HourlyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapt
         }
     }
 
+    /**
+     * A representation of all of the information regarding a single hour.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static class HourData {
         private final String mTemperature;
         private final String mTime;
         private final boolean mBolded;
         private final double mSizeProportion;
 
+        /**
+         * Constructs an hour data object.
+         *
+         * @param myTemperature The temperature to display.
+         * @param myTime The time to display. (Should be empty for non 3 hour intervals)
+         * @param mySize The proportional height of this object.
+         * @param myBolded Whether to bold this object. (Should be true only for the 3 hour intervals)
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public HourData(String myTemperature, String myTime, double mySize, boolean myBolded) {
             mTemperature = myTemperature;
             mTime = myTime;
@@ -109,6 +144,7 @@ public class HourlyWeatherForecastRecyclerViewAdapter extends RecyclerView.Adapt
             mBolded = myBolded;
         }
 
+        // The following are all self explanatory.
         public String getTime() {
             return mTime;
         }

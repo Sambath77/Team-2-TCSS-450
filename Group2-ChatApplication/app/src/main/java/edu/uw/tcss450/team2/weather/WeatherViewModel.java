@@ -5,7 +5,6 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -25,16 +23,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,25 +38,48 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team2.io.RequestQueueSingleton;
 
+/**
+ * View model to handle sending and receiving data from our web server.
+ *
+ * @author Sam Spillers
+ * @version 1.0
+ */
 public class WeatherViewModel extends AndroidViewModel {
 
     public static final int HOURS_IN_DAY = 24;
 
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Constructs this thing.
+     * @param application An application.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public WeatherViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Adds the given object as an observer to our response.
+     *
+     * @param owner The owner.
+     * @param observer The observer.
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Handles am error during the http request.
+     * @param error The error.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void handleError(final VolleyError error) {
-        Log.e("TEST", "error: " + error);
         if (Objects.isNull(error.networkResponse)) {
             try {
                 mResponse.setValue(new JSONObject("{" +
@@ -86,6 +103,12 @@ public class WeatherViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Connects to the webserver to get current weather information.
+     * @param location The string location to get information about.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public void connect(final String location) {
         Log.e("WEATHER", "Weather of: " + location);
 
@@ -114,6 +137,7 @@ public class WeatherViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    // The following are unused and self explanatory, so no documentation.
     public static double currentTemperature(JSONObject response) throws JSONException {
         return currentTemperatureFromDay(new JSONObject(new JSONObject(response.getString("body")).getString("current")));
     }
@@ -130,6 +154,13 @@ public class WeatherViewModel extends AndroidViewModel {
         return currentDescriptionFromDay(new JSONObject(new JSONObject(response.getString("body")).getString("current")));
     }
 
+    /**
+     * Parses the daily weather from the web server's response.
+     * @param response The web server's response.
+     * @return The list of hourly data parsed from the web server's response.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static List<HourlyWeatherForecastRecyclerViewAdapter.HourData> interpretDayForecast(JSONObject response) {
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -198,6 +229,13 @@ public class WeatherViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Parses the current weather from the web server's response.
+     * @param response The web server's response.
+     * @return The current data parsed from the web server's response.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static DailyWeatherForecastRecyclerViewAdapter.DayForecastData interpretCurrentWeather(JSONObject response, DataUpdatable card) {
         try {
             JSONObject body = new JSONObject(response.getString("body"));
@@ -223,6 +261,13 @@ public class WeatherViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Parses the weekly weather from the web server's response.
+     * @param response The web server's response.
+     * @return The list of weekly data parsed from the web server's response.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     public static DailyWeatherForecastRecyclerViewAdapter.DayForecastData[] interpretForecast(JSONObject response, DataUpdatable adapter) {
         try {
             JSONObject body = new JSONObject(response.getString("body"));
@@ -264,6 +309,7 @@ public class WeatherViewModel extends AndroidViewModel {
         }
     }
 
+    // The following are helper methods to get specific information given a day JSONobject
     private static double currentTemperatureFromDay(JSONObject day) throws JSONException {
         return day.getDouble("temp_f");
     }
@@ -299,10 +345,24 @@ public class WeatherViewModel extends AndroidViewModel {
         return Math.round(temperature) + "°F";
     }
 
+    /**
+     * A async task that gets the bitmap from the image url given to it.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private static class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
         DataUpdatable mDataHolder;
         DailyWeatherForecastRecyclerViewAdapter.DayForecastData mData;
 
+        /**
+         * Constructs the object.
+         *
+         * @param myDataHolder The data updatable object to update when the image comes in.
+         * @param data The object containing the link to the image.
+         * @author Sam Spillers
+         * @version 1.0
+         */
         public DownloadBitmapTask(DataUpdatable myDataHolder, DailyWeatherForecastRecyclerViewAdapter.DayForecastData data) {
             mDataHolder = myDataHolder;
             mData = data;

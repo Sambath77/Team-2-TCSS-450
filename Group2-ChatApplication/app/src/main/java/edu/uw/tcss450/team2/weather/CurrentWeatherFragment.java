@@ -1,27 +1,18 @@
 package edu.uw.tcss450.team2.weather;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
-import org.json.JSONException;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import org.json.JSONObject;
 
-import edu.uw.tcss450.team2.R;
 import edu.uw.tcss450.team2.databinding.FragmentCurrentWeatherBinding;
-import edu.uw.tcss450.team2.databinding.FragmentSignInBinding;
-import edu.uw.tcss450.team2.databinding.FragmentWeekWeatherBinding;
 
 /**
  * A fragment to show the current weather.
@@ -67,6 +58,13 @@ public class CurrentWeatherFragment extends Fragment implements DataUpdatable {
         return binding.getRoot();
     }
 
+    /**
+     * The method that is called when our weather view model receives an updated response. Handles its incoming weather data.
+     *
+     * @param response The JSON response from the weather update web call.
+     * @author Sam Spillers
+     * @version 1.0
+     */
     private void weatherUpdate(final JSONObject response) {
         if (response != null && response.names() != null && response.names().length() != 0) {
             DailyWeatherForecastRecyclerViewAdapter.DayForecastData dataResponse = WeatherViewModel.interpretCurrentWeather(response, this);
@@ -84,6 +82,12 @@ public class CurrentWeatherFragment extends Fragment implements DataUpdatable {
         mData = null;
     }
 
+    /**
+     * Updates the current weather's data.
+     *
+     * @author Sam Spillers
+     * @version 1.0
+     */
     @Override
     public void updateData() {
         if (mData != null) {
